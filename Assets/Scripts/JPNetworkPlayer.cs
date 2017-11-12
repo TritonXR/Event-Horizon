@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class JPNetworkPlayer : MonoBehaviour {
+public class JPNetworkPlayer : NetworkBehaviour {
 	GameObject selectedShip;
 	GameObject targetShip;
 	Vector3 targetPosition;
