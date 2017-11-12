@@ -27,12 +27,12 @@ public class JPInputController : NetworkBehaviour {
 				RaycastHit hit;
 				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				Debug.DrawRay (ray.origin, ray.direction * 100000, Color.yellow, 0.0f, false);
-				float rayDistance;
 
 				if (Physics.Raycast (ray, out hit)) {
 					if (hit.collider.gameObject.transform.name.Contains ("Ship")) {
 						if (hit.collider.gameObject.name.Contains ("Player" + playerNumber)) {
 							selectedShip = hit.collider.gameObject;
+							selectShip (selectedShip);
 						}
 					}
 
@@ -44,9 +44,10 @@ public class JPInputController : NetworkBehaviour {
 				float rayDistance;
 
 				// Ship Targeted
-				if (Physics.Raycast (ray, out hit)) {
-					
-					setTargetShip (hit.collider.gameObject);
+				if ((Physics.Raycast (ray, out hit)) && (hit.collider.gameObject.name.Contains("Ship"))) {
+					if (selectedShip != null) {
+						setTargetShip (hit.collider.gameObject);
+					}
 				}
 				// Position Targeted
 				else if (groundPlane.Raycast (ray, out rayDistance)) {
@@ -72,12 +73,15 @@ public class JPInputController : NetworkBehaviour {
 	}
 	void selectShip (GameObject ship) {
 		networkPlayer.CmdSelectShip (ship.name);
+		print ("Selected Ship " + ship.name);
 	}
 	void setTargetShip (GameObject ship) {
 		networkPlayer.CmdSetTargetShip (ship.name);
+		print ("Targeted GameObject " + ship.name);
 	}
 	void setTargetPosition (Vector3 pos) {
 		networkPlayer.CmdSetPosition (pos);
+		print ("Targeted position " + pos);
 	}
 
 }
