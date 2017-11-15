@@ -11,17 +11,22 @@ public class JPNetworkPlayer : NetworkBehaviour {
 	public int playerNumber;
 	public GameObject[] shipList;
 	public GameObject[] spawnedShipList;
+
+	JPNetworkHostManager gameManagerHost;
 	// Use this for initialization
 	void Start () {
 		if(isServer) {
-			/*spawnedShipList = new GameObject[shipList.Length];
+			gameManagerHost = GameObject.Find ("NetworkManager").GetComponent<JPNetworkHostManager> ();
+			playerNumber = gameManagerHost.getPlayerCount();
+			gameManagerHost.incrementPlayerCount (playerNumber);
+			spawnedShipList = new GameObject[shipList.Length];
 			for(int count = 0; count < shipList.Length; count ++) {
 				GameObject obj = (GameObject)Instantiate (shipList [count], new Vector3 (Random.Range(-1f,1f),0, Random.Range(-1f,1f)), transform.rotation);
 				obj.name = "Player" + playerNumber + "Ship" + count;
 				NetworkServer.Spawn (obj);
 				obj.GetComponent<JPNetworkShip> ().RpcSetName ("Player" + playerNumber + "Ship" + count);
 				spawnedShipList [count] = obj;
-			}*/
+			}
 
 		}
 	}
