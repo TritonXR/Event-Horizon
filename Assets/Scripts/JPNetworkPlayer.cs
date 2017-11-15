@@ -7,9 +7,23 @@ public class JPNetworkPlayer : NetworkBehaviour {
 	GameObject selectedShip;
 	GameObject targetShip;
 	Vector3 targetPosition;
+
+	public int playerNumber;
+	public GameObject[] shipList;
+	public GameObject[] spawnedShipList;
 	// Use this for initialization
 	void Start () {
-		
+		if(isServer) {
+			/*spawnedShipList = new GameObject[shipList.Length];
+			for(int count = 0; count < shipList.Length; count ++) {
+				GameObject obj = (GameObject)Instantiate (shipList [count], new Vector3 (Random.Range(-1f,1f),0, Random.Range(-1f,1f)), transform.rotation);
+				obj.name = "Player" + playerNumber + "Ship" + count;
+				NetworkServer.Spawn (obj);
+				obj.GetComponent<JPNetworkShip> ().RpcSetName ("Player" + playerNumber + "Ship" + count);
+				spawnedShipList [count] = obj;
+			}*/
+
+		}
 	}
 	
 	// Update is called once per frame
@@ -26,12 +40,12 @@ public class JPNetworkPlayer : NetworkBehaviour {
 	public void CmdSetTargetShip (string shipName) {
 		targetShip = GameObject.Find (shipName);
 		selectedShip.GetComponent<CapitalShip>().setTargetShip(targetShip);
-		print("Insert code to set target here");
+		//print("Insert code to set target here");
 	}
 	[Command]
 	public void CmdSetPosition (Vector3 pos) {
 		targetPosition = pos;
-		selectedShip.GetComponent<CapitalShip> ().setTargetPosition(pos);
-		print("Insert code to set position here");
+		selectedShip.GetComponent<CapitalShip>().setTargetPosition(pos);
+		//print("Insert code to set position here");
 	}
 }
