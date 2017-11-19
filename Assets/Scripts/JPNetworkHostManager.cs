@@ -17,8 +17,9 @@ public class JPNetworkHostManager : MonoBehaviour {
 		return playerNumber;
 	}
 	public void incrementPlayerCount (int playerNum) {
-		if(playerNum == playerNumber) {
-			playerNum++;
-		}
+		//if(playerNum == playerNumber) {
+		print ("Increment");
+			playerNumber++;
+		//}
 	}
 }

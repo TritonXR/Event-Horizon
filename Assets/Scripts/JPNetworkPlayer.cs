@@ -8,7 +8,7 @@ public class JPNetworkPlayer : NetworkBehaviour {
 	GameObject targetShip;
 	Vector3 targetPosition;
 
-	public int playerNumber;
+	public int playerNumber = 0;
 	public GameObject[] shipList;
 	public GameObject[] spawnedShipList;
 
@@ -19,9 +19,10 @@ public class JPNetworkPlayer : NetworkBehaviour {
 			gameManagerHost = GameObject.Find ("NetworkManager").GetComponent<JPNetworkHostManager> ();
 			playerNumber = gameManagerHost.getPlayerCount();
 			gameManagerHost.incrementPlayerCount (playerNumber);
+			RpcSetPlayerNumber (playerNumber);
 			spawnedShipList = new GameObject[shipList.Length];
 			for(int count = 0; count < shipList.Length; count ++) {
-				GameObject obj = (GameObject)Instantiate (shipList [count], new Vector3 (Random.Range(-1f,1f),0, Random.Range(-1f,1f)), transform.rotation);
+				GameObject obj = (GameObject)Instantiate (shipList [count], new Vector3 (Random.Range(0,0),0, Random.Range(0,0)), transform.rotation);
 				obj.name = "Player" + playerNumber + "Ship" + count;
 				NetworkServer.Spawn (obj);
 				obj.GetComponent<JPNetworkShip> ().RpcSetName ("Player" + playerNumber + "Ship" + count);
@@ -52,5 +53,9 @@ public class JPNetworkPlayer : NetworkBehaviour {
 		targetPosition = pos;
 		selectedShip.GetComponent<CapitalShip>().setTargetPosition(pos);
 		//print("Insert code to set position here");
+	}
+	[ClientRpc]
+	void RpcSetPlayerNumber (int playerNum) {
+		playerNumber = playerNum;
 	}
 }
