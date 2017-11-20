@@ -8,7 +8,6 @@ public class Turret : MonoBehaviour {
 	public DRange range;
 	public GameObject ship;
 	public LaserShoot laser;
-	public bool stationary = false;
 	int count = 0;
 
 	// Use this for initialization
@@ -22,7 +21,7 @@ public class Turret : MonoBehaviour {
 	void Update () {
 		ship = range.ship;
 		Quaternion current = transform.localRotation;
-		if (ship != null && stationary == false)
+		if (ship != null)
 		{
 			Vector3 shipPos = ship.transform.position;
 			Vector3 thePos = shipPos - transform.position;
