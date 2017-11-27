@@ -53,6 +53,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b3dcb973d4f456fa27631344d4ad75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNumber: 0
+  shipList:
+  - {fileID: 1321762552211254, guid: 67f8421823b134b6e81e9cb59489ceaf, type: 2}
+  spawnedShipList: []
 --- !u!114 &114308233927824586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -64,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c86510d3368a4bc0b486709561982fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNumber: 0
 --- !u!114 &114488504031371730
 MonoBehaviour:
   m_ObjectHideFlags: 1
