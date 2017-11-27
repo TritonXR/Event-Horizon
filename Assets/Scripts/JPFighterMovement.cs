@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CapitalShip : MonoBehaviour {
-
+public class JPFighterMovement : MonoBehaviour {
 	[SerializeField] public GameObject target;
 	[SerializeField] private float FireRange = 5f;
-	public int idleMode = 0;
 	public float moveSpeed = 0.01f;
 	public float turnSpeed = 0.2f;
 
@@ -17,7 +15,7 @@ public class CapitalShip : MonoBehaviour {
 	void Start () {
 		target = GameObject.Find ("DefaultTarget");
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -31,7 +29,7 @@ public class CapitalShip : MonoBehaviour {
 			if (Vector3.Distance (transform.position, target.transform.position) > FireRange) {
 				var rotation = Quaternion.LookRotation (target.transform.position);
 				if ((rotation.eulerAngles.y - 10.0f<transform.rotation.eulerAngles.y)&&(transform.rotation.eulerAngles.y<rotation.eulerAngles.y + 10.0f)) {
-					
+
 					transform.position = Vector3.MoveTowards (transform.position, target.transform.position, moveSpeed);
 				} else {
 					transform.rotation = Quaternion.Slerp (transform.rotation, rotation, Time.deltaTime * turnSpeed);
@@ -41,7 +39,7 @@ public class CapitalShip : MonoBehaviour {
 		} else if(movementMode == 2) {
 			var rotation = Quaternion.LookRotation (targetVector);
 			if ((rotation.eulerAngles.y - 10.0f<transform.rotation.eulerAngles.y)&&(transform.rotation.eulerAngles.y<rotation.eulerAngles.y + 10.0f)) {
-				
+
 				transform.position = Vector3.MoveTowards (transform.position, targetVector, moveSpeed);
 			} else {
 				transform.rotation = Quaternion.Slerp (transform.rotation, rotation, Time.deltaTime * turnSpeed);
@@ -64,3 +62,4 @@ public class CapitalShip : MonoBehaviour {
 
 
 }
+

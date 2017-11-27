@@ -22,7 +22,7 @@ public class JPNetworkPlayer : NetworkBehaviour {
 			RpcSetPlayerNumber (playerNumber);
 			spawnedShipList = new GameObject[shipList.Length];
 			for(int count = 0; count < shipList.Length; count ++) {
-				GameObject obj = (GameObject)Instantiate (shipList [count], new Vector3 (Random.Range(0,0),0, Random.Range(0,0)), transform.rotation);
+				GameObject obj = (GameObject)Instantiate (shipList [count], new Vector3 (Random.Range(0,0),0.1f, Random.Range(0,0)), transform.rotation);
 				obj.name = "Player" + playerNumber + "Ship" + count;
 				NetworkServer.Spawn (obj);
 				obj.GetComponent<JPNetworkShip> ().RpcSetName ("Player" + playerNumber + "Ship" + count);
