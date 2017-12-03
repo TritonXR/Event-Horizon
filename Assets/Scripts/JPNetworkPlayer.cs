@@ -39,13 +39,21 @@ public class JPNetworkPlayer : NetworkBehaviour {
 	[Command]
 	public void CmdSetTargetShip (string shipName) {
 		targetShip = GameObject.Find (shipName);
-		selectedShip.GetComponent<CapitalShip>().setTargetShip(targetShip);
+		if (selectedShip.GetComponent<CapitalShip> () == null) {
+			selectedShip.GetComponent<SmallShip> ().setTargetShip (targetShip);
+		} else {
+			selectedShip.GetComponent<CapitalShip> ().setTargetShip (targetShip);
+		}
 		//print("Insert code to set target here");
 	}
 	[Command]
 	public void CmdSetPosition (Vector3 pos) {
 		targetPosition = pos;
-		selectedShip.GetComponent<CapitalShip>().setTargetPosition(pos);
+		if (selectedShip.GetComponent<CapitalShip> () == null) {
+			selectedShip.GetComponent<SmallShip> ().setTargetPosition (pos);
+		} else {
+			selectedShip.GetComponent<CapitalShip> ().setTargetPosition (pos);
+		}
 		//print("Insert code to set position here");
 	}
 }
