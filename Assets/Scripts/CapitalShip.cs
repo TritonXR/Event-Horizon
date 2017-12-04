@@ -6,6 +6,9 @@ public class CapitalShip : MonoBehaviour {
 
 	[SerializeField] public GameObject target;
 	[SerializeField] private float FireRange = 5f;
+	public int idleMode = 0;
+	public float moveSpeed = 0.01f;
+	public float turnSpeed = 0.2f;
 
 	public Vector3 targetVector;
 	public int movementMode = 0; //0 = stop 1 = target ship 2 = vector
@@ -26,15 +29,30 @@ public class CapitalShip : MonoBehaviour {
 
 		if (movementMode == 1) {
 			if (Vector3.Distance (transform.position, target.transform.position) > FireRange) {
-				transform.position = Vector3.MoveTowards (transform.position, target.transform.position, .01f);
 				var rotation = Quaternion.LookRotation (target.transform.position);
-				transform.rotation = Quaternion.Slerp (transform.rotation, rotation, Time.deltaTime * 0.2f);
+				if ((rotation.eulerAngles.y - 10.0f<transform.rotation.eulerAngles.y)&&(transform.rotation.eulerAngles.y<rotation.eulerAngles.y + 10.0f)) {
+					//if (transform.position == target.transform.position) {
+						
+					//} else {
+						transform.position = Vector3.MoveTowards (transform.position, target.transform.position, moveSpeed);
+					//}
+				} else {
+					transform.rotation = Quaternion.Slerp (transform.rotation, rotation, Time.deltaTime * turnSpeed);
+				}
+
 			}
 		} else if(movementMode == 2) {
-			
-			transform.position = Vector3.MoveTowards (transform.position, targetVector, .02f);
 			var rotation = Quaternion.LookRotation (targetVector);
-			transform.rotation = Quaternion.Slerp (transform.rotation, rotation, Time.deltaTime * 0.2f);
+			if ((rotation.eulerAngles.y - 10.0f<transform.rotation.eulerAngles.y)&&(transform.rotation.eulerAngles.y<rotation.eulerAngles.y + 10.0f)) {
+				//if (transform.position == target.transform.position) {
+
+				//} else {
+					transform.position = Vector3.MoveTowards (transform.position, targetVector, moveSpeed);
+				//}
+			} else {
+				transform.rotation = Quaternion.Slerp (transform.rotation, rotation, Time.deltaTime * turnSpeed);
+			}
+
 		}
 
 	}
