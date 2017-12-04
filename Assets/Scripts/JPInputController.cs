@@ -17,6 +17,7 @@ public class JPInputController : NetworkBehaviour {
 		if(isLocalPlayer) {
 			networkPlayer = this.GetComponent<JPNetworkPlayer> ();
 			marker = GameObject.Find ("Marker");
+			playerNumber = networkPlayer.playerNumber;
 		}
 	}
 	
@@ -30,7 +31,7 @@ public class JPInputController : NetworkBehaviour {
 
 				if (Physics.Raycast (ray, out hit)) {
 					if (hit.collider.gameObject.transform.name.Contains ("Ship")) {
-						if (hit.collider.gameObject.name.Contains ("Player" + playerNumber)) {
+						if (hit.collider.gameObject.name.Contains ("Player" + networkPlayer.playerNumber)) {
 							selectedShip = hit.collider.gameObject;
 							selectShip (selectedShip);
 						}
@@ -66,7 +67,7 @@ public class JPInputController : NetworkBehaviour {
 					Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 					float rayDistance;
 					groundPlane.Raycast (ray, out rayDistance);
-					marker.transform.position = ray.GetPoint (rayDistance);
+					//marker.transform.position = ray.GetPoint (rayDistance);
 				}
 			}
 		}

@@ -8,20 +8,36 @@ public class JPNetworkPlayer : NetworkBehaviour {
 	GameObject targetShip;
 	Vector3 targetPosition;
 
-	public int playerNumber;
+	public int playerNumber = 0;
 	public GameObject[] shipList;
 	public GameObject[] spawnedShipList;
+
+	JPNetworkHostManager gameManagerHost;
 	// Use this for initialization
 	void Start () {
 		if(isServer) {
-			/*spawnedShipList = new GameObject[shipList.Length];
+			gameManagerHost = GameObject.Find ("NetworkManager").GetComponent<JPNetworkHostManager> ();
+			playerNumber = gameManagerHost.getPlayerCount();
+			gameManagerHost.incrementPlayerCount (playerNumber);
+			RpcSetPlayerNumber (playerNumber);
+			spawnedShipList = new GameObject[shipList.Length];
 			for(int count = 0; count < shipList.Length; count ++) {
-				GameObject obj = (GameObject)Instantiate (shipList [count], new Vector3 (Random.Range(-1f,1f),0, Random.Range(-1f,1f)), transform.rotation);
-				obj.name = "Player" + playerNumber + "Ship" + count;
+				GameObject obj = (GameObject)Instantiate (shipList [count], new Vector3 (Random.Range(0,0),0.1f, Random.Range(0,0)), transform.rotation);
+				if(obj.GetComponent<JPNetworkShip>().forcePlayerNumber) {
+					obj.name = "Player" + "1" + "Ship" + count;
+				} else {
+					obj.name = "Player" + playerNumber + "Ship" + count;
+				}
+
 				NetworkServer.Spawn (obj);
-				obj.GetComponent<JPNetworkShip> ().RpcSetName ("Player" + playerNumber + "Ship" + count);
+				if(obj.GetComponent<JPNetworkShip>().forcePlayerNumber) {
+					obj.GetComponent<JPNetworkShip> ().RpcSetName ("Player" + "1" + "Ship" + count);
+				} else {
+					obj.GetComponent<JPNetworkShip> ().RpcSetName ("Player" + playerNumber + "Ship" + count);
+				}
+
 				spawnedShipList [count] = obj;
-			}*/
+			}
 
 		}
 	}
@@ -55,5 +71,9 @@ public class JPNetworkPlayer : NetworkBehaviour {
 			selectedShip.GetComponent<CapitalShip> ().setTargetPosition (pos);
 		}
 		//print("Insert code to set position here");
+	}
+	[ClientRpc]
+	void RpcSetPlayerNumber (int playerNum) {
+		playerNumber = playerNum;
 	}
 }
