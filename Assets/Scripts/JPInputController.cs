@@ -8,7 +8,7 @@ public class JPInputController : NetworkBehaviour {
 	GameObject selectedShip;
 	GameObject targetShip;
 	Vector3 targetPosition;
-
+    public LayerMask touchMask;
 	Plane groundPlane = new Plane (new Vector3 (0, 0, 0), new Vector3 (-100, 0, -100), new Vector3 (100, 0, -100));
 	GameObject marker;
 	public int playerNumber = 0;
@@ -28,8 +28,8 @@ public class JPInputController : NetworkBehaviour {
 				RaycastHit hit;
 				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				Debug.DrawRay (ray.origin, ray.direction * 100000, Color.yellow, 0.0f, false);
-
-				if (Physics.Raycast (ray, out hit)) {
+                if (Physics.Raycast (ray, out hit, Mathf.Infinity, touchMask)) {
+                    Debug.Log(hit.collider.name);
 					if (hit.collider.gameObject.transform.name.Contains ("Ship")) {
 						if (hit.collider.gameObject.name.Contains ("Player" + networkPlayer.playerNumber)) {
 							selectedShip = hit.collider.gameObject;
