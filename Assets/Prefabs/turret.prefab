@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 135191786899272120}
   - component: {fileID: 23385955174954708}
   - component: {fileID: 114353180018252306}
-  m_Layer: 0
-  m_Name: Sphere
+  m_Layer: 8
+  m_Name: RangeFinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 136803559305825774}
   - component: {fileID: 23846175893082488}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 23199336670367966}
   - component: {fileID: 114609626649633768}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,8 +92,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1390802460844792}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -8.935438, y: -4.457387, z: -1.6460228}
+  m_LocalScale: {x: 0.012849288, y: 0.012849289, z: 0.012849289}
   m_Children:
   - {fileID: 4388976747629130}
   - {fileID: 4805240523559106}
@@ -133,13 +133,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1662547855746514}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.09, y: -0.02, z: 2.228}
+  m_LocalRotation: {x: -0.0024340178, y: -0.008381503, z: 0.0000028963016, w: 0.9999619}
+  m_LocalPosition: {x: 0.09, y: 0.27000022, z: 2.62}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 4169021947969826}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.279, y: -0.96000004, z: 0.003}
 --- !u!23 &23199336670367966
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -329,7 +329,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1139810959711394}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a6d2806647fddb4f83547d350e7454b, type: 3}
+  m_Script: {fileID: 11500000, guid: 1419b70d4e7b541d988b764ea0cad709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inRange: 0
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1390802460844792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fd77995fb3d979438161994cd523e79, type: 3}
+  m_Script: {fileID: 11500000, guid: f667f93f24b1a40b099398d712cda8f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   angle: {x: 0, y: 0, z: 0, w: 0}
@@ -362,10 +362,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1662547855746514}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 927f8d90928a33c4196a8cd6806f0ecd, type: 3}
+  m_Script: {fileID: 11500000, guid: 136d7174c07744c11a14d278f4a905ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laser: {fileID: 1205338746394862, guid: 2aa5bdce6fc28fd439334edd61dfadfd, type: 2}
+  laser: {fileID: 1522751953291414, guid: 4141ce6b5d79c462d91e02f61e549dff, type: 2}
   laserSpeed: 100
 --- !u!135 &135191786899272120
 SphereCollider:
@@ -377,7 +377,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136803559305825774
 CapsuleCollider:
@@ -387,7 +387,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1487292897847912}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1

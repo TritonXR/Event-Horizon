@@ -17,7 +17,7 @@ public class DRange : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		targetShip = school.targetShip;
+		//targetShip = school.targetShip;
 	}
 	private void OnTriggerStay(Collider collision)
 	{
@@ -25,7 +25,7 @@ public class DRange : MonoBehaviour {
 		{
 			ship = targetShip;
 		}
-		if (collision.gameObject.name.Contains("ship") && ship == null)
+		if (collision.gameObject.name.Contains("Ship") && ship == null)
 		{
 			ship = collision.gameObject;
 		}

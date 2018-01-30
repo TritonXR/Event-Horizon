@@ -16,9 +16,9 @@ public class LaserShoot : MonoBehaviour {
 	// Fires a laser
 	public void Fire()
 	{
-		GameObject tempLaser = (GameObject)Instantiate(laser, transform.position, transform.rotation);
+		GameObject tempLaser = (GameObject)Instantiate(laser, transform.position, transform.parent.rotation * Quaternion.Euler(90, 0, 0));
 		Rigidbody tempLaserRigidbody = tempLaser.GetComponent<Rigidbody>();
-		tempLaserRigidbody.AddForce(tempLaserRigidbody.transform.forward * laserSpeed);
+		tempLaserRigidbody.AddForce(tempLaserRigidbody.transform.up * laserSpeed);
 		Destroy(tempLaser, 3f);
 	}
 

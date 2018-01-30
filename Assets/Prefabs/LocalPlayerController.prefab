@@ -73,6 +73,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c86510d3368a4bc0b486709561982fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  touchMask:
+    serializedVersion: 2
+    m_Bits: 4294967039
   playerNumber: 0
 --- !u!114 &114488504031371730
 MonoBehaviour:
