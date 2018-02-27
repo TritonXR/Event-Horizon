@@ -32,7 +32,11 @@ public class JPInputController : NetworkBehaviour {
                     Debug.Log(hit.collider.name);
 					if (hit.collider.gameObject.transform.name.Contains ("Ship")) {
 						if (hit.collider.gameObject.name.Contains ("Player" + networkPlayer.playerNumber)) {
+                            if (selectedShip != null) {
+                                selectedShip.GetComponent<JPShip>().SetSelected(false);
+                            }
 							selectedShip = hit.collider.gameObject;
+                            selectedShip.GetComponent<JPShip>().SetSelected(true);
 							selectShip (selectedShip);
 						}
 					}
@@ -48,15 +52,22 @@ public class JPInputController : NetworkBehaviour {
 				if ((Physics.Raycast (ray, out hit)) && (hit.collider.gameObject.name.Contains("Ship"))) {
 					if (selectedShip != null) {
 						setTargetShip (hit.collider.gameObject);
+                        marker.transform.position = hit.collider.gameObject.transform.position;
+                        marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
 					}
 				}
 				// Position Targeted
 				else if (groundPlane.Raycast (ray, out rayDistance)) {
 					if (selectedShip != null) {
 						setTargetPosition(ray.GetPoint (rayDistance));
+                        marker.transform.position = ray.GetPoint(rayDistance);
+                        marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
 					}
 				}
-
+                if (selectedShip != null)
+                {
+                    selectedShip.GetComponent<JPShip>().SetSelected(false);
+                }
 				selectedShip = null;
 				targetShip = null;
 
@@ -67,7 +78,7 @@ public class JPInputController : NetworkBehaviour {
 					Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 					float rayDistance;
 					groundPlane.Raycast (ray, out rayDistance);
-					//marker.transform.position = ray.GetPoint (rayDistance);
+					marker.transform.position = ray.GetPoint (rayDistance);
 				}
 			}
 		}

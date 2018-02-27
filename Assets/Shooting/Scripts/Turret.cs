@@ -11,11 +11,14 @@ public class Turret : MonoBehaviour {
 	public bool stationary = false;
 	int count = 0;
 
+    Vector3 startVector;
+
 	// Use this for initialization
 	void Start () {
 		range = GetComponentInChildren<DRange>();
 		angle = transform.rotation;
 		laser = GetComponentInChildren<LaserShoot>();
+        startVector = transform.localRotation.eulerAngles;
 	}
 
 	// Update is called once per frame
@@ -31,7 +34,8 @@ public class Turret : MonoBehaviour {
 		}
 		else
 		{
-			Vector3 zero = new Vector3(0, 0, 0);
+            Vector3 zero = new Vector3(0, 0, 0);
+            //Vector3 zero = startVector;
 			transform.localRotation = Quaternion.Slerp(current, Quaternion.LookRotation(zero), Time.deltaTime);
 		}
 		if (ship != null)

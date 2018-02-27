@@ -10,9 +10,11 @@ public class DRange : MonoBehaviour {
 	public string find;
 	public AreaRange school;
 	public GameObject targetShip = null;
+    int playerNumber;
 	// Use this for initialization
 	void Start () {
 		school = GetComponentInParent<Turret>().GetComponentInParent<AreaRange>();
+        playerNumber = GetComponentInParent<JPNetworkShip>().playerNumber;
 	}
 
 	// Update is called once per frame
@@ -25,7 +27,8 @@ public class DRange : MonoBehaviour {
 		{
 			ship = targetShip;
 		}
-		if (collision.gameObject.name.Contains("Ship") && ship == null)
+        if (collision.gameObject.name.Contains("Ship") && ship == null && 
+            collision.gameObject.GetComponentInParent<JPNetworkShip>().playerNumber != playerNumber)
 		{
 			ship = collision.gameObject;
 		}

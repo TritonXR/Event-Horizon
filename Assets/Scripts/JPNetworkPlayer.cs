@@ -56,9 +56,9 @@ public class JPNetworkPlayer : NetworkBehaviour {
 	public void CmdSetTargetShip (string shipName) {
 		targetShip = GameObject.Find (shipName);
 		if (selectedShip.GetComponent<CapitalShip> () == null) {
-			selectedShip.GetComponent<SmallShip> ().setTargetShip (targetShip);
+			selectedShip.GetComponent<SmallShip> ().SetTargetShip (targetShip);
 		} else {
-			selectedShip.GetComponent<CapitalShip> ().setTargetShip (targetShip);
+			selectedShip.GetComponent<CapitalShip> ().SetTargetShip (targetShip);
 		}
 		//print("Insert code to set target here");
 	}
@@ -66,9 +66,9 @@ public class JPNetworkPlayer : NetworkBehaviour {
 	public void CmdSetPosition (Vector3 pos) {
 		targetPosition = pos;
 		if (selectedShip.GetComponent<CapitalShip> () == null) {
-			selectedShip.GetComponent<SmallShip> ().setTargetPosition (pos);
+			selectedShip.GetComponent<SmallShip> ().SetTargetPosition (pos);
 		} else {
-			selectedShip.GetComponent<CapitalShip> ().setTargetPosition (pos);
+			selectedShip.GetComponent<CapitalShip> ().SetTargetPosition (pos);
 		}
 		//print("Insert code to set position here");
 	}

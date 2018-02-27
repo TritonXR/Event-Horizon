@@ -211,14 +211,14 @@ public class SmallShip : MonoBehaviour {
 	
 	}
 
-	public void setTargetShip(GameObject ship){
+	public void SetTargetShip(GameObject ship){
 
 		movementMode = 1;
 		targetShip = ship;
 	
 	}
 
-	public void setTargetPosition(Vector3 vector){
+	public void SetTargetPosition(Vector3 vector){
 
 
 		movementMode = 2;

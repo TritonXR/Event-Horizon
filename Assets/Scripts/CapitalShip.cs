@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CapitalShip : MonoBehaviour {
+public class CapitalShip : JPShip {
 
-	[SerializeField] public GameObject target;
+	/*[SerializeField] public GameObject target;
 	[SerializeField] private float FireRange = 5f;
 	public int idleMode = 0;
 	public float moveSpeed = 0.01f;
@@ -12,10 +12,11 @@ public class CapitalShip : MonoBehaviour {
 
 	public Vector3 targetVector;
 	public int movementMode = 0; //0 = stop 1 = target ship 2 = vector
+	*/
 
 	// Use this for initialization
 	void Start () {
-		target = GameObject.Find ("DefaultTarget");
+		//target = GameObject.Find ("DefaultTarget");
 	}
 	
 	// Update is called once per frame
@@ -30,7 +31,7 @@ public class CapitalShip : MonoBehaviour {
 		if (movementMode == 1) {
 			if (Vector3.Distance (transform.position, target.transform.position) > FireRange) {
 				var rotation = Quaternion.LookRotation (target.transform.position);
-				if ((rotation.eulerAngles.y - 10.0f<transform.rotation.eulerAngles.y)&&(transform.rotation.eulerAngles.y<rotation.eulerAngles.y + 10.0f)) {
+				if ((rotation.eulerAngles.y - 0.5f<transform.rotation.eulerAngles.y)&&(transform.rotation.eulerAngles.y<rotation.eulerAngles.y + 0.5f)) {
 					//if (transform.position == target.transform.position) {
 						
 					//} else {
@@ -43,7 +44,7 @@ public class CapitalShip : MonoBehaviour {
 			}
 		} else if(movementMode == 2) {
 			var rotation = Quaternion.LookRotation (targetVector);
-			if ((rotation.eulerAngles.y - 10.0f<transform.rotation.eulerAngles.y)&&(transform.rotation.eulerAngles.y<rotation.eulerAngles.y + 10.0f)) {
+			if ((rotation.eulerAngles.y - 0.5f<transform.rotation.eulerAngles.y)&&(transform.rotation.eulerAngles.y<rotation.eulerAngles.y + 0.5f)) {
 				//if (transform.position == target.transform.position) {
 
 				//} else {
@@ -57,15 +58,15 @@ public class CapitalShip : MonoBehaviour {
 
 	}
 
-	public void setTargetShip(GameObject ship){
-		this.target = ship;
-		movementMode = 1;
+	public override void SetTargetShip(GameObject ship){
+		
+        base.SetTargetShip(ship);
 		print ("Recieved target "+this.target.name);
 	}
 
-	public void setTargetPosition(Vector3 vector){
-		this.targetVector = vector;
-		movementMode = 2;
+	public override void SetTargetPosition(Vector3 vector){
+        base.SetTargetPosition(vector);
+		
 	}
 
 
