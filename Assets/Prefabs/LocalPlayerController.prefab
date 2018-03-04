@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114488504031371730}
   - component: {fileID: 114046917453082378}
   - component: {fileID: 114308233927824586}
+  - component: {fileID: 114131693766564090}
   m_Layer: 0
   m_Name: LocalPlayerController
   m_TagString: Untagged
@@ -55,13 +56,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 0
   shipList:
-  - {fileID: 1237549975687784, guid: c2525526736544da39c7c76c2fc801df, type: 2}
-  - {fileID: 1237549975687784, guid: c2525526736544da39c7c76c2fc801df, type: 2}
-  - {fileID: 1237549975687784, guid: c2525526736544da39c7c76c2fc801df, type: 2}
-  - {fileID: 1113147059823486, guid: 2cd0909b589f24fdab46eedd8a663121, type: 2}
-  - {fileID: 1113147059823486, guid: 2cd0909b589f24fdab46eedd8a663121, type: 2}
-  - {fileID: 1651806144738370, guid: 89a02ae59ed1c439ea4c30c072a0ecea, type: 2}
+  - {fileID: 1455819155037600, guid: 17da167ba061045f689e34b36856f16d, type: 2}
   spawnedShipList: []
+--- !u!114 &114131693766564090
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1958719605181468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bd5b274ddfaa438e93f3700e27d296a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMode: 17
 --- !u!114 &114308233927824586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -77,6 +85,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967039
   playerNumber: 0
+  targetMode: 0
 --- !u!114 &114488504031371730
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -7,7 +7,7 @@ public class JPNetworkPlayer : NetworkBehaviour {
 	GameObject selectedShip;
 	GameObject targetShip;
 	Vector3 targetPosition;
-
+    [SyncVar]
 	public int playerNumber = 0;
 	public GameObject[] shipList;
 	public GameObject[] spawnedShipList;
@@ -15,6 +15,10 @@ public class JPNetworkPlayer : NetworkBehaviour {
 	JPNetworkHostManager gameManagerHost;
 	// Use this for initialization
 	void Start () {
+        if(isLocalPlayer) {
+            //print("Player id: " + Network.player.ToString());
+            this.name = "LocalPlayer";
+        }
 		if(isServer) {
 			gameManagerHost = GameObject.Find ("NetworkManager").GetComponent<JPNetworkHostManager> ();
 			playerNumber = gameManagerHost.getPlayerCount();
@@ -22,21 +26,32 @@ public class JPNetworkPlayer : NetworkBehaviour {
 			RpcSetPlayerNumber (playerNumber);
 			spawnedShipList = new GameObject[shipList.Length];
 			for(int count = 0; count < shipList.Length; count ++) {
-				GameObject obj = (GameObject)Instantiate (shipList [count], new Vector3 (Random.Range(0,0),0.1f, Random.Range(0,0)), transform.rotation);
-				if(obj.GetComponent<JPNetworkShip>().forcePlayerNumber) {
-					obj.name = "Player" + "1" + "Ship" + count;
-				} else {
-					obj.name = "Player" + playerNumber + "Ship" + count;
-				}
+                GameObject obj = (GameObject)Instantiate(shipList[count], new Vector3(Random.Range(0, 0), 0.1f, Random.Range(0, 0)), transform.rotation);
+                if (obj.GetComponent<JPNetworkShip>().forcePlayerNumber)
+                {
+                    obj.name = "Player" + "1" + "Ship" + count;
+                }
+                else
+                {
+                    obj.name = "Player" + playerNumber + "Ship" + count;
+                }
 
-				NetworkServer.Spawn (obj);
-				if(obj.GetComponent<JPNetworkShip>().forcePlayerNumber) {
-					obj.GetComponent<JPNetworkShip> ().RpcSetName ("Player" + "1" + "Ship" + count);
-				} else {
-					obj.GetComponent<JPNetworkShip> ().RpcSetName ("Player" + playerNumber + "Ship" + count);
-				}
+                //NetworkServer.Spawn(obj);
+                NetworkServer.SpawnWithClientAuthority(obj, connectionToClient);
 
-				spawnedShipList [count] = obj;
+                if (obj.GetComponent<JPNetworkShip>().forcePlayerNumber)
+                {
+                    obj.GetComponent<JPNetworkShip>().RpcSetName("Player" + "1" + "Ship" + count);
+                }
+                else
+                {
+                    obj.GetComponent<JPNetworkShip>().RpcSetName("Player" + playerNumber + "Ship" + count);
+                }
+                obj.GetComponent<JPNetworkShip>().gamePlayerNumber = playerNumber;
+                spawnedShipList[count] = obj;
+                if(obj.GetComponent<JPNetworkShip>().localPlayer) {
+                    GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);
+                }
 			}
 
 		}
@@ -46,7 +61,6 @@ public class JPNetworkPlayer : NetworkBehaviour {
 	void Update () {
 		
 	}
-
 	[Command]
 	public void CmdSelectShip (string shipName) {
 		selectedShip = GameObject.Find (shipName);
@@ -76,4 +90,26 @@ public class JPNetworkPlayer : NetworkBehaviour {
 	void RpcSetPlayerNumber (int playerNum) {
 		playerNumber = playerNum;
 	}
+    [Command]
+    void CmdSpawnControlShip () {
+        print("Spawning control ship on server" + NetworkServer.active); 
+        if (shipList[0].name.Contains("Single"))
+        {
+
+            GameObject obj = (GameObject)Instantiate(shipList[0], new Vector3(Random.Range(0, 0), 0.1f, Random.Range(0, 0)), transform.rotation);
+            if (obj.GetComponent<JPNetworkShip>().forcePlayerNumber)
+            {
+                obj.name = "Player" + "1" + "Ship" + 0;
+            }
+            else
+            {
+                obj.name = "Player" + playerNumber + "Ship" + 0;
+            }
+
+            NetworkServer.SpawnWithClientAuthority(obj, connectionToClient);
+
+
+            spawnedShipList[0] = obj;
+        }
+    }
 }
