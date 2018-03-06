@@ -22,6 +22,7 @@ public class JPPilot : NetworkBehaviour {
         }
     }
     public void activate(GameObject obj) {
+        print("Activate called");
         controller = obj;
         active = true;
     }

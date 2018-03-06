@@ -8,7 +8,7 @@ public class SmallShip : MonoBehaviour {
 	public Vector3 target;
 	public GameObject targetShip;
 	private bool movingBack;
-	private int movementMode;
+	private int movementMode = 2;
 	Vector3 newTargetPos;
 
 	bool savePos;

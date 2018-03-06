@@ -56,7 +56,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 0
   shipList:
-  - {fileID: 1455819155037600, guid: 17da167ba061045f689e34b36856f16d, type: 2}
+  - {fileID: 1651806144738370, guid: 89a02ae59ed1c439ea4c30c072a0ecea, type: 2}
+  - {fileID: 1237549975687784, guid: c2525526736544da39c7c76c2fc801df, type: 2}
+  - {fileID: 1113147059823486, guid: 2cd0909b589f24fdab46eedd8a663121, type: 2}
+  - {fileID: 1113147059823486, guid: 2cd0909b589f24fdab46eedd8a663121, type: 2}
   spawnedShipList: []
 --- !u!114 &114131693766564090
 MonoBehaviour:

@@ -4,20 +4,29 @@ using UnityEngine;
 
 public class JPShip : MonoBehaviour {
 
-    [SerializeField] public GameObject target;
-    [SerializeField] public float FireRange = 5f;
+    public GameObject target;
+    public float fireDist = 5f;
+    public float rangeDist = 20.0f;
+
     public int idleMode = 0;
+
     public float moveSpeed = 0.01f;
     public float turnSpeed = 0.2f;
+
     public Vector3 targetVector;
     public Quaternion targetRotation;
     public int movementMode = 0; //0 = stop 1 = target ship 2 = vector
+
     public Material defaultMaterial;
     public Material selectedMaterial;
 
+    public float maxHeight = 10.0f;
+    public float minHeight = 0;
+
+    public float distanceTol = 10.0f;
 	// Use this for initialization
 	void Start () {
-        defaultMaterial = this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material;
+        //defaultMaterial = this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material;
 	}
 	
 	// Update is called once per frame
@@ -40,7 +49,7 @@ public class JPShip : MonoBehaviour {
         this.targetRotation = Quaternion.LookRotation(vector);
         movementMode = 2;
     }
-    public void SetSelected (bool selected) {
+    public virtual void SetSelected (bool selected) {
         if(selected) {
             this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material = selectedMaterial;
         } else {

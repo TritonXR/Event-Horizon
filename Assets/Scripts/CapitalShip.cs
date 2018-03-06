@@ -17,6 +17,7 @@ public class CapitalShip : JPShip {
 	// Use this for initialization
 	void Start () {
 		//target = GameObject.Find ("DefaultTarget");
+        defaultMaterial = this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material;
 	}
 	
 	// Update is called once per frame
@@ -29,7 +30,7 @@ public class CapitalShip : JPShip {
 		}*/
 
 		if (movementMode == 1) {
-			if (Vector3.Distance (transform.position, target.transform.position) > FireRange) {
+            if (Vector3.Distance (transform.position, target.transform.position) > fireDist) {
 				var rotation = Quaternion.LookRotation (target.transform.position);
 				if ((rotation.eulerAngles.y - 0.5f<transform.rotation.eulerAngles.y)&&(transform.rotation.eulerAngles.y<rotation.eulerAngles.y + 0.5f)) {
 					//if (transform.position == target.transform.position) {
