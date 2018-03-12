@@ -16,6 +16,8 @@ public class Turret : NetworkBehaviour {
     Vector3 startVector;
     Quaternion startRotation;
 
+    public int fireRate = 15;
+
 	// Use this for initialization
 	void Start () {
         range = transform.parent.GetComponent<DRange>();
@@ -62,7 +64,7 @@ public class Turret : NetworkBehaviour {
 		if (ship != null)
 		{
 			count++;
-			if (count > 15)
+            if (count > fireRate)
 			{
 				laser.Fire();
 				count = 0;
