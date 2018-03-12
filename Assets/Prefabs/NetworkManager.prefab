@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114362268765261248}
   - component: {fileID: 114172143207584114}
   - component: {fileID: 114146394839070160}
+  - component: {fileID: 114263011092988030}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -60,7 +61,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1656721355896950}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 227461547, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
@@ -69,6 +70,17 @@ MonoBehaviour:
   showGUI: 1
   offsetX: 0
   offsetY: 0
+--- !u!114 &114263011092988030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1656721355896950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3d6f216bd1204cc18f0d33da6cc83b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114362268765261248
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -92,9 +104,9 @@ MonoBehaviour:
   m_PlayerPrefab: {fileID: 1958719605181468, guid: 66a44708ec0c14923aea68bf14a790f9,
     type: 2}
   m_AutoCreatePlayer: 1
-  m_PlayerSpawnMethod: 0
-  m_OfflineScene: 
-  m_OnlineScene: 
+  m_PlayerSpawnMethod: 1
+  m_OfflineScene: Menu
+  m_OnlineScene: MultiplayerScene
   m_SpawnPrefabs:
   - {fileID: 1321762552211254, guid: 67f8421823b134b6e81e9cb59489ceaf, type: 2}
   - {fileID: 1237549975687784, guid: c2525526736544da39c7c76c2fc801df, type: 2}
@@ -103,6 +115,9 @@ MonoBehaviour:
   - {fileID: 1958719605181468, guid: 66a44708ec0c14923aea68bf14a790f9, type: 2}
   - {fileID: 1522751953291414, guid: 4141ce6b5d79c462d91e02f61e549dff, type: 2}
   - {fileID: 1976925671324564, guid: e511c6f62d1ab44a29b04bef189d6d29, type: 2}
+  - {fileID: 1930042525882022, guid: 736b916a23fc2489a84f936c52c27175, type: 2}
+  - {fileID: 1318251050415550, guid: 8f3d23ddcf129433cbbe0e57efa2ef97, type: 2}
+  - {fileID: 1276506906244826, guid: 4a32e34e73f6e449cb1ca96243485b48, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -145,11 +160,11 @@ MonoBehaviour:
     m_MaxTimerTimeout: 12000
     m_MinNetSimulatorTimeout: 1
     m_MaxNetSimulatorTimeout: 12000
-  m_Channels: 
+  m_Channels: 0500000000000000
   m_UseWebSockets: 0
   m_UseSimulator: 0
-  m_SimulatedLatency: 1
-  m_PacketLossPercentage: 0
+  m_SimulatedLatency: 36
+  m_PacketLossPercentage: 1.3
   m_MaxBufferedPackets: 16
   m_AllowFragmentation: 1
   m_MatchHost: mm.unet.unity3d.com

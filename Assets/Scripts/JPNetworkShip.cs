@@ -13,6 +13,7 @@ public class JPNetworkShip : NetworkBehaviour {
 	public bool forcePlayerNumber = false;
 	public int playerNumber = 0;
     public bool localPlayer = false;
+    public bool fighterControl = false;
 	// Use this for initialization
 	void Start () {
         clientPlayerNumber = GameObject.Find("LocalPlayer").GetComponent<JPNetworkPlayer>().playerNumber;
@@ -26,6 +27,14 @@ public class JPNetworkShip : NetworkBehaviour {
             //transform.position = Vector3.zero;
             GetComponent<JPPilot>().activate((singlePlayerControl));
         }
+        for (int count = 0; count < transform.childCount; count++)
+        {
+            JPNetworkShip fighter =  transform.GetChild(count).GetComponent<JPNetworkShip>();
+            fighter.teamNumber = teamNumber;
+            fighter.gamePlayerNumber = gamePlayerNumber;
+        }
+
+
 	}
 	
 	// Update is called once per frame
