@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class JPShip : MonoBehaviour {
+public class JPShip : NetworkBehaviour {
 
     public GameObject target;
     public float fireDist = 5f;
@@ -24,6 +25,10 @@ public class JPShip : MonoBehaviour {
     public float minHeight = 0;
 
     public float distanceTol = 10.0f;
+    public int health = 0;
+
+    [SyncVar]
+    public int teamNum = 0;
 	// Use this for initialization
 	void Start () {
         //defaultMaterial = this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material;
@@ -50,10 +55,17 @@ public class JPShip : MonoBehaviour {
         movementMode = 2;
     }
     public virtual void SetSelected (bool selected) {
-        if(selected) {
-            this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material = selectedMaterial;
-        } else {
-            this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material = defaultMaterial;
-        }
+        
     }
+	private void OnCollisionEnter(Collision collision)
+	{
+        health++;
+	}
+	private void OnTriggerEnter(Collider other)
+	{
+        if (other.gameObject.GetComponent<Projectile>()) {
+            health += other.gameObject.GetComponent<Projectile>().damage;
+            Destroy(other.gameObject);
+        }
+	}
 }

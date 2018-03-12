@@ -5,6 +5,12 @@ using UnityEngine.Networking;
 
 public class JPUIController : NetworkBehaviour {
     public int targetMode = 0;
+    public delegate void uiSetMode();
+    public static event uiSetMode OnModeCancel;
+    public static event uiSetMode OnModeMove;
+    public static event uiSetMode OnModeTarget;
+    public static event uiSetMode OnSelectTeamOne;
+    public static event uiSetMode OnSelectTeamTwo;
 	// Use this for initialization
 	void Start () {
 		
@@ -14,16 +20,27 @@ public class JPUIController : NetworkBehaviour {
 	void Update () {
 		
 	}
-    public void setModeMove()
+    public void SetModeCancel()
     {
-       
+        print("Cancel");
+        OnModeCancel();
     }
-    public void setModeTarget()
+    public void SetModeMove()
     {
-       
+        print("Move");
+        OnModeMove();
     }
-    public void setModeCancel()
+    public void SetModeTarget()
     {
-        //JPNetworkHostManager.OnModeCancel();
+        print("Target");
+        OnModeTarget();
+    }
+    public void SetTeamOne () {
+        print("Selected Team One");
+        OnSelectTeamOne();
+    }
+    public void SetTeamTwo () {
+        print("Selected Team Two");
+        OnSelectTeamTwo();
     }
 }

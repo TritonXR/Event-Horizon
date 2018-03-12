@@ -119,7 +119,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: LargeStonesMaterial
+  m_Name: logoTexturedLowResMaterial
   m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -132,7 +132,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 35af93fa5dac438bb17e428758ae0c86, type: 3}
+        m_Texture: {fileID: 2800000, guid: 71091b08281c4aee8a6c9366bd47f4e6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats: []
@@ -278,15 +278,15 @@ MonoBehaviour:
   m_Script: {fileID: -1631628248, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mTrackableName: LargeStones
+  mTrackableName: logoTexturedLowRes
   mPreserveChildSize: 0
   mInitializedInEditor: 1
-  mDataSetPath: Vuforia/TicTacToe.xml
+  mDataSetPath: Vuforia/EventHorizon.xml
   mExtendedTracking: 0
-  mAspectRatio: 0.69531304
+  mAspectRatio: 1
   mImageTargetType: 0
   mWidth: 23
-  mHeight: 15.9922
+  mHeight: 23
 --- !u!4 &483821308
 Transform:
   m_ObjectHideFlags: 0
@@ -565,7 +565,7 @@ Mesh:
     vertexCount: 4
     localAABB:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.5, y: 0, z: 0.34765652}
+      m_Extent: {x: 0.5, y: 0, z: 0.5}
   m_Shapes:
     vertices: []
     shapes: []
@@ -618,7 +618,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 128
-    _typelessdata: 000000bf000000000900b2be000000000000803f000000000000000000000000000000bf000000000900b23e000000000000803f00000000000000000000803f0000003f000000000900b2be000000000000803f000000000000803f000000000000003f000000000900b23e000000000000803f000000000000803f0000803f
+    _typelessdata: 000000bf00000000000000bf000000000000803f000000000000000000000000000000bf000000000000003f000000000000803f00000000000000000000803f0000003f00000000000000bf000000000000803f000000000000803f000000000000003f000000000000003f000000000000803f000000000000803f0000803f
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -764,6 +764,11 @@ Prefab:
       propertyPath: m_SpawnPrefabs.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114362268765261248, guid: 8518faec66d1c474eb217007170dbb5d,
+        type: 2}
+      propertyPath: m_SpawnPrefabs.Array.size
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4656942437979946, guid: 8518faec66d1c474eb217007170dbb5d, type: 2}
       propertyPath: m_LocalPosition.x
       value: -1.417037
@@ -824,6 +829,12 @@ Prefab:
       propertyPath: m_SpawnPrefabs.Array.data[3]
       value: 
       objectReference: {fileID: 1651806144738370, guid: 89a02ae59ed1c439ea4c30c072a0ecea,
+        type: 2}
+    - target: {fileID: 114362268765261248, guid: 8518faec66d1c474eb217007170dbb5d,
+        type: 2}
+      propertyPath: m_SpawnPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 1976925671324564, guid: e511c6f62d1ab44a29b04bef189d6d29,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8518faec66d1c474eb217007170dbb5d, type: 2}

@@ -24,9 +24,9 @@ public class JPInputController : NetworkBehaviour {
 		marker = GameObject.Find ("Marker");
 		playerNumber = networkPlayer.playerNumber;
         JPNetworkHostManager localHost = GameObject.Find("NetworkManager").GetComponent<JPNetworkHostManager>();
-        JPNetworkHostManager.OnModeCancel += setModeCancel;
-        JPNetworkHostManager.OnModeMove += setModeMove;
-        JPNetworkHostManager.OnModeTarget += setModeTarget;
+        JPUIController.OnModeCancel += setModeCancel;
+        JPUIController.OnModeMove += setModeMove;
+        JPUIController.OnModeTarget += setModeTarget;
         localUI = GetComponent<JPUIController>();
 	}
 	
@@ -49,9 +49,17 @@ public class JPInputController : NetworkBehaviour {
                         if (selectedShip != null) {
                             selectedShip.GetComponent<JPShip>().SetSelected(false);
                         }
-						selectedShip = hit.collider.gameObject;
-                        selectedShip.GetComponent<JPShip>().SetSelected(true);
-						selectShip (selectedShip);
+                        if(hit.collider.gameObject.name.Contains("Fighter")) {
+                            Debug.Log("Got Squad lead " + hit.collider.transform.parent.name);
+                            selectedShip = hit.collider.transform.parent.gameObject;
+                            selectedShip.GetComponent<JPShip>().SetSelected(true);
+                            selectShip(selectedShip);
+                        } else {
+                            selectedShip = hit.collider.gameObject;
+                            selectedShip.GetComponent<JPShip>().SetSelected(true);
+                            selectShip(selectedShip);
+                        }
+                        marker.SetActive(true);
 					}
 				}
 			}
@@ -82,17 +90,20 @@ public class JPInputController : NetworkBehaviour {
                     {
                         setTargetPosition(ray.GetPoint(rayDistance));
                         marker.transform.position = ray.GetPoint(rayDistance);
-                        marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
+                        //marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
                     }
                 }
             }
-            /*
-            if (selectedShip != null) {
-                    selectedShip.GetComponent<JPShip>().SetSelected(false);
+            /*if (selectedShip != null)
+            {
+                selectedShip.GetComponent<JPShip>().SetSelected(false);
             }
-			selectedShip = null;
-			targetShip = null;
-            */
+            selectedShip = null;
+            targetShip = null;
+            marker.SetActive(false);*/
+
+
+
 		} else if(Input.GetMouseButton (0)) {
 				
 			if(selectedShip) {
@@ -113,6 +124,7 @@ public class JPInputController : NetworkBehaviour {
 		print ("Targeted GameObject " + ship.name);
 	}
 	void setTargetPosition (Vector3 pos) {
+        pos.y = 14.0f;
 		networkPlayer.CmdSetPosition (pos);
 		print ("Targeted position " + pos);
 	}
@@ -158,6 +170,7 @@ public class JPInputController : NetworkBehaviour {
         targetShip = null;
         print("Mode Cancel " + targetMode);
         targetMode = 0;
+        marker.SetActive(false);
 
     }
 

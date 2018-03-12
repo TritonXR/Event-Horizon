@@ -8,6 +8,8 @@ public class JPNetworkShip : NetworkBehaviour {
     public int gamePlayerNumber;
     [SyncVar]
     public int clientPlayerNumber;
+    [SyncVar]
+    public int teamNumber;
 	public bool forcePlayerNumber = false;
 	public int playerNumber = 0;
     public bool localPlayer = false;
@@ -28,7 +30,7 @@ public class JPNetworkShip : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        GetComponent<TextMesh>().text = "ShipID: " + gamePlayerNumber + " ClientID: " + clientPlayerNumber + "\n\n";
+        //GetComponent<TextMesh>().text = "ShipID: " + gamePlayerNumber + " ClientID: " + clientPlayerNumber + "\n\n";
 	}
 	[ClientRpc]
 	public void RpcSetName (string name) {

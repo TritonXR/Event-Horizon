@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class JPNetworkHostManager : MonoBehaviour {
 	public int playerNumber;
-    public delegate void uiSetMode();
-    public static event uiSetMode OnModeCancel;
-    public static event uiSetMode OnModeMove;
-    public static event uiSetMode OnModeTarget;
 	// Use this for initialization
 	void Start () {
 		
@@ -27,20 +23,6 @@ public class JPNetworkHostManager : MonoBehaviour {
 			playerNumber++;
 		//}
 	}
-    public void setModeCancel()
-    {
-        print("Cancel");
-        OnModeCancel();
-    }
-    public void setModeMove()
-    {
-        print("Move");
-        OnModeMove();
-    }
-    public void setModeTarget()
-    {
-        print("Target");
-        OnModeTarget();
-    }
+
    
 }

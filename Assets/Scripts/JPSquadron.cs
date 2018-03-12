@@ -6,12 +6,13 @@ public class JPSquadron : JPShip {
     public GameObject[] ships;
     public Vector3[] shipPos;
     public JPFighter[] shipCtrl;
-
+    public string mode;
 	// Use this for initialization
 	void Start () {
         ships = new GameObject[transform.childCount];
         shipPos = new Vector3[transform.childCount];
         shipCtrl = new JPFighter[transform.childCount];
+        int playerNum = GetComponent<JPNetworkShip>().gamePlayerNumber;
         for (int count = 0; count < transform.childCount; count ++)
         {
             ships[count] = transform.GetChild(count).gameObject;
@@ -19,17 +20,23 @@ public class JPSquadron : JPShip {
             shipCtrl[count] = ships[count].GetComponent<JPFighter>();
             shipCtrl[count].SetOffset(shipPos[count]);
             shipCtrl[count].SetController(this);
+            ships[count].name = "Player" + playerNum + "ShipFighter" + count;
+
+            shipCtrl[count].serverControl = isServer;
+           
         }
-        SetTargetShip(target);
+        SetTargetPosition(transform.forward * 100f);
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        
         //transform.position = ships[0].transform.position - ships[0].transform.localPosition;
 	}
     public override void SetTargetShip(GameObject ship)
     {
-        base.SetTargetShip(ship);
+        //base.SetTargetShip(ship);
         for (int count = 0; count < transform.childCount; count++)
         {
             shipCtrl[count].SetTargetShip(ship);
@@ -37,7 +44,7 @@ public class JPSquadron : JPShip {
     }
     public override void SetTargetPosition(Vector3 vector)
     {
-        base.SetTargetPosition(vector);
+        //base.SetTargetPosition(vector);
         for (int count = 0; count < transform.childCount; count++)
         {
             shipCtrl[count].SetTargetPosition(vector + shipPos[count]);

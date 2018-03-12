@@ -54,12 +54,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b3dcb973d4f456fa27631344d4ad75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedShip: {fileID: 0}
   playerNumber: 0
+  playerTeam: 0
   shipList:
-  - {fileID: 1651806144738370, guid: 89a02ae59ed1c439ea4c30c072a0ecea, type: 2}
-  - {fileID: 1237549975687784, guid: c2525526736544da39c7c76c2fc801df, type: 2}
-  - {fileID: 1113147059823486, guid: 2cd0909b589f24fdab46eedd8a663121, type: 2}
-  - {fileID: 1113147059823486, guid: 2cd0909b589f24fdab46eedd8a663121, type: 2}
+  - {fileID: 1318251050415550, guid: 8f3d23ddcf129433cbbe0e57efa2ef97, type: 2}
+  - {fileID: 1930042525882022, guid: 736b916a23fc2489a84f936c52c27175, type: 2}
+  - {fileID: 1930042525882022, guid: 736b916a23fc2489a84f936c52c27175, type: 2}
   spawnedShipList: []
 --- !u!114 &114131693766564090
 MonoBehaviour:
