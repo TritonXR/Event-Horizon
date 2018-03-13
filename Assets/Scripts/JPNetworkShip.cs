@@ -27,12 +27,12 @@ public class JPNetworkShip : NetworkBehaviour {
             //transform.position = Vector3.zero;
             GetComponent<JPPilot>().activate((singlePlayerControl));
         }
-        for (int count = 0; count < transform.childCount; count++)
-        {
-            JPNetworkShip fighter =  transform.GetChild(count).GetComponent<JPNetworkShip>();
-            fighter.teamNumber = teamNumber;
-            fighter.gamePlayerNumber = gamePlayerNumber;
-        }
+        //for (int count = 0; count < transform.childCount; count++)
+        //{
+            //JPNetworkShip fighter =  transform.GetChild(count).GetComponent<JPNetworkShip>();
+            //fighter.teamNumber = teamNumber;
+            //fighter.gamePlayerNumber = gamePlayerNumber;
+        //}
 
 
 	}

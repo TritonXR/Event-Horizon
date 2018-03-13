@@ -29,9 +29,22 @@ public class JPShip : NetworkBehaviour {
 
     [SyncVar]
     public int teamNum = 0;
+
+    public GameObject[] wingmen;
+    public Vector3[] wingmenOffsets;
+    public Vector3 offset;
+    public int squadNum = 0;
+    public bool lead = true;
+    public JPShip leadController;
+
 	// Use this for initialization
 	void Start () {
         //defaultMaterial = this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material;
+        if(lead) {
+            leadController = this;
+        }
+        offset = wingmenOffsets[squadNum];
+
 	}
 	
 	// Update is called once per frame
@@ -41,6 +54,11 @@ public class JPShip : NetworkBehaviour {
 
     public virtual void SetTargetShip(GameObject ship)
     {
+        if(lead) {
+            for (int count = 1; count < wingmen.Length; count ++) {
+                wingmen[count].GetComponent<JPShip>().SetTargetShip(ship);
+            }
+        }
         this.target = ship;
         this.targetVector = ship.transform.position;
         this.targetRotation = Quaternion.LookRotation(ship.transform.position);
@@ -50,12 +68,37 @@ public class JPShip : NetworkBehaviour {
     }
     public virtual void SetTargetPosition(Vector3 vector)
     {
+        if (lead)
+        {
+            for (int count = 1; count < wingmen.Length; count++)
+            {
+                wingmen[count].GetComponent<JPShip>().SetTargetPosition(vector);
+            }
+        }
         this.targetVector = vector;
         this.targetRotation = Quaternion.LookRotation(vector);
         movementMode = 2;
     }
     public virtual void SetSelected (bool selected) {
-        
+        if (lead)
+        {
+            print("Lead Selected " + wingmen.Length);
+            for (int count = 1; count < wingmen.Length; count++)
+            {
+
+                print("select " + count);
+                wingmen[count].GetComponent<JPShip>().SetSelected(selected);
+            }
+
+        }
+        if (selected)
+        {
+            this.transform.GetChild(0).GetComponent<Renderer>().material = selectedMaterial;
+        }
+        else
+        {
+            this.transform.GetChild(0).GetComponent<Renderer>().material = defaultMaterial;
+        }
     }
 	private void OnCollisionEnter(Collision collision)
 	{
@@ -68,4 +111,20 @@ public class JPShip : NetworkBehaviour {
             Destroy(other.gameObject);
         }
 	}
+    public virtual void OnShipControlDisable(bool disable) {
+        this.enabled = disable;
+    }
+    [ClientRpc]
+    public void RpcSetLeadController(string leadName, int playerNum, int shipNum, int maxNum)
+    {
+        print("rpc leadcontroller set called " + leadName);
+        leadController = GameObject.Find(leadName).GetComponent<JPShip>();
+        if(leadName != gameObject.name) {
+            lead = false;
+        }
+        for (int count = 0; count < maxNum; count ++) {
+            wingmen[count] = GameObject.Find("Player" + playerNum + "Ship" + shipNum + "Squad" + count);
+        }
+
+    }
 }

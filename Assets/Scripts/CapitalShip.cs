@@ -17,10 +17,10 @@ public class CapitalShip : JPShip {
 	// Update is called once per frame
 	void Update () {
         if(!isServer) {
-            //print("is Not server");
+            
             return;
         }
-        //print("is server");
+
         if(movementMode == 1) {
             targetPos = target.transform.position;
         }

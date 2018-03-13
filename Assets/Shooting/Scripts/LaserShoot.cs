@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class LaserShoot : NetworkBehaviour {
+public class LaserShoot : MonoBehaviour {
 	
 	public GameObject laser;
 	float laserSpeed = 1000;
@@ -22,7 +22,7 @@ public class LaserShoot : NetworkBehaviour {
 		tempLaserRigidbody.AddForce(tempLaserRigidbody.transform.up * laserSpeed);
 
 		Destroy(tempLaser, 3f);
-        NetworkServer.Spawn(tempLaser);
+        //NetworkServer.Spawn(tempLaser);
 	}
 
 	//Update is called once per frame

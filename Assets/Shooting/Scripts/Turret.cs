@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class Turret : NetworkBehaviour {
+public class Turret : MonoBehaviour {
 
 	public Quaternion angle;
 	public DRange range;
@@ -45,7 +45,7 @@ public class Turret : NetworkBehaviour {
                 transform.localRotation = Quaternion.Slerp(transform.localRotation, startRotation, Time.deltaTime * turnSpeed);
             }
         }
-		/*Quaternion current = transform.localRotation;
+        /*Quaternion current = transform.localRotation;
 		if (ship != null && stationary == false)
 		{
 			Vector3 shipPos = ship.transform.position;
@@ -61,14 +61,16 @@ public class Turret : NetworkBehaviour {
             if(current != Quaternion.LookRotation(zero))
 			    transform.localRotation = Quaternion.Slerp(current, Quaternion.LookRotation(zero), Time.deltaTime);
 		}*/
-		if (ship != null)
-		{
-			count++;
-            if (count > fireRate)
-			{
-				laser.Fire();
-				count = 0;
-			}
-		}
+        
+            if (ship != null)
+            {
+                count++;
+                if (count > fireRate)
+                {
+                    laser.Fire();
+                    count = 0;
+                }
+            }
+
 	}
 }

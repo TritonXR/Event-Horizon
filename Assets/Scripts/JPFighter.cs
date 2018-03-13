@@ -8,7 +8,7 @@ public class JPFighter : JPShip {
 
     public Vector3 targetPos;
 
-    public Vector3 offset;
+
     public Vector3 showTargetVector;
     public GameObject showTarget;
 
@@ -47,9 +47,14 @@ public class JPFighter : JPShip {
     // Update is called once per frame
     void Update()
     {
-        if (!serverControl)
+        /*if (!serverControl)
         {
             mode = "Not Server";
+            return;
+        }*/
+        if (!isServer)
+        {
+            mode = "is Not server";
             return;
         }
         if (avoiding)
@@ -124,7 +129,7 @@ public class JPFighter : JPShip {
         else if (resetHeightLow)
         {
             mode = "Moving Upwards" + transform.position.y;
-            if (transform.position.y < maxHeight / 4)
+            if (transform.position.y > maxHeight / 4)
             {
                 resetHeightLow = false;
             }
@@ -324,8 +329,9 @@ public class JPFighter : JPShip {
         distanceTol = leader.distanceTol;
 
     }
-    public override void SetSelected(bool selected)
+    /*public override void SetSelected(bool selected)
     {
+        base.SetSelected(selected);
         if (selected)
         {
             this.transform.GetChild(0).GetComponent<Renderer>().material = selectedMaterial;
@@ -334,6 +340,6 @@ public class JPFighter : JPShip {
         {
             this.transform.GetChild(0).GetComponent<Renderer>().material = defaultMaterial;
         }
-    }
+    }*/
 
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class DRange : NetworkBehaviour {
+public class DRange : MonoBehaviour {
 
 	public bool inRange;
 	public GameObject ship;

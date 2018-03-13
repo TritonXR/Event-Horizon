@@ -28,6 +28,7 @@ public class JPInputController : NetworkBehaviour {
         JPUIController.OnModeMove += setModeMove;
         JPUIController.OnModeTarget += setModeTarget;
         localUI = GetComponent<JPUIController>();
+        marker.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -52,11 +53,11 @@ public class JPInputController : NetworkBehaviour {
                         if(hit.collider.gameObject.name.Contains("Fighter")) {
                             Debug.Log("Got Squad lead " + hit.collider.transform.parent.name);
                             selectedShip = hit.collider.transform.parent.gameObject;
-                            selectedShip.GetComponent<JPShip>().SetSelected(true);
+                            selectedShip.GetComponent<JPShip>().leadController.SetSelected(true);
                             selectShip(selectedShip);
                         } else {
                             selectedShip = hit.collider.gameObject;
-                            selectedShip.GetComponent<JPShip>().SetSelected(true);
+                            selectedShip.GetComponent<JPShip>().leadController.SetSelected(true);
                             selectShip(selectedShip);
                         }
                         marker.SetActive(true);
@@ -78,7 +79,7 @@ public class JPInputController : NetworkBehaviour {
                     {
                         setTargetShip(hit.collider.gameObject);
                         marker.transform.position = hit.collider.gameObject.transform.position;
-                        marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
+                        //marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
                     }
                 }
             }
@@ -94,13 +95,13 @@ public class JPInputController : NetworkBehaviour {
                     }
                 }
             }
-            /*if (selectedShip != null)
+            if (selectedShip != null)
             {
-                selectedShip.GetComponent<JPShip>().SetSelected(false);
+                selectedShip.GetComponent<JPShip>().leadController.SetSelected(false);
             }
             selectedShip = null;
             targetShip = null;
-            marker.SetActive(false);*/
+            marker.SetActive(false);
 
 
 

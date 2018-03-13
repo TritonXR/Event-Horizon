@@ -2754,6 +2754,14 @@ MonoBehaviour:
   distanceTol: 10
   health: 0
   teamNum: 0
+  wingmen:
+  - {fileID: 0}
+  wingmenOffsets:
+  - {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0}
+  squadNum: 0
+  lead: 1
+  leadController: {fileID: 0}
   idle: 0
   speedMagnitude: 0
 --- !u!114 &114136273077462396
@@ -2785,6 +2793,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   stationary: 0
   turnSpeed: 1
+  fireRate: 15
 --- !u!114 &114197637593369696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2852,6 +2861,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   stationary: 0
   turnSpeed: 1
+  fireRate: 15
 --- !u!114 &114271972463353190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2865,9 +2875,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gamePlayerNumber: 0
   clientPlayerNumber: 0
+  teamNumber: 0
   forcePlayerNumber: 0
   playerNumber: 0
   localPlayer: 0
+  fighterControl: 0
 --- !u!114 &114333582782403830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2986,6 +2998,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   stationary: 0
   turnSpeed: 1
+  fireRate: 15
 --- !u!114 &114525788363659828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3003,6 +3016,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   stationary: 0
   turnSpeed: 1
+  fireRate: 15
 --- !u!114 &114530233041004498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3058,6 +3072,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   stationary: 0
   turnSpeed: 1
+  fireRate: 15
 --- !u!114 &114620502973092656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3139,6 +3154,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   stationary: 0
   turnSpeed: 1
+  fireRate: 15
 --- !u!114 &114881004766536382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3156,6 +3172,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   stationary: 0
   turnSpeed: 1
+  fireRate: 15
 --- !u!114 &114882884502558364
 MonoBehaviour:
   m_ObjectHideFlags: 1
