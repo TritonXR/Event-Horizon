@@ -277,6 +277,9 @@ PlayerSettings:
   - m_BuildTarget: iOS
     m_Enabled: 0
     m_Devices: []
+  - m_BuildTarget: Android
+    m_Enabled: 0
+    m_Devices: []
   m_BuildTargetEnableVuforiaSettings:
   - m_BuildTarget: iOS
     m_Enabled: 1

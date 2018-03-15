@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
     public int damage;
+    public bool fighter;
 	// Use this for initialization
 	void Start () {
 		

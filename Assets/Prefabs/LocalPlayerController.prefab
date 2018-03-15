@@ -58,10 +58,13 @@ MonoBehaviour:
   playerNumber: 0
   playerTeam: 0
   shipList:
-  - {fileID: 1318251050415550, guid: 8f3d23ddcf129433cbbe0e57efa2ef97, type: 2}
+  - {fileID: 1455819155037600, guid: 17da167ba061045f689e34b36856f16d, type: 2}
   - {fileID: 1471020276618608, guid: 2a88d01dca98a44248282d19f2021ed3, type: 2}
   - {fileID: 1405486450314822, guid: cdbcb35b61ba54bda83d53edc0f07834, type: 2}
+  - {fileID: 1318251050415550, guid: 8f3d23ddcf129433cbbe0e57efa2ef97, type: 2}
   spawnedShipList: []
+  shipSpawnList: 1,2,2,3,3
+  shipSpawnCommandList: 
 --- !u!114 &114131693766564090
 MonoBehaviour:
   m_ObjectHideFlags: 1

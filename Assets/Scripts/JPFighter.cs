@@ -42,6 +42,8 @@ public class JPFighter : JPShip {
         defaultMaterial = transform.GetChild(0).GetComponent<Renderer>().material;
         //movementMode = 1;
         idle = true;
+        offset = wingmenOffsets[squadNum];
+        health = maxHealth;
 	}
 
     // Update is called once per frame
@@ -52,10 +54,31 @@ public class JPFighter : JPShip {
             mode = "Not Server";
             return;
         }*/
+
+        if ((GetComponent<JPNetworkShip>().teamNumber != 0) && (materialSwitch))
+        {
+            if (GetComponent<JPNetworkShip>().teamNumber == 2)
+            {
+                defaultMaterial = altDefaultMaterial;
+                this.transform.GetChild(0).GetComponent<Renderer>().material = altDefaultMaterial;
+            }
+            //print("Change material " + GetComponent<JPNetworkShip>().teamNumber);
+            materialSwitch = false;
+        }
         if (!isServer)
         {
             mode = "is Not server";
             return;
+        }
+        if (destroyed)
+        {
+            return;
+        }
+        if (health < 0)
+        {
+            destroyed = true;
+            this.transform.GetChild(0).GetComponent<Renderer>().enabled = false;
+            transform.position = new Vector3(-10000, -10000);
         }
         if (avoiding)
         {

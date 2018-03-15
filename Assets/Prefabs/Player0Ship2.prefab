@@ -347,7 +347,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1405486450314822}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -9985.014, y: -9995.475, z: -54.757084}
   m_LocalScale: {x: 0.3650903, y: 0.36509025, z: 0.36509043}
   m_Children:
   - {fileID: 4935160896905686}
@@ -737,7 +737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136d7174c07744c11a14d278f4a905ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laser: {fileID: 1522751953291414, guid: 4141ce6b5d79c462d91e02f61e549dff, type: 2}
+  laser: {fileID: 1318772850748580, guid: 576a602d8f9944d3f9ecd641e54881b2, type: 2}
 --- !u!114 &114460886917236240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -834,10 +834,14 @@ MonoBehaviour:
   movementMode: 2
   defaultMaterial: {fileID: 0}
   selectedMaterial: {fileID: 2100000, guid: d0af7ad49d9e0d54cb487c1c81501239, type: 2}
+  altDefaultMaterial: {fileID: 2100000, guid: 2a2859baeeec7e14785299ea50011ea5, type: 2}
+  materialSwitch: 1
   maxHeight: 35
   minHeight: 0
   distanceTol: 10
+  maxHealth: 250
   health: 0
+  healthPercent: 1
   teamNum: 0
   wingmen:
   - {fileID: 0}
@@ -851,6 +855,7 @@ MonoBehaviour:
   squadNum: 0
   lead: 1
   leadController: {fileID: 0}
+  destroyed: 0
   targetPos: {x: 0, y: 0, z: 0}
   showTargetVector: {x: 0, y: 0, z: 0}
   showTarget: {fileID: 0}

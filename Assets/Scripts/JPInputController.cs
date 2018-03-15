@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class JPInputController : NetworkBehaviour {
 	JPNetworkPlayer networkPlayer;
@@ -14,12 +15,14 @@ public class JPInputController : NetworkBehaviour {
 	public int playerNumber = 0;
     public int targetMode = 0;
     JPUIController localUI;
+    Slider healthSlider;
 	// Use this for initialization
 	void Start () {
         if (!isLocalPlayer)
         {
             return;
-        }   
+        }
+        healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
 		networkPlayer = this.GetComponent<JPNetworkPlayer> ();
 		marker = GameObject.Find ("Marker");
 		playerNumber = networkPlayer.playerNumber;
@@ -35,7 +38,7 @@ public class JPInputController : NetworkBehaviour {
 	void Update () {
         if (!isLocalPlayer)
         {
-            print("Not local player!");
+            //print("Not local player!");
             return;
         }
         //print("LOCAL UI CONTROLLER " + localUI.targetMode);
@@ -48,10 +51,10 @@ public class JPInputController : NetworkBehaviour {
 				if (hit.collider.gameObject.transform.name.Contains ("Ship")) {
                     if (hit.collider.gameObject.name.Contains ("Player" + networkPlayer.playerNumber)) { 
                         if (selectedShip != null) {
-                            selectedShip.GetComponent<JPShip>().SetSelected(false);
+                            selectedShip.GetComponent<JPShip>().leadController.SetSelected(false);
                         }
                         if(hit.collider.gameObject.name.Contains("Fighter")) {
-                            Debug.Log("Got Squad lead " + hit.collider.transform.parent.name);
+                            //Debug.Log("Got Squad lead " + hit.collider.transform.parent.name);
                             selectedShip = hit.collider.transform.parent.gameObject;
                             selectedShip.GetComponent<JPShip>().leadController.SetSelected(true);
                             selectShip(selectedShip);
@@ -61,9 +64,20 @@ public class JPInputController : NetworkBehaviour {
                             selectShip(selectedShip);
                         }
                         marker.SetActive(true);
+                        healthSlider.gameObject.SetActive(true);
+                        healthSlider.value = selectedShip.GetComponent<JPShip>().healthPercent;
 					}
 				}
-			}
+            } else {
+                if (selectedShip != null)
+                {
+                    selectedShip.GetComponent<JPShip>().leadController.SetSelected(false);
+                }
+                selectedShip = null;
+                targetShip = null;
+                marker.SetActive(false);
+                healthSlider.gameObject.SetActive(false);
+            }
 		} else if(Input.GetMouseButtonUp (0)) {
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -97,11 +111,12 @@ public class JPInputController : NetworkBehaviour {
             }
             if (selectedShip != null)
             {
-                selectedShip.GetComponent<JPShip>().leadController.SetSelected(false);
+                //selectedShip.GetComponent<JPShip>().leadController.SetSelected(false);
             }
-            selectedShip = null;
-            targetShip = null;
-            marker.SetActive(false);
+            //selectedShip = null;
+            //targetShip = null;
+            //marker.SetActive(false);
+            //healthSlider.gameObject.SetActive(false);
 
 
 

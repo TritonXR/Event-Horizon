@@ -20,12 +20,19 @@ public class JPShip : NetworkBehaviour {
 
     public Material defaultMaterial;
     public Material selectedMaterial;
+    public Material altDefaultMaterial;
+    public bool materialSwitch = true;
 
     public float maxHeight = 10.0f;
     public float minHeight = 0;
 
     public float distanceTol = 10.0f;
+    [SyncVar]
+    public int maxHealth = 1000;
+    [SyncVar]
     public int health = 0;
+    [SyncVar]
+    public float healthPercent = 1;
 
     [SyncVar]
     public int teamNum = 0;
@@ -37,6 +44,9 @@ public class JPShip : NetworkBehaviour {
     public bool lead = true;
     public JPShip leadController;
 
+    public bool destroyed = false;
+    public bool fighter = true;
+
 	// Use this for initialization
 	void Start () {
         //defaultMaterial = this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material;
@@ -44,12 +54,13 @@ public class JPShip : NetworkBehaviour {
             leadController = this;
         }
         offset = wingmenOffsets[squadNum];
+        health = maxHealth;
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        
 	}
 
     public virtual void SetTargetShip(GameObject ship)
@@ -102,13 +113,18 @@ public class JPShip : NetworkBehaviour {
     }
 	private void OnCollisionEnter(Collision collision)
 	{
-        health++;
+        //health++;
 	}
 	private void OnTriggerEnter(Collider other)
 	{
         if (other.gameObject.GetComponent<Projectile>()) {
-            health += other.gameObject.GetComponent<Projectile>().damage;
+            int damageMult = 1;
+            if((other.gameObject.GetComponent<Projectile>().fighter) && (fighter)) {
+                damageMult = 25;
+            }
+            health -= other.gameObject.GetComponent<Projectile>().damage;
             Destroy(other.gameObject);
+            healthPercent = health / maxHealth;
         }
 	}
     public virtual void OnShipControlDisable(bool disable) {
@@ -117,7 +133,7 @@ public class JPShip : NetworkBehaviour {
     [ClientRpc]
     public void RpcSetLeadController(string leadName, int playerNum, int shipNum, int maxNum)
     {
-        print("rpc leadcontroller set called " + leadName);
+        //print("rpc leadcontroller set called " + leadName);
         leadController = GameObject.Find(leadName).GetComponent<JPShip>();
         if(leadName != gameObject.name) {
             lead = false;

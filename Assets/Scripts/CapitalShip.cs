@@ -12,15 +12,38 @@ public class CapitalShip : JPShip {
 		//target = GameObject.Find ("DefaultTarget");
         defaultMaterial = this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material;
         rb = GetComponent<Rigidbody>();
+        offset = wingmenOffsets[squadNum];
+        health = maxHealth;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        //print("Change material " + GetComponent<JPNetworkShip>().teamNumber);
+        if ((GetComponent<JPNetworkShip>().teamNumber != 0) && (materialSwitch))
+        {
+            if (GetComponent<JPNetworkShip>().teamNumber == 2)
+            {
+                defaultMaterial = altDefaultMaterial;
+                this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material = altDefaultMaterial;
+            }
+            print("Change material " + GetComponent<JPNetworkShip>().teamNumber);
+            materialSwitch = false;
+        }
         if(!isServer) {
             
             return;
         }
 
+        if (destroyed)
+        {
+            return;
+        }
+        if (health < 0)
+        {
+            destroyed = true;
+            this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().enabled = false;
+            transform.position = new Vector3(-10000, -10000);
+        }
         if(movementMode == 1) {
             targetPos = target.transform.position;
         }

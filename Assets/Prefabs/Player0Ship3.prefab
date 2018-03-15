@@ -2749,10 +2749,13 @@ MonoBehaviour:
   movementMode: 0
   defaultMaterial: {fileID: 2100000, guid: a9d8565cd2f99b04c94288f457b17456, type: 2}
   selectedMaterial: {fileID: 2100000, guid: d0af7ad49d9e0d54cb487c1c81501239, type: 2}
+  altDefaultMaterial: {fileID: 2100000, guid: 2a2859baeeec7e14785299ea50011ea5, type: 2}
   maxHeight: 10
   minHeight: 0
   distanceTol: 10
+  maxHealth: 1000
   health: 0
+  healthPercent: 1
   teamNum: 0
   wingmen:
   - {fileID: 0}

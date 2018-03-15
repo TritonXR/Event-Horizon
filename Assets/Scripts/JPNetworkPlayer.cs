@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class JPNetworkPlayer : NetworkBehaviour {
 	public GameObject selectedShip;
@@ -13,16 +14,22 @@ public class JPNetworkPlayer : NetworkBehaviour {
     public int playerTeam = 0;
 	public GameObject[] shipList;
 	public GameObject[] spawnedShipList;
-
+    string shipSpawnList = "1,1,2,2,2";
+    public int[] shipSpawnCommandList;
 	JPNetworkHostManager gameManagerHost;
 	// Use this for initialization
 	void Start () {
+        
+
         if(isLocalPlayer) {
+            //PlayerPrefs.SetString("SpawnList", "1,1,2,2,3");
             //print("Player id: " + Network.player.ToString());
             this.name = "LocalPlayer";
             JPUIController.OnSelectTeamOne += SetTeamOne;
             JPUIController.OnSelectTeamTwo += SetTeamTwo;
-
+            GameObject.Find("ServerIP").GetComponent<Text>().text = Network.player.ipAddress;//NetworkManager.singleton.networkAddress;
+            Debug.Log("Sending ship string: " + PlayerPrefs.GetString("SpawnList"));
+            CmdSetShipSpawnString(PlayerPrefs.GetString("SpawnList"));
         }
 		if(isServer) {
             
@@ -36,16 +43,17 @@ public class JPNetworkPlayer : NetworkBehaviour {
     [Command]
     void CmdspawnShips(int team) {
         playerTeam = team;
+
         Transform spawnLoc = GameObject.Find("SpawnTeam" + team).transform;
         gameManagerHost = GameObject.Find("NetworkManager").GetComponent<JPNetworkHostManager>();
         playerNumber = gameManagerHost.getPlayerCount();
         gameManagerHost.incrementPlayerCount(playerNumber);
         RpcSetPlayerNumber(playerNumber);
-        spawnedShipList = new GameObject[shipList.Length];
-        for (int count = 0; count < shipList.Length; count++)
+        spawnedShipList = new GameObject[shipSpawnCommandList.Length];
+        for (int count = 0; count < shipSpawnCommandList.Length; count++)
         {
             
-            GameObject obj = (GameObject)Instantiate(shipList[count], new Vector3(count * 20f, 12.0f, Random.Range(0, 0)) + spawnLoc.transform.position, spawnLoc.transform.rotation);
+            GameObject obj = (GameObject)Instantiate(shipList[shipSpawnCommandList[count]], new Vector3(count * 20f, 12.0f, Random.Range(0, 0)) + spawnLoc.transform.position, spawnLoc.transform.rotation);
             if (obj.GetComponent<JPNetworkShip>().forcePlayerNumber)
             {
                 obj.name = "Player" + "1" + "Ship" + count;
@@ -62,7 +70,7 @@ public class JPNetworkPlayer : NetworkBehaviour {
             squadShips[0] = obj;
 
             for (int countSquad = 1; countSquad < squadShips.Length; countSquad++) {
-                GameObject obj2 = (GameObject)Instantiate(shipList[count], new Vector3(count * 20f, 12.0f, Random.Range(0, 0)) + spawnLoc.transform.position + lead.wingmenOffsets[countSquad], spawnLoc.transform.rotation);
+                GameObject obj2 = (GameObject)Instantiate(shipList[shipSpawnCommandList[count]], new Vector3(count * 20f, 12.0f, Random.Range(0, 0)) + spawnLoc.transform.position + lead.wingmenOffsets[countSquad], spawnLoc.transform.rotation);
                 obj2.name = "Player" + playerNumber + "Ship" + count + "Squad" + countSquad;
                 obj2.GetComponent<JPShip>().leadController = lead;
                 obj2.GetComponent<JPShip>().lead = false;
@@ -98,10 +106,51 @@ public class JPNetworkPlayer : NetworkBehaviour {
       }
 
     }
+    public int ParseCommandString(int min) {
+        string str = shipSpawnList.Substring(min);
+        int pos = str.IndexOf(',');
+
+
+        return int.Parse(str.Substring(0, pos));
+    }
+    public void InitializeShipSpawnList () {
+        shipSpawnCommandList = new int[CountShipSpawn()];
+        int minSearch = 0;
+        int arrayCounter = 0;
+        for (int count = 0; count < shipSpawnList.Length; count++)
+        {
+            if (shipSpawnList.Substring(count, 1).Equals(","))
+            {
+                print(shipSpawnList.Substring(minSearch, (count - minSearch)));
+                shipSpawnCommandList[arrayCounter] = int.Parse(shipSpawnList.Substring(minSearch, (count - minSearch)));
+                arrayCounter++;
+                minSearch = count + 1;
+            }
+        }
+        print(shipSpawnList.Substring(minSearch, (shipSpawnList.Length - minSearch)));
+        shipSpawnCommandList[arrayCounter] = int.Parse(shipSpawnList.Substring(minSearch, (shipSpawnList.Length - minSearch)));
+    }
+    public int CountShipSpawn()
+    {
+        int commaCount = 0;
+        for (int count = 0; count < shipSpawnList.Length; count ++) {
+            if(shipSpawnList.Substring(count, 1).Equals(",")) {
+                commaCount++;
+            }
+        }
+        return commaCount + 1;
+    }
+    [Command]
+    public void CmdSetShipSpawnString(string shipString)
+    {
+        Debug.Log("Server recieved ship string: " + shipString);
+        shipSpawnList = shipString;
+        InitializeShipSpawnList();
+    }
 	[Command]
 	public void CmdSelectShip (string shipName) {
 		selectedShip = GameObject.Find (shipName);
-		print("Ship name recieved by server" + shipName);
+		//print("Ship name recieved by server" + shipName);
 	}
 	[Command]
 	public void CmdSetTargetShip (string shipName) {
