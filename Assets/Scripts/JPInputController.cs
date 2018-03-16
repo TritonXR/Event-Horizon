@@ -22,7 +22,7 @@ public class JPInputController : NetworkBehaviour {
         {
             return;
         }
-        healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
+        //healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
 		networkPlayer = this.GetComponent<JPNetworkPlayer> ();
 		marker = GameObject.Find ("Marker");
 		playerNumber = networkPlayer.playerNumber;
@@ -64,8 +64,8 @@ public class JPInputController : NetworkBehaviour {
                             selectShip(selectedShip);
                         }
                         marker.SetActive(true);
-                        healthSlider.gameObject.SetActive(true);
-                        healthSlider.value = selectedShip.GetComponent<JPShip>().healthPercent;
+                        //healthSlider.gameObject.SetActive(true);
+                        //healthSlider.value = selectedShip.GetComponent<JPShip>().healthPercent;
 					}
 				}
             } else {
@@ -76,7 +76,7 @@ public class JPInputController : NetworkBehaviour {
                 selectedShip = null;
                 targetShip = null;
                 marker.SetActive(false);
-                healthSlider.gameObject.SetActive(false);
+                //healthSlider.gameObject.SetActive(false);
             }
 		} else if(Input.GetMouseButtonUp (0)) {
 			RaycastHit hit;
