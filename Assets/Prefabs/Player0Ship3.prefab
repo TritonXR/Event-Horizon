@@ -905,8 +905,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1318251050415550}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.7362957, y: 16.314522, z: 18.33358}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2700, y: 2700, z: 2700}
   m_Children:
   - {fileID: 4360784229847108}
   - {fileID: 4090788166212762}
@@ -2750,6 +2750,7 @@ MonoBehaviour:
   defaultMaterial: {fileID: 2100000, guid: a9d8565cd2f99b04c94288f457b17456, type: 2}
   selectedMaterial: {fileID: 2100000, guid: d0af7ad49d9e0d54cb487c1c81501239, type: 2}
   altDefaultMaterial: {fileID: 2100000, guid: 2a2859baeeec7e14785299ea50011ea5, type: 2}
+  materialSwitch: 1
   maxHeight: 10
   minHeight: 0
   distanceTol: 10
@@ -2765,6 +2766,8 @@ MonoBehaviour:
   squadNum: 0
   lead: 1
   leadController: {fileID: 0}
+  destroyed: 0
+  fighter: 1
   idle: 0
   speedMagnitude: 0
 --- !u!114 &114136273077462396
