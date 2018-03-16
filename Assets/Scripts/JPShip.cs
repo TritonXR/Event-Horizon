@@ -122,7 +122,7 @@ public class JPShip : NetworkBehaviour {
             if((other.gameObject.GetComponent<Projectile>().fighter) && (fighter)) {
                 damageMult = 25;
             }
-            health -= other.gameObject.GetComponent<Projectile>().damage;
+            //health -= other.gameObject.GetComponent<Projectile>().damage;
             Destroy(other.gameObject);
             healthPercent = health / maxHealth;
         }
