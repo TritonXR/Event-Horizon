@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 4980915987420206}
   - component: {fileID: 54136657752966890}
   - component: {fileID: 65594615923669716}
+  - component: {fileID: 114378865304175816}
   m_Layer: 0
   m_Name: Cockpit
   m_TagString: Untagged
@@ -1313,6 +1314,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c47f92041efbb4b429a4eafca855ebe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114378865304175816
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1086651961347122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f269fe68d17443bb35dc4da2f7db93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlObj: {fileID: 0}
+  controlActive: 0
 --- !u!114 &114398587780171132
 MonoBehaviour:
   m_ObjectHideFlags: 1

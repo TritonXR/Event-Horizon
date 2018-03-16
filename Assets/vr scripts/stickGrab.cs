@@ -44,10 +44,10 @@ public class stickGrab : MonoBehaviour {
 				ship.Rotate (newVec * 6.0f * rotationsPerMinute * Time.deltaTime);
 			} else {
 				//ship.Translate (-1 * ship.forward * Time.deltaTime * zDistance * 10);
-				if (rb.velocity.magnitude >= 100.0f) {
+				if (rb.velocity.magnitude >= 25.0f) {
 					rb.velocity = ship.right * zDistance * 10;
 				} else {
-					rb.AddForce(ship.right * zDistance * 100);
+					rb.AddForce(ship.right * zDistance * 25);
 				}
 				//Rigidbody shipRB = ship.gameObject.GetComponent<Rigidbody> ();
 				//shipRB.AddForce(transform.forward * 10 * zDistance);

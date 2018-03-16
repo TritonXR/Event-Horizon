@@ -22,6 +22,7 @@ public class JPNetworkShip : NetworkBehaviour {
             GameObject singlePlayerControl = GameObject.Find("SinglePlayerController");
 
             singlePlayerControl.GetComponent<JPControlShip>().Activate();
+			transform.GetChild (0).GetComponent<MeshRenderer> ().enabled = false;
 
             //transform.parent = singlePlayerControl.transform;
             //transform.position = Vector3.zero;

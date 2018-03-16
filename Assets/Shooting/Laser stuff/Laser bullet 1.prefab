@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114446160252226432}
   - component: {fileID: 114911596217031584}
   m_Layer: 0
-  m_Name: Laser bullet
+  m_Name: Laser bullet 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,22 +116,22 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 65
-    i1: 65
-    i2: 206
-    i3: 107
-    i4: 93
-    i5: 121
-    i6: 196
-    i7: 98
-    i8: 217
-    i9: 30
-    i10: 2
-    i11: 246
-    i12: 30
-    i13: 84
-    i14: 157
-    i15: 255
+    i0: 184
+    i1: 99
+    i2: 109
+    i3: 205
+    i4: 111
+    i5: 99
+    i6: 71
+    i7: 100
+    i8: 104
+    i9: 101
+    i10: 226
+    i11: 126
+    i12: 77
+    i13: 125
+    i14: 66
+    i15: 232
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!114 &114446160252226432
