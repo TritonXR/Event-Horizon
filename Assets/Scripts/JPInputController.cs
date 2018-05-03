@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
@@ -43,6 +44,10 @@ public class JPInputController : NetworkBehaviour {
         }
         //print("LOCAL UI CONTROLLER " + localUI.targetMode);
 		if (Input.GetMouseButtonDown (0)) {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                Debug.Log("Clicked on the UI");
+            }
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			Debug.DrawRay (ray.origin, ray.direction * 100000, Color.yellow, 0.0f, false);
@@ -79,33 +84,41 @@ public class JPInputController : NetworkBehaviour {
                 //healthSlider.gameObject.SetActive(false);
             }
 		} else if(Input.GetMouseButtonUp (0)) {
-			RaycastHit hit;
-			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-			Debug.DrawRay (ray.origin, ray.direction * 100000, Color.yellow, 0.0f, false);
-			float rayDistance;
-
-            // Ship Targeted
-            if (targetMode == 1)
+            if (EventSystem.current.IsPointerOverGameObject())
             {
-                if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Contains("Ship")))
+                Debug.Log("Clicked Up on the UI");
+            }
+            else
+            {
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Debug.DrawRay(ray.origin, ray.direction * 100000, Color.yellow, 0.0f, false);
+                float rayDistance;
+
+                // Ship Targeted
+                if (targetMode == 1)
                 {
-                    if (selectedShip != null)
+                    if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Contains("Ship")))
                     {
-                        setTargetShip(hit.collider.gameObject);
-                        marker.transform.position = hit.collider.gameObject.transform.position;
-                        //marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
+                        if (selectedShip != null)
+                        {
+                            setTargetShip(hit.collider.gameObject);
+                            marker.transform.position = hit.collider.gameObject.transform.position;
+                            //marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
+                        }
                     }
                 }
-            }
-            else if (targetMode == 0) {
-			// Position Targeted
-			    if (groundPlane.Raycast(ray, out rayDistance))
+                else if (targetMode == 0)
                 {
-                    if (selectedShip != null)
+                    // Position Targeted
+                    if (groundPlane.Raycast(ray, out rayDistance))
                     {
-                        setTargetPosition(ray.GetPoint(rayDistance));
-                        marker.transform.position = ray.GetPoint(rayDistance);
-                        //marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
+                        if (selectedShip != null)
+                        {
+                            setTargetPosition(ray.GetPoint(rayDistance));
+                            marker.transform.position = ray.GetPoint(rayDistance);
+                            //marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
+                        }
                     }
                 }
             }
@@ -154,7 +167,7 @@ public class JPInputController : NetworkBehaviour {
             return;
         }
         targetMode = 0;
-        print("Mode Move");
+        print("Mode Move 0");
 
     }
     public void setModeTarget()
@@ -166,7 +179,7 @@ public class JPInputController : NetworkBehaviour {
             return;
         }
         targetMode = 1; 
-        print("Mode Target");
+        print("Mode Target 1");
 
     }
     public void setModeCancel () {

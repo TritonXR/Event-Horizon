@@ -742,8 +742,8 @@ MonoBehaviour:
   - {fileID: 0}
   wingmenOffsets:
   - {x: 0, y: 6, z: 0}
-  - {x: 5, y: 4, z: -8}
-  - {x: -5, y: 8, z: -8}
+  - {x: -15, y: 4, z: -20}
+  - {x: 15, y: 8, z: -20}
   offset: {x: 0, y: 0, z: 0}
   squadNum: 0
   lead: 1
@@ -751,6 +751,7 @@ MonoBehaviour:
   destroyed: 0
   fighter: 1
   targetPos: {x: 0, y: 0, z: 0}
+  divergeAmt: 1
   showTargetVector: {x: 0, y: 0, z: 0}
   showTarget: {fileID: 0}
   avoiding: 0

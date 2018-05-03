@@ -2765,6 +2765,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   stationary: 0
   turnSpeed: 1
+  fireRate: 15
 --- !u!114 &114074035293257512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2787,11 +2788,23 @@ MonoBehaviour:
   movementMode: 0
   defaultMaterial: {fileID: 2100000, guid: a9d8565cd2f99b04c94288f457b17456, type: 2}
   selectedMaterial: {fileID: 2100000, guid: d0af7ad49d9e0d54cb487c1c81501239, type: 2}
+  altDefaultMaterial: {fileID: 0}
+  materialSwitch: 1
   maxHeight: 10
   minHeight: 0
   distanceTol: 10
+  maxHealth: 1000
   health: 0
+  healthPercent: 1
   teamNum: 0
+  wingmen: []
+  wingmenOffsets: []
+  offset: {x: 0, y: 0, z: 0}
+  squadNum: 0
+  lead: 1
+  leadController: {fileID: 0}
+  destroyed: 0
+  fighter: 1
   idle: 0
   speedMagnitude: 0
 --- !u!114 &114083316415041282
@@ -2880,6 +2893,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   stationary: 0
   turnSpeed: 1
+  fireRate: 15
 --- !u!114 &114343001342029092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2909,6 +2923,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   stationary: 0
   turnSpeed: 1
+  fireRate: 15
 --- !u!114 &114447224159321102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2926,6 +2941,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   stationary: 0
   turnSpeed: 1
+  fireRate: 15
 --- !u!114 &114513709238511086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2977,9 +2993,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gamePlayerNumber: 0
   clientPlayerNumber: 0
+  teamNumber: 0
   forcePlayerNumber: 0
   playerNumber: 0
   localPlayer: 0
+  fighterControl: 0
 --- !u!114 &114619875538174854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3035,6 +3053,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   stationary: 0
   turnSpeed: 1
+  fireRate: 15
 --- !u!114 &114695084134856462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3052,6 +3071,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   stationary: 0
   turnSpeed: 1
+  fireRate: 15
 --- !u!114 &114751774415420190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3112,6 +3132,7 @@ MonoBehaviour:
   laser: {fileID: 0}
   stationary: 0
   turnSpeed: 1
+  fireRate: 15
 --- !u!114 &114807721361323028
 MonoBehaviour:
   m_ObjectHideFlags: 1

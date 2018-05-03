@@ -81,11 +81,16 @@ public class JPShip : NetworkBehaviour {
     {
         if (lead)
         {
-            for (int count = 1; count < wingmen.Length; count++)
+            for (int count = 0; count < wingmen.Length; count++)
             {
-                wingmen[count].GetComponent<JPShip>().SetTargetPosition(vector);
+                wingmen[count].GetComponent<JPShip>().SetPos(vector);
             }
         }
+        this.targetVector = vector;
+        this.targetRotation = Quaternion.LookRotation(vector);
+        movementMode = 2;
+    }
+    public virtual void SetPos (Vector3 vector) {
         this.targetVector = vector;
         this.targetRotation = Quaternion.LookRotation(vector);
         movementMode = 2;
