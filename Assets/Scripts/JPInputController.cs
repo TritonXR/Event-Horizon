@@ -104,7 +104,7 @@ public class JPInputController : NetworkBehaviour {
                 }
                 else
                 {
-                    if (tapCount > 1)
+                    if (tapCount > 0)
                     {
 
                         if (selectedShip != null)
