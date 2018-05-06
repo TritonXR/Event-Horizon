@@ -176,6 +176,12 @@ public class JPNetworkPlayer : NetworkBehaviour {
 		}*/
 		//print("Insert code to set position here");
 	}
+    [Command]
+    public void CmdSetMode(int mode)
+    {
+        selectedShip.GetComponent<JPShip>().leadController.SetMode(mode);
+        print("Setting mode " + mode);
+    }
 	[ClientRpc]
 	void RpcSetPlayerNumber (int playerNum) {
 		playerNumber = playerNum;

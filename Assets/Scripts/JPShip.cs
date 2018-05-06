@@ -37,6 +37,9 @@ public class JPShip : NetworkBehaviour {
     [SyncVar]
     public int teamNum = 0;
 
+    [SyncVar]
+    public int specMode = 0;
+
     public GameObject[] wingmen;
     public Vector3[] wingmenOffsets;
     public Vector3 offset;
@@ -47,6 +50,7 @@ public class JPShip : NetworkBehaviour {
     public bool destroyed = false;
     public bool fighter = true;
 
+    public GameObject hpShow;
 	// Use this for initialization
 	void Start () {
         //defaultMaterial = this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material;
@@ -55,7 +59,8 @@ public class JPShip : NetworkBehaviour {
         }
         offset = wingmenOffsets[squadNum];
         health = maxHealth;
-
+        //hpShow = transform.Find("HP").gameObject;
+        //hpShow.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -110,10 +115,12 @@ public class JPShip : NetworkBehaviour {
         if (selected)
         {
             this.transform.GetChild(0).GetComponent<Renderer>().material = selectedMaterial;
+            hpShow.SetActive(true);
         }
         else
         {
             this.transform.GetChild(0).GetComponent<Renderer>().material = defaultMaterial;
+            hpShow.SetActive(false);
         }
     }
 	private void OnCollisionEnter(Collision collision)
@@ -146,6 +153,17 @@ public class JPShip : NetworkBehaviour {
         for (int count = 0; count < maxNum; count ++) {
             wingmen[count] = GameObject.Find("Player" + playerNum + "Ship" + shipNum + "Squad" + count);
         }
+
+    }
+    public void SetMode (int newMode) {
+        if(lead) {
+            
+            for (int count = 1; count < wingmen.Length; count++)
+            {
+                wingmen[count].GetComponent<JPShip>().SetMode(newMode);
+            }
+        }
+        specMode = newMode;
 
     }
 }

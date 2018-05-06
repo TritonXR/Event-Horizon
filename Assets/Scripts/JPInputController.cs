@@ -17,6 +17,14 @@ public class JPInputController : NetworkBehaviour {
     public int targetMode = 0;
     JPUIController localUI;
     Slider healthSlider;
+
+    GameObject targetedShip;
+
+    Vector3 selectStartPos;
+    bool selectStart = true;
+
+    float minPullDistance = 50f;
+    int tapCount = 0;
 	// Use this for initialization
 	void Start () {
         if (!isLocalPlayer)
@@ -31,6 +39,9 @@ public class JPInputController : NetworkBehaviour {
         JPUIController.OnModeCancel += setModeCancel;
         JPUIController.OnModeMove += setModeMove;
         JPUIController.OnModeTarget += setModeTarget;
+        JPUIController.OnDefendMode += SetDefendMode;
+        JPUIController.OnAttackMode += SetAttackMode;
+        JPUIController.OnSpeedMode += SetSpeedMode;
         localUI = GetComponent<JPUIController>();
         marker.SetActive(false);
 	}
@@ -48,40 +59,65 @@ public class JPInputController : NetworkBehaviour {
             {
                 Debug.Log("Clicked on the UI");
             }
-			RaycastHit hit;
-			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-			Debug.DrawRay (ray.origin, ray.direction * 100000, Color.yellow, 0.0f, false);
-            if (Physics.Raycast (ray, out hit, Mathf.Infinity, touchMask)) {
-                Debug.Log(hit.collider.name);
-				if (hit.collider.gameObject.transform.name.Contains ("Ship")) {
-                    if (hit.collider.gameObject.name.Contains ("Player" + networkPlayer.playerNumber)) { 
-                        if (selectedShip != null) {
+            else
+            {
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Debug.DrawRay(ray.origin, ray.direction * 100000, Color.yellow, 0.0f, false);
+                selectStart = false;
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, touchMask))
+                {
+                    Debug.Log(hit.collider.name);
+                    if (hit.collider.gameObject.transform.name.Contains("Ship"))
+                    {
+                        if ((selectedShip == null) && (hit.collider.gameObject.name.Contains("Player" + networkPlayer.playerNumber)))
+                        {
+                            if (selectedShip != null)
+                            {
+                                selectedShip.GetComponent<JPShip>().leadController.SetSelected(false);
+                            }
+                            if (hit.collider.gameObject.name.Contains("Fighter"))
+                            {
+                                //Debug.Log("Got Squad lead " + hit.collider.transform.parent.name);
+                                selectedShip = hit.collider.transform.parent.gameObject;
+                                selectedShip.GetComponent<JPShip>().leadController.SetSelected(true);
+                                selectShip(selectedShip);
+                            }
+                            else
+                            {
+                                selectedShip = hit.collider.gameObject;
+                                selectedShip.GetComponent<JPShip>().leadController.SetSelected(true);
+                                selectShip(selectedShip);
+                            }
+                            marker.SetActive(true);
+                            selectStart = true;
+                            selectStartPos = selectedShip.transform.position;
+
+                            tapCount = 0;
+                            //targetMode = 0;
+                            //healthSlider.gameObject.SetActive(true);
+                            //healthSlider.value = selectedShip.GetComponent<JPShip>().healthPercent;
+                        } else {
+                            tapCount++;
+                        }
+                    }
+                }
+                else
+                {
+                    if (tapCount > 1)
+                    {
+
+                        if (selectedShip != null)
+                        {
                             selectedShip.GetComponent<JPShip>().leadController.SetSelected(false);
                         }
-                        if(hit.collider.gameObject.name.Contains("Fighter")) {
-                            //Debug.Log("Got Squad lead " + hit.collider.transform.parent.name);
-                            selectedShip = hit.collider.transform.parent.gameObject;
-                            selectedShip.GetComponent<JPShip>().leadController.SetSelected(true);
-                            selectShip(selectedShip);
-                        } else {
-                            selectedShip = hit.collider.gameObject;
-                            selectedShip.GetComponent<JPShip>().leadController.SetSelected(true);
-                            selectShip(selectedShip);
-                        }
-                        marker.SetActive(true);
-                        //healthSlider.gameObject.SetActive(true);
-                        //healthSlider.value = selectedShip.GetComponent<JPShip>().healthPercent;
-					}
-				}
-            } else {
-                if (selectedShip != null)
-                {
-                    selectedShip.GetComponent<JPShip>().leadController.SetSelected(false);
+                        selectedShip = null;
+                        targetShip = null;
+                        marker.SetActive(false);
+                        //healthSlider.gameObject.SetActive(false);
+                    }
+                    tapCount++;
                 }
-                selectedShip = null;
-                targetShip = null;
-                marker.SetActive(false);
-                //healthSlider.gameObject.SetActive(false);
             }
 		} else if(Input.GetMouseButtonUp (0)) {
             if (EventSystem.current.IsPointerOverGameObject())
@@ -104,6 +140,8 @@ public class JPInputController : NetworkBehaviour {
                         {
                             setTargetShip(hit.collider.gameObject);
                             marker.transform.position = hit.collider.gameObject.transform.position;
+                            targetedShip = hit.collider.gameObject;
+                            tapCount = 2;
                             //marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
                         }
                     }
@@ -113,13 +151,20 @@ public class JPInputController : NetworkBehaviour {
                     // Position Targeted
                     if (groundPlane.Raycast(ray, out rayDistance))
                     {
-                        if (selectedShip != null)
+                        if ((!selectStart) || (Vector3.Distance(selectStartPos, ray.GetPoint(rayDistance)) > minPullDistance))
                         {
-                            setTargetPosition(ray.GetPoint(rayDistance));
-                            marker.transform.position = ray.GetPoint(rayDistance);
-                            //marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
+                            if (selectedShip != null)
+                            {
+                                setTargetPosition(ray.GetPoint(rayDistance));
+                                marker.transform.position = ray.GetPoint(rayDistance);
+                                targetedShip = null;
+                                tapCount = 2;
+                                //marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
+                            }
                         }
                     }
+                } else {
+                    targetedShip = null;
                 }
             }
             if (selectedShip != null)
@@ -136,13 +181,60 @@ public class JPInputController : NetworkBehaviour {
 		} else if(Input.GetMouseButton (0)) {
 				
 			if(selectedShip) {
-				//RaycastHit hit;
-				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-				float rayDistance;
-				groundPlane.Raycast (ray, out rayDistance);
-				marker.transform.position = ray.GetPoint (rayDistance);
+                //RaycastHit hit;
+                if (targetMode == 0)
+                {
+                    marker.GetComponent<MarkerController>().setMode(0);
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    float rayDistance;
+                    groundPlane.Raycast(ray, out rayDistance);
+                    if ((!selectStart) || (Vector3.Distance(selectStartPos, ray.GetPoint(rayDistance)) > minPullDistance))
+                    {
+                        
+                        marker.transform.position = ray.GetPoint(rayDistance);
+                        //print(selectStartPos + " " + ray.GetPoint(rayDistance) + " = " + Vector3.Distance(selectStartPos, ray.GetPoint(rayDistance)));
+                    
+                    } else {
+                        //print(selectStartPos + " " + ray.GetPoint(rayDistance) + " = " + Vector3.Distance(selectStartPos, ray.GetPoint(rayDistance)));
+                    }
+
+                } else if(targetMode == 1) {
+                    marker.GetComponent<MarkerController>().setMode(1);
+                    RaycastHit hit;
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    Debug.DrawRay(ray.origin, ray.direction * 100000, Color.yellow, 0.0f, false);
+                    float rayDistance;
+
+                    if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Contains("Ship")))
+                    {
+                        if (selectedShip != null)
+                        {
+                            setTargetShip(hit.collider.gameObject);
+                            Vector3 showPos = hit.collider.gameObject.transform.position;
+                            showPos.y = 50f;
+                            marker.transform.position = showPos;
+                            //marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
+                        }
+                    } else {
+                        
+                        groundPlane.Raycast(ray, out rayDistance);
+                        marker.transform.position = ray.GetPoint(rayDistance);
+                    }
+
+
+
+
+                }
 			}
-		}	
+        } else {
+            if(targetMode == 1) {
+                if(targetedShip != null) {
+                    Vector3 showPos = targetedShip.transform.position;
+                    showPos.y = 50f;
+                    marker.transform.position = showPos;
+                }
+            }
+        }	
 	}
 	void selectShip (GameObject ship) {
 		networkPlayer.CmdSelectShip (ship.name);
@@ -157,7 +249,12 @@ public class JPInputController : NetworkBehaviour {
 		networkPlayer.CmdSetPosition (pos);
 		print ("Targeted position " + pos);
 	}
-
+    void setTargetMode(int mode)
+    {
+        
+        networkPlayer.CmdSetMode(mode);
+        print("Settting mode " + mode);
+    }
 
     public void setModeMove () {
         //print("Mode Move");
@@ -167,6 +264,7 @@ public class JPInputController : NetworkBehaviour {
             return;
         }
         targetMode = 0;
+        tapCount = 0;
         print("Mode Move 0");
 
     }
@@ -178,7 +276,8 @@ public class JPInputController : NetworkBehaviour {
         {
             return;
         }
-        targetMode = 1; 
+        targetMode = 1;
+        tapCount = 0;
         print("Mode Target 1");
 
     }
@@ -201,6 +300,17 @@ public class JPInputController : NetworkBehaviour {
         targetMode = 0;
         marker.SetActive(false);
 
+    }
+
+    public void SetDefendMode () {
+        setTargetMode(0);
+    }
+    public void SetAttackMode()
+    {
+        setTargetMode(1);
+    }
+    public void SetSpeedMode () {
+        setTargetMode(2);
     }
 
 

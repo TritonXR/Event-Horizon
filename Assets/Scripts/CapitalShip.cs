@@ -123,10 +123,12 @@ public class CapitalShip : JPShip {
         if (selected)
         {
             this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material = selectedMaterial;
+            hpShow.SetActive(true);
         }
         else
         {
             this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material = defaultMaterial;
+            hpShow.SetActive(false);
         }
     }
 
