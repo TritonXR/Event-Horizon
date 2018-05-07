@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: 8326d0a79be49f444927f546414af952
+guid: 5bbf5a2d2e10689488f2929fe3c05f89
 TextureImporter:
   fileIDToRecycleName:
-    21300000: uiButtonChip_0
-    21300002: uiButtonChip_1
-    21300004: uiButtonChip_2
-    21300006: uiButtonChip_3
-    21300008: uiButtonChip_4
-    21300010: uiButtonChip_5
+    21300000: uiSlider_0
+    21300002: uiSlider_1
+    21300004: uiSlider_2
+    21300006: uiSlider_3
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -88,121 +86,81 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: uiButtonChip_0
+      name: uiSlider_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 169
-        width: 135
-        height: 131
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 42, z: 45, w: 42}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 17ce31a0e1f84ef43a56d0002aba8725
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: uiButtonChip_1
-      rect:
-        serializedVersion: 2
-        x: 183
-        y: 169
-        width: 135
-        height: 130
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 42, z: 45, w: 42}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f7c29c12fe1263741be512aa476f6936
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: uiButtonChip_2
-      rect:
-        serializedVersion: 2
-        x: 352
-        y: 168
-        width: 136
+        x: 35
+        y: 385
+        width: 205
         height: 132
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 42, z: 45, w: 42}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6bf748e41b1e3048a6dda77dbb96bb5
+      spriteID: d74760f9fd76e5443a55959deec01a0d
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: uiButtonChip_3
+      name: uiSlider_1
       rect:
         serializedVersion: 2
-        x: 14
-        y: 21
-        width: 135
-        height: 131
+        x: 287
+        y: 385
+        width: 205
+        height: 132
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 42, z: 45, w: 42}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9290217e704a636499f71a3dca99ab18
+      spriteID: 5bdd1b7091b6c11478fa81c6198ceff7
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: uiButtonChip_4
+      name: uiSlider_2
       rect:
         serializedVersion: 2
-        x: 184
-        y: 20
-        width: 136
-        height: 131
+        x: 114
+        y: 112
+        width: 2256
+        height: 207
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 42, z: 45, w: 42}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebb9093ffe6806e47b1dbcbbc0192f30
+      spriteID: 6d9bbf7911fd8924688b08193a0cfe1f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: uiButtonChip_5
+      name: uiSlider_3
       rect:
         serializedVersion: 2
-        x: 352
-        y: 21
-        width: 138
-        height: 131
+        x: 114
+        y: 55
+        width: 2256
+        height: 31
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 42, z: 45, w: 42}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e1c2d6b91c70e3428d736e8273c6f4e
+      spriteID: f778a7001ddf2dc4fa90acfd720f9862
       vertices: []
       indices: 
       edges: []
@@ -210,7 +168,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 819829ed9ec9e764cb9e40a5697cf190
+    spriteID: fa7b36aaa0efdd44d92b0677c98547ee
     vertices: []
     indices: 
     edges: []

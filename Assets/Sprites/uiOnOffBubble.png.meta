@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: 8326d0a79be49f444927f546414af952
+guid: afa6ea24536ea7e40801374459d6942c
 TextureImporter:
   fileIDToRecycleName:
-    21300000: uiButtonChip_0
-    21300002: uiButtonChip_1
-    21300004: uiButtonChip_2
-    21300006: uiButtonChip_3
-    21300008: uiButtonChip_4
-    21300010: uiButtonChip_5
+    21300000: uiOnOffBubble_0
+    21300002: uiOnOffBubble_1
+    21300004: uiOnOffBubble_2
+    21300006: uiOnOffBubble_3
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -51,7 +49,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -88,121 +86,81 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: uiButtonChip_0
+      name: uiOnOffBubble_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 169
-        width: 135
-        height: 131
+        x: 16
+        y: 180
+        width: 169
+        height: 170
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 42, z: 45, w: 42}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 17ce31a0e1f84ef43a56d0002aba8725
+      spriteID: 34e12bc2d5a81114b88284e960e0dc62
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: uiButtonChip_1
+      name: uiOnOffBubble_1
       rect:
         serializedVersion: 2
-        x: 183
-        y: 169
-        width: 135
-        height: 130
+        x: 203
+        y: 180
+        width: 169
+        height: 172
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 42, z: 45, w: 42}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f7c29c12fe1263741be512aa476f6936
+      spriteID: 8b42baf7672881b48a5038ac8b86ab4c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: uiButtonChip_2
+      name: uiOnOffBubble_2
       rect:
         serializedVersion: 2
-        x: 352
-        y: 168
-        width: 136
-        height: 132
+        x: 16
+        y: 8
+        width: 169
+        height: 169
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 42, z: 45, w: 42}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6bf748e41b1e3048a6dda77dbb96bb5
+      spriteID: 65477b6897d40c7498191368ba733fc0
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: uiButtonChip_3
+      name: uiOnOffBubble_3
       rect:
         serializedVersion: 2
-        x: 14
-        y: 21
-        width: 135
-        height: 131
+        x: 203
+        y: 8
+        width: 169
+        height: 169
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 42, z: 45, w: 42}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9290217e704a636499f71a3dca99ab18
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: uiButtonChip_4
-      rect:
-        serializedVersion: 2
-        x: 184
-        y: 20
-        width: 136
-        height: 131
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 42, z: 45, w: 42}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ebb9093ffe6806e47b1dbcbbc0192f30
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: uiButtonChip_5
-      rect:
-        serializedVersion: 2
-        x: 352
-        y: 21
-        width: 138
-        height: 131
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 42, z: 45, w: 42}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9e1c2d6b91c70e3428d736e8273c6f4e
+      spriteID: 80a63065b3ad4fb43bcd21a3b397ac5d
       vertices: []
       indices: 
       edges: []
@@ -210,7 +168,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 819829ed9ec9e764cb9e40a5697cf190
+    spriteID: abda15700f724c54ea132130982842c0
     vertices: []
     indices: 
     edges: []
