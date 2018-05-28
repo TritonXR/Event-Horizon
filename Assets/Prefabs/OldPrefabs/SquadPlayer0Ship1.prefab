@@ -634,7 +634,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1797949139171790}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 39.704594, y: 57.896847, z: 19.900589}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 4368370367790578}
@@ -896,7 +896,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1987060471069986}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0248, y: 0.0941, z: -0.0846}
+  m_LocalPosition: {x: 0.0617, y: 0.0941, z: -0.176}
   m_LocalScale: {x: 0.003650903, y: 0.0036509025, z: 0.0036509044}
   m_Children:
   - {fileID: 4169203215939422}
@@ -970,7 +970,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1498665255621774}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0488, y: 0.1264, z: -0.0724}
+  m_LocalPosition: {x: -0.1039, y: 0.1264, z: -0.1679}
   m_LocalScale: {x: 0.003650903, y: 0.0036509025, z: 0.0036509042}
   m_Children:
   - {fileID: 4265563163595748}
@@ -2101,10 +2101,14 @@ MonoBehaviour:
   movementMode: 2
   defaultMaterial: {fileID: 0}
   selectedMaterial: {fileID: 2100000, guid: d0af7ad49d9e0d54cb487c1c81501239, type: 2}
+  altDefaultMaterial: {fileID: 0}
+  materialSwitch: 1
   maxHeight: 35
   minHeight: 0
   distanceTol: 10
+  maxHealth: 1000
   health: 0
+  healthPercent: 1
   teamNum: 0
   wingmen: []
   wingmenOffsets: []
@@ -2112,8 +2116,9 @@ MonoBehaviour:
   squadNum: 0
   lead: 1
   leadController: {fileID: 0}
+  destroyed: 0
+  fighter: 1
   targetPos: {x: 0, y: 0, z: 0}
-  offset: {x: 0, y: 0, z: 0}
   showTargetVector: {x: 0, y: 0, z: 0}
   showTarget: {fileID: 0}
   avoiding: 0
@@ -2233,10 +2238,14 @@ MonoBehaviour:
   movementMode: 2
   defaultMaterial: {fileID: 0}
   selectedMaterial: {fileID: 2100000, guid: d0af7ad49d9e0d54cb487c1c81501239, type: 2}
+  altDefaultMaterial: {fileID: 0}
+  materialSwitch: 1
   maxHeight: 35
   minHeight: 0
   distanceTol: 10
+  maxHealth: 1000
   health: 0
+  healthPercent: 1
   teamNum: 0
   wingmen: []
   wingmenOffsets: []
@@ -2244,8 +2253,9 @@ MonoBehaviour:
   squadNum: 0
   lead: 1
   leadController: {fileID: 0}
+  destroyed: 0
+  fighter: 1
   targetPos: {x: 0, y: 0, z: 0}
-  offset: {x: 0, y: 0, z: 0}
   showTargetVector: {x: 0, y: 0, z: 0}
   showTarget: {fileID: 0}
   avoiding: 0
@@ -2317,10 +2327,14 @@ MonoBehaviour:
   movementMode: 2
   defaultMaterial: {fileID: 0}
   selectedMaterial: {fileID: 0}
+  altDefaultMaterial: {fileID: 0}
+  materialSwitch: 1
   maxHeight: 35
   minHeight: 0
   distanceTol: 35
+  maxHealth: 1000
   health: 0
+  healthPercent: 1
   teamNum: 0
   wingmen: []
   wingmenOffsets: []
@@ -2328,6 +2342,8 @@ MonoBehaviour:
   squadNum: 0
   lead: 1
   leadController: {fileID: 0}
+  destroyed: 0
+  fighter: 1
   ships: []
   shipPos: []
   shipCtrl: []
@@ -2373,10 +2389,14 @@ MonoBehaviour:
   movementMode: 2
   defaultMaterial: {fileID: 0}
   selectedMaterial: {fileID: 2100000, guid: d0af7ad49d9e0d54cb487c1c81501239, type: 2}
+  altDefaultMaterial: {fileID: 0}
+  materialSwitch: 1
   maxHeight: 35
   minHeight: 0
   distanceTol: 10
+  maxHealth: 1000
   health: 0
+  healthPercent: 1
   teamNum: 0
   wingmen: []
   wingmenOffsets: []
@@ -2384,8 +2404,9 @@ MonoBehaviour:
   squadNum: 0
   lead: 1
   leadController: {fileID: 0}
+  destroyed: 0
+  fighter: 1
   targetPos: {x: 0, y: 0, z: 0}
-  offset: {x: 0, y: 0, z: 0}
   showTargetVector: {x: 0, y: 0, z: 0}
   showTarget: {fileID: 0}
   avoiding: 0

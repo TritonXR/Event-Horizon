@@ -37,6 +37,9 @@ public class JPShip : NetworkBehaviour {
     [SyncVar]
     public int teamNum = 0;
 
+    [SyncVar]
+    public int specMode = 0;
+
     public GameObject[] wingmen;
     public Vector3[] wingmenOffsets;
     public Vector3 offset;
@@ -47,6 +50,12 @@ public class JPShip : NetworkBehaviour {
     public bool destroyed = false;
     public bool fighter = true;
 
+    public GameObject hpShow;
+
+    public BaseSkill[] skills = new BaseSkill[3];
+    public bool warping = false;
+    public Vector3 warpTarget;
+
 	// Use this for initialization
 	void Start () {
         //defaultMaterial = this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material;
@@ -55,12 +64,22 @@ public class JPShip : NetworkBehaviour {
         }
         offset = wingmenOffsets[squadNum];
         health = maxHealth;
-
+        //hpShow = transform.Find("HP").gameObject;
+        //hpShow.SetActive(false);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        
+        if(warping) {
+            if(Vector3.Distance(transform.position, warpTarget) < 10f) {
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                warping = false;
+            } else {
+                float step = 500f * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, warpTarget, step);
+            }
+            return;
+        }
 	}
 
     public virtual void SetTargetShip(GameObject ship)
@@ -81,11 +100,16 @@ public class JPShip : NetworkBehaviour {
     {
         if (lead)
         {
-            for (int count = 1; count < wingmen.Length; count++)
+            for (int count = 0; count < wingmen.Length; count++)
             {
-                wingmen[count].GetComponent<JPShip>().SetTargetPosition(vector);
+                wingmen[count].GetComponent<JPShip>().SetPos(vector);
             }
         }
+        this.targetVector = vector;
+        this.targetRotation = Quaternion.LookRotation(vector);
+        movementMode = 2;
+    }
+    public virtual void SetPos (Vector3 vector) {
         this.targetVector = vector;
         this.targetRotation = Quaternion.LookRotation(vector);
         movementMode = 2;
@@ -105,10 +129,12 @@ public class JPShip : NetworkBehaviour {
         if (selected)
         {
             this.transform.GetChild(0).GetComponent<Renderer>().material = selectedMaterial;
+            hpShow.SetActive(true);
         }
         else
         {
             this.transform.GetChild(0).GetComponent<Renderer>().material = defaultMaterial;
+            hpShow.SetActive(false);
         }
     }
 	private void OnCollisionEnter(Collision collision)
@@ -142,5 +168,44 @@ public class JPShip : NetworkBehaviour {
             wingmen[count] = GameObject.Find("Player" + playerNum + "Ship" + shipNum + "Squad" + count);
         }
 
+    }
+    public void SetMode (int newMode) {
+        if(lead) {
+            
+            for (int count = 1; count < wingmen.Length; count++)
+            {
+                wingmen[count].GetComponent<JPShip>().SetMode(newMode);
+            }
+        }
+        specMode = newMode;
+
+    }
+
+    public void TriggerSkill(int skillNum) {
+        if(skills[skillNum] != null) {
+            skills[skillNum].TriggerSkill();
+        }
+
+    }
+    public void TriggerSkillLocation(int skillNum, Vector3 pos)
+    {
+        if (skills[skillNum] != null)
+        {
+            skills[skillNum].TriggerSkillLocation(pos);
+        }
+
+    }
+    public void TriggerSkillTarget(int skillNum, GameObject target)
+    {
+        if (skills[skillNum] != null)
+        {
+            skills[skillNum].TriggerSkillTarget(target);
+        }
+
+    }
+    public void JumpToLocation (Vector3 pos) {
+        print("Jumping");
+        warping = true;
+        warpTarget = pos;
     }
 }

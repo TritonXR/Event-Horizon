@@ -8,6 +8,7 @@ public class JPFighter : JPShip {
 
     public Vector3 targetPos;
 
+    public float divergeAmt = 100f;
 
     public Vector3 showTargetVector;
     public GameObject showTarget;
@@ -42,13 +43,14 @@ public class JPFighter : JPShip {
         defaultMaterial = transform.GetChild(0).GetComponent<Renderer>().material;
         //movementMode = 1;
         idle = true;
-        offset = wingmenOffsets[squadNum];
+        offset = leadController.wingmenOffsets[squadNum];
         health = maxHealth;
 	}
 
     // Update is called once per frame
     void Update()
     {
+        
         /*if (!serverControl)
         {
             mode = "Not Server";
@@ -68,6 +70,20 @@ public class JPFighter : JPShip {
         if (!isServer)
         {
             mode = "is Not server";
+            return;
+        }
+        if (warping)
+        {
+            if (Vector3.Distance(transform.position, warpTarget) < 10f)
+            {
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                warping = false;
+            }
+            else
+            {
+                float step = 500f * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, warpTarget, step);
+            }
             return;
         }
         if (destroyed)
@@ -171,7 +187,7 @@ public class JPFighter : JPShip {
             }
             targetPos = finalTarget;
 
-            targetPos = targetPos + (offset * 150.0f);
+            targetPos = targetPos + (offset * divergeAmt);
             targetPos.y = 14f;  
 
             Vector3 fwd = transform.TransformDirection(Vector3.forward) * rangeDist;
@@ -186,7 +202,7 @@ public class JPFighter : JPShip {
                 mode = "Normal Movement";
             }
             dist = Vector3.Distance(transform.position, targetPos);
-            if(dist < distanceTol/10) {
+            if(dist < distanceTol/20) {
                 idle = true;
             }
         } else if(idle) {
@@ -212,7 +228,7 @@ public class JPFighter : JPShip {
                 targetPos = targetVector;
 
             }
-            targetPos = targetPos + (offset * 100.0f);
+            targetPos = targetPos + (offset * divergeAmt);
             dist = Vector3.Distance(transform.position, targetPos);
 
             if (dist < distanceTol)
@@ -334,13 +350,24 @@ public class JPFighter : JPShip {
     }
     public override void SetTargetPosition(Vector3 vector)
     {
-        
-        base.SetTargetPosition(vector);
-        movementMode = 2;
-        targetVector += offset;
+        if (lead)
+        {
+            base.SetTargetPosition(vector);
 
+        } else {
+            leadController.SetTargetPosition(vector);
+        }
+        print("SetPos");
+        //movementMode = 2;
+        //targetVector += offset;
     }
-    public void SetOffset(Vector3 vector) {
+	public override void SetPos(Vector3 vector)
+	{
+        base.SetPos(vector);
+        targetVector += offset;
+        idle = false;
+	}
+	public void SetOffset(Vector3 vector) {
         offset = vector;
     }
     public void SetController(JPSquadron controller) {

@@ -50,10 +50,18 @@ public class JPNetworkPlayer : NetworkBehaviour {
         gameManagerHost.incrementPlayerCount(playerNumber);
         RpcSetPlayerNumber(playerNumber);
         spawnedShipList = new GameObject[shipSpawnCommandList.Length];
+        Vector3 initPos = spawnLoc.transform.position;
+        if(spawnLoc.transform.position.z > 0) {
+            initPos.z += 100f;
+        } else {
+            initPos.z -= 100f;
+        }
         for (int count = 0; count < shipSpawnCommandList.Length; count++)
         {
-            
-            GameObject obj = (GameObject)Instantiate(shipList[shipSpawnCommandList[count]], new Vector3(count * 20f, 12.0f, Random.Range(0, 0)) + spawnLoc.transform.position, spawnLoc.transform.rotation);
+
+
+            GameObject obj = (GameObject)Instantiate(shipList[shipSpawnCommandList[count]], new Vector3(count * 100f, 12.0f, Random.Range(0, 0)) + initPos, spawnLoc.transform.rotation);
+            obj.GetComponent<JPShip>().JumpToLocation(new Vector3(count * 100f, 12.0f, Random.Range(0, 0)) + spawnLoc.transform.position);
             if (obj.GetComponent<JPNetworkShip>().forcePlayerNumber)
             {
                 obj.name = "Player" + "1" + "Ship" + count;
@@ -70,11 +78,14 @@ public class JPNetworkPlayer : NetworkBehaviour {
             squadShips[0] = obj;
 
             for (int countSquad = 1; countSquad < squadShips.Length; countSquad++) {
-                GameObject obj2 = (GameObject)Instantiate(shipList[shipSpawnCommandList[count]], new Vector3(count * 20f, 12.0f, Random.Range(0, 0)) + spawnLoc.transform.position + lead.wingmenOffsets[countSquad], spawnLoc.transform.rotation);
+                GameObject obj2 = (GameObject)Instantiate(shipList[shipSpawnCommandList[count]], new Vector3(count * 100f, 12.0f, Random.Range(0, 0)) + initPos + lead.wingmenOffsets[countSquad], spawnLoc.transform.rotation);
+                obj2.GetComponent<JPShip>().JumpToLocation(new Vector3(count * 100f, 12.0f, Random.Range(0, 0)) + spawnLoc.transform.position + lead.wingmenOffsets[countSquad]);
+
                 obj2.name = "Player" + playerNumber + "Ship" + count + "Squad" + countSquad;
                 obj2.GetComponent<JPShip>().leadController = lead;
                 obj2.GetComponent<JPShip>().lead = false;
                 squadShips[countSquad] = obj2;
+                obj2.GetComponent<JPFighter>().squadNum = countSquad;
             }
             lead.wingmen = squadShips;
             for (int countSpawn = 0; countSpawn < squadShips.Length; countSpawn++)
@@ -175,6 +186,31 @@ public class JPNetworkPlayer : NetworkBehaviour {
 		}*/
 		//print("Insert code to set position here");
 	}
+
+
+    [Command]
+    public void CmdSetSkill (int skillNum) {
+        selectedShip.GetComponent<JPShip>().TriggerSkill(skillNum);
+    }
+    [Command]
+    public void CmdSetSkillLocation(int skillNum, Vector3 pos)
+    {
+        selectedShip.GetComponent<JPShip>().TriggerSkillLocation(skillNum, pos);
+    }
+    [Command]
+    public void CmdSetSkillTarget(int skillNum, GameObject target)
+    {
+        selectedShip.GetComponent<JPShip>().TriggerSkillTarget(skillNum, target);
+    }
+
+
+
+    [Command]
+    public void CmdSetMode(int mode)
+    {
+        selectedShip.GetComponent<JPShip>().leadController.SetMode(mode);
+        print("Setting mode " + mode);
+    }
 	[ClientRpc]
 	void RpcSetPlayerNumber (int playerNum) {
 		playerNumber = playerNum;

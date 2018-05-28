@@ -11,6 +11,14 @@ public class JPUIController : NetworkBehaviour {
     public static event uiSetMode OnModeTarget;
     public static event uiSetMode OnSelectTeamOne;
     public static event uiSetMode OnSelectTeamTwo;
+
+    public static event uiSetMode OnDefendMode;
+    public static event uiSetMode OnAttackMode;
+    public static event uiSetMode OnSpeedMode;
+
+    public static event uiSetMode OnSkillZero;
+    public static event uiSetMode OnSkillOne;
+    public static event uiSetMode OnSkillTwo;
 	// Use this for initialization
 	void Start () {
 		
@@ -42,5 +50,32 @@ public class JPUIController : NetworkBehaviour {
     public void SetTeamTwo () {
         print("Selected Team Two");
         OnSelectTeamTwo();
+    }
+    public void SetDefendMode()
+    {
+        print("Defend");
+        OnDefendMode();
+    }
+    public void SetAttackMode()
+    {
+        print("Attack");
+        OnAttackMode();
+    }
+    public void SetSpeedMode()
+    {
+        print("Speed");
+        OnSpeedMode();
+    }
+
+    public void SetSkillZero() {
+        OnSkillZero();
+    }
+    public void SetSkillOne()
+    {
+        OnSkillOne();
+    }
+    public void SetSkillTwo()
+    {
+        OnSkillTwo();
     }
 }
