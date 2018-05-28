@@ -176,6 +176,25 @@ public class JPNetworkPlayer : NetworkBehaviour {
 		}*/
 		//print("Insert code to set position here");
 	}
+
+
+    [Command]
+    public void CmdSetSkill (int skillNum) {
+        selectedShip.GetComponent<JPShip>().TriggerSkill(skillNum);
+    }
+    [Command]
+    public void CmdSetSkillLocation(int skillNum, Vector3 pos)
+    {
+        selectedShip.GetComponent<JPShip>().TriggerSkillLocation(skillNum, pos);
+    }
+    [Command]
+    public void CmdSetSkillTarget(int skillNum, GameObject target)
+    {
+        selectedShip.GetComponent<JPShip>().TriggerSkillTarget(skillNum, target);
+    }
+
+
+
     [Command]
     public void CmdSetMode(int mode)
     {

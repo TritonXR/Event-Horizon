@@ -51,6 +51,8 @@ public class JPShip : NetworkBehaviour {
     public bool fighter = true;
 
     public GameObject hpShow;
+
+    public BaseSkill[] skills = new BaseSkill[3];
 	// Use this for initialization
 	void Start () {
         //defaultMaterial = this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material;
@@ -164,6 +166,29 @@ public class JPShip : NetworkBehaviour {
             }
         }
         specMode = newMode;
+
+    }
+
+    public void TriggerSkill(int skillNum) {
+        if(skills[skillNum] != null) {
+            skills[skillNum].TriggerSkill();
+        }
+
+    }
+    public void TriggerSkillLocation(int skillNum, Vector3 pos)
+    {
+        if (skills[skillNum] != null)
+        {
+            skills[skillNum].TriggerSkillLocation(pos);
+        }
+
+    }
+    public void TriggerSkillTarget(int skillNum, GameObject target)
+    {
+        if (skills[skillNum] != null)
+        {
+            skills[skillNum].TriggerSkillTarget(target);
+        }
 
     }
 }

@@ -6,14 +6,14 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class JPInputController : NetworkBehaviour {
-	JPNetworkPlayer networkPlayer;
-	GameObject selectedShip;
-	GameObject targetShip;
-	Vector3 targetPosition;
+    JPNetworkPlayer networkPlayer;
+    GameObject selectedShip;
+    GameObject targetShip;
+    Vector3 targetPosition;
     public LayerMask touchMask;
-	Plane groundPlane = new Plane (new Vector3 (0, 0, 0), new Vector3 (-100, 0, -100), new Vector3 (100, 0, -100));
-	GameObject marker;
-	public int playerNumber = 0;
+    Plane groundPlane = new Plane (new Vector3 (0, 0, 0), new Vector3 (-100, 0, -100), new Vector3 (100, 0, -100));
+    GameObject marker;
+    public int playerNumber = 0;
     public int targetMode = 0;
     JPUIController localUI;
     Slider healthSlider;
@@ -25,16 +25,22 @@ public class JPInputController : NetworkBehaviour {
 
     float minPullDistance = 50f;
     int tapCount = 0;
-	// Use this for initialization
-	void Start () {
+
+    BaseSkill currentSkill;
+    UISkill currentButton;
+    bool skillActive = false;
+    int skillIndex;
+    UISkill[] uiSkillButtons = new UISkill[3];
+    // Use this for initialization
+    void Start () {
         if (!isLocalPlayer)
         {
             return;
         }
         //healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
-		networkPlayer = this.GetComponent<JPNetworkPlayer> ();
-		marker = GameObject.Find ("Marker");
-		playerNumber = networkPlayer.playerNumber;
+        networkPlayer = this.GetComponent<JPNetworkPlayer> ();
+        marker = GameObject.Find ("Marker");
+        playerNumber = networkPlayer.playerNumber;
         JPNetworkHostManager localHost = GameObject.Find("NetworkManager").GetComponent<JPNetworkHostManager>();
         JPUIController.OnModeCancel += setModeCancel;
         JPUIController.OnModeMove += setModeMove;
@@ -44,17 +50,24 @@ public class JPInputController : NetworkBehaviour {
         JPUIController.OnSpeedMode += SetSpeedMode;
         localUI = GetComponent<JPUIController>();
         marker.SetActive(false);
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+        GameObject.Find("UICanvas").transform.Find("Skill1").gameObject.GetComponent<UISkill>().localPlayerController = this;
+        uiSkillButtons[0] = GameObject.Find("UICanvas").transform.Find("Skill1").gameObject.GetComponent<UISkill>();
+        GameObject.Find("UICanvas").transform.Find("Skill2").gameObject.GetComponent<UISkill>().localPlayerController = this;
+        uiSkillButtons[1] = GameObject.Find("UICanvas").transform.Find("Skill2").gameObject.GetComponent<UISkill>();
+        GameObject.Find("UICanvas").transform.Find("Skill3").gameObject.GetComponent<UISkill>().localPlayerController = this;
+        uiSkillButtons[2] = GameObject.Find("UICanvas").transform.Find("Skill3").gameObject.GetComponent<UISkill>();
+    }
+    
+    // Update is called once per frame
+    void Update () {
         if (!isLocalPlayer)
         {
             //print("Not local player!");
             return;
         }
         //print("LOCAL UI CONTROLLER " + localUI.targetMode);
-		if (Input.GetMouseButtonDown (0)) {
+        if (Input.GetMouseButtonDown (0)) {
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 Debug.Log("Clicked on the UI");
@@ -70,8 +83,23 @@ public class JPInputController : NetworkBehaviour {
                     Debug.Log(hit.collider.name);
                     if (hit.collider.gameObject.transform.name.Contains("Ship"))
                     {
-                        if ((selectedShip == null) && (hit.collider.gameObject.name.Contains("Player" + networkPlayer.playerNumber)))
+                        if (((tapCount > 0) || (selectedShip == null)) && (hit.collider.gameObject.name.Contains("Player" + networkPlayer.playerNumber)))
                         {
+                            if (tapCount > 0)
+                            {
+
+                                if (selectedShip != null)
+                                {
+                                    selectedShip.GetComponent<JPShip>().leadController.SetSelected(false);
+                                }
+                                selectedShip = null;
+                                targetShip = null;
+                                targetMode = 0;
+                                tapCount = 0;
+                                marker.SetActive(false);
+                                //healthSlider.gameObject.SetActive(false);
+                            }
+
                             if (selectedShip != null)
                             {
                                 selectedShip.GetComponent<JPShip>().leadController.SetSelected(false);
@@ -113,13 +141,15 @@ public class JPInputController : NetworkBehaviour {
                         }
                         selectedShip = null;
                         targetShip = null;
+                        targetMode = 0;
+                        tapCount = 0;
                         marker.SetActive(false);
                         //healthSlider.gameObject.SetActive(false);
                     }
                     tapCount++;
                 }
             }
-		} else if(Input.GetMouseButtonUp (0)) {
+        } else if(Input.GetMouseButtonUp (0)) {
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 Debug.Log("Clicked Up on the UI");
@@ -131,41 +161,67 @@ public class JPInputController : NetworkBehaviour {
                 Debug.DrawRay(ray.origin, ray.direction * 100000, Color.yellow, 0.0f, false);
                 float rayDistance;
 
-                // Ship Targeted
-                if (targetMode == 1)
-                {
-                    if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Contains("Ship")))
-                    {
-                        if (selectedShip != null)
+                if(skillActive) {
+                    if(currentSkill.gameObjectRequired) {
+                        if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Contains("Ship")))
                         {
-                            setTargetShip(hit.collider.gameObject);
-                            marker.transform.position = hit.collider.gameObject.transform.position;
-                            targetedShip = hit.collider.gameObject;
+
+                            //hit.collider.gameObject;
+                            SetSkillTarget(hit.collider.gameObject);
                             tapCount = 2;
-                            //marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
+                              
+                        }
+                    } else if(currentSkill.locationRequired) {
+                        // Position Targeted
+                        if (groundPlane.Raycast(ray, out rayDistance))
+                        {
+
+                            //Location
+                            SetSkillLocation(ray.GetPoint(rayDistance));
+                                ray.GetPoint(rayDistance);
+                            tapCount = 2;
                         }
                     }
-                }
-                else if (targetMode == 0)
-                {
-                    // Position Targeted
-                    if (groundPlane.Raycast(ray, out rayDistance))
+                } else {
+                    // Ship Targeted
+                    if (targetMode == 1)
                     {
-                        if ((!selectStart) || (Vector3.Distance(selectStartPos, ray.GetPoint(rayDistance)) > minPullDistance))
+                        if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Contains("Ship")))
                         {
                             if (selectedShip != null)
                             {
-                                setTargetPosition(ray.GetPoint(rayDistance));
-                                marker.transform.position = ray.GetPoint(rayDistance);
-                                targetedShip = null;
+                                setTargetShip(hit.collider.gameObject);
+                                marker.transform.position = hit.collider.gameObject.transform.position;
+                                targetedShip = hit.collider.gameObject;
                                 tapCount = 2;
                                 //marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
                             }
                         }
                     }
-                } else {
-                    targetedShip = null;
+                    else if (targetMode == 0)
+                    {
+                        // Position Targeted
+                        if (groundPlane.Raycast(ray, out rayDistance))
+                        {
+                            if ((!selectStart) || (Vector3.Distance(selectStartPos, ray.GetPoint(rayDistance)) > minPullDistance))
+                            {
+                                if (selectedShip != null)
+                                {
+                                    setTargetPosition(ray.GetPoint(rayDistance));
+                                    marker.transform.position = ray.GetPoint(rayDistance);
+                                    targetedShip = null;
+                                    tapCount = 2;
+                                    //marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        targetedShip = null;
+                    }
                 }
+
             }
             if (selectedShip != null)
             {
@@ -178,9 +234,9 @@ public class JPInputController : NetworkBehaviour {
 
 
 
-		} else if(Input.GetMouseButton (0)) {
-				
-			if(selectedShip) {
+        } else if(Input.GetMouseButton (0)) {
+                
+            if(selectedShip) {
                 //RaycastHit hit;
                 if (targetMode == 0)
                 {
@@ -225,7 +281,7 @@ public class JPInputController : NetworkBehaviour {
 
 
                 }
-			}
+            }
         } else {
             if(targetMode == 1) {
                 if(targetedShip != null) {
@@ -234,21 +290,32 @@ public class JPInputController : NetworkBehaviour {
                     marker.transform.position = showPos;
                 }
             }
-        }	
-	}
-	void selectShip (GameObject ship) {
-		networkPlayer.CmdSelectShip (ship.name);
-		print ("Selected Ship " + ship.name);
-	}
-	void setTargetShip (GameObject ship) {
-		networkPlayer.CmdSetTargetShip (ship.name);
-		print ("Targeted GameObject " + ship.name);
-	}
-	void setTargetPosition (Vector3 pos) {
+        }    
+    }
+
+    void selectShip (GameObject ship) {
+        networkPlayer.CmdSelectShip (ship.name);
+        for (int count = 0; count < 3; count++)
+        {
+            if (ship.GetComponent<JPShip>().skills[count] != null)
+            {
+                ship.GetComponent<JPShip>().skills[count].ConfigureSkill(uiSkillButtons[count]);
+            } else {
+                uiSkillButtons[count].SetInvisible();
+            }
+        }
+        print ("Selected Ship " + ship.name);
+    }
+
+    void setTargetShip (GameObject ship) {
+        networkPlayer.CmdSetTargetShip (ship.name);
+        print ("Targeted GameObject " + ship.name);
+    }
+    void setTargetPosition (Vector3 pos) {
         pos.y = 14.0f;
-		networkPlayer.CmdSetPosition (pos);
-		print ("Targeted position " + pos);
-	}
+        networkPlayer.CmdSetPosition (pos);
+        print ("Targeted position " + pos);
+    }
     void setTargetMode(int mode)
     {
         
@@ -313,5 +380,38 @@ public class JPInputController : NetworkBehaviour {
         setTargetMode(2);
     }
 
+    public void SkillPressed (int skillNum, UISkill sendingSkill) {
+        currentSkill = null;
+        skillIndex = skillNum;
+        BaseSkill tempSkill = selectedShip.GetComponent<JPShip>().skills[skillNum];
+        if((!tempSkill.gameObjectRequired) && (!tempSkill.locationRequired)) {
+            currentButton = sendingSkill;
+            SetSkill();
+        } else {
+            currentSkill = tempSkill;
+            currentButton = sendingSkill;
+            skillActive = true;
+        }
+    }
+
+    void SetSkill()
+    {
+        networkPlayer.CmdSetSkill(skillIndex);
+        currentButton.BeginCooldown();
+        print("Regular Skill Activated");
+    }
+    void SetSkillLocation(Vector3 pos)
+    {
+        networkPlayer.CmdSetSkillLocation(skillIndex, pos);
+        currentButton.BeginCooldown();
+        print("Location Skill Activated " + pos);
+    }
+    void SetSkillTarget(GameObject target)
+    {
+        networkPlayer.CmdSetSkillTarget(skillIndex, target);
+        currentButton.BeginCooldown();
+        print("GameObject Skill Activated " + target.name);
+    }
+   
 
 }
