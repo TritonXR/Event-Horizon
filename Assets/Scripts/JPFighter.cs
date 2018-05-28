@@ -50,6 +50,7 @@ public class JPFighter : JPShip {
     // Update is called once per frame
     void Update()
     {
+        
         /*if (!serverControl)
         {
             mode = "Not Server";
@@ -69,6 +70,20 @@ public class JPFighter : JPShip {
         if (!isServer)
         {
             mode = "is Not server";
+            return;
+        }
+        if (warping)
+        {
+            if (Vector3.Distance(transform.position, warpTarget) < 10f)
+            {
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                warping = false;
+            }
+            else
+            {
+                float step = 500f * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, warpTarget, step);
+            }
             return;
         }
         if (destroyed)

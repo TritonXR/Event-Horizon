@@ -18,6 +18,7 @@ public class CapitalShip : JPShip {
 	
 	// Update is called once per frame
 	void Update () {
+        
         //print("Change material " + GetComponent<JPNetworkShip>().teamNumber);
         if ((GetComponent<JPNetworkShip>().teamNumber != 0) && (materialSwitch))
         {
@@ -33,7 +34,20 @@ public class CapitalShip : JPShip {
             
             return;
         }
-
+        if (warping)
+        {
+            if (Vector3.Distance(transform.position, warpTarget) < 10f)
+            {
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                warping = false;
+            }
+            else
+            {
+                float step = 500f * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, warpTarget, step);
+            }
+            return;
+        }
         if (destroyed)
         {
             return;

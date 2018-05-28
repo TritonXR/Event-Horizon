@@ -53,6 +53,9 @@ public class JPShip : NetworkBehaviour {
     public GameObject hpShow;
 
     public BaseSkill[] skills = new BaseSkill[3];
+    public bool warping = false;
+    public Vector3 warpTarget;
+
 	// Use this for initialization
 	void Start () {
         //defaultMaterial = this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material;
@@ -67,7 +70,16 @@ public class JPShip : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
+        if(warping) {
+            if(Vector3.Distance(transform.position, warpTarget) < 10f) {
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                warping = false;
+            } else {
+                float step = 500f * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, warpTarget, step);
+            }
+            return;
+        }
 	}
 
     public virtual void SetTargetShip(GameObject ship)
@@ -190,5 +202,10 @@ public class JPShip : NetworkBehaviour {
             skills[skillNum].TriggerSkillTarget(target);
         }
 
+    }
+    public void JumpToLocation (Vector3 pos) {
+        print("Jumping");
+        warping = true;
+        warpTarget = pos;
     }
 }
