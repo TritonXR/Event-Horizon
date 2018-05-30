@@ -37,6 +37,8 @@ public class JPFighter : JPShip {
     public LayerMask ignoreMask;
     int countDodge = 0;
     public bool serverControl = false;
+
+    public Vector3 showRotation;
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
@@ -90,11 +92,17 @@ public class JPFighter : JPShip {
         {
             return;
         }
+
         if (health < 0)
         {
             destroyed = true;
             this.transform.GetChild(0).GetComponent<Renderer>().enabled = false;
             transform.position = new Vector3(-10000, -10000);
+            return;
+        }
+        if ((controlLock) || (moveLock))
+        {
+            return;
         }
         if (avoiding)
         {
@@ -108,7 +116,7 @@ public class JPFighter : JPShip {
                 {
                     if (!clearCheck)
                     {
-                        print("Avoiding " + hit.collider.gameObject.name);
+                        //print("Avoiding " + hit.collider.gameObject.name);
                         targetPos = transform.position + dodgeOffset;
                     }
                     else if (clearCheck)
@@ -121,7 +129,7 @@ public class JPFighter : JPShip {
                 {
                     if ((dodgeCheck) && (!clearCheck))
                     {
-                        print("Avoid Clear");
+                        //print("Avoid Clear");
                         targetPos = finalTarget;
                         targetPos.y = transform.position.y;
                         clearing = true;
@@ -262,8 +270,30 @@ public class JPFighter : JPShip {
             Vector3 targetDir = targetPos - transform.position;
             float step = turnSpeed * Time.deltaTime;
             Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
+
+            //Get the amount rotating
+            Vector3 diffRotation = Quaternion.LookRotation(newDir).eulerAngles - transform.rotation.eulerAngles;
+            showRotation = diffRotation;
+            Vector3 newRot = Quaternion.LookRotation(newDir).eulerAngles;
+
+            //Detect Direction
+            if(Mathf.Abs(diffRotation.y) < 0.01f) {
+                newRot.z = 0f;
+            }
+            else if (diffRotation.y > 0)
+            {
+                newRot.z = -30f;
+            }
+            else if (diffRotation.y < 0)
+            {
+                newRot.z = 30f;
+            }
+            //showRotation = Quaternion.LookRotation(newDir).eulerAngles;
             //Debug.DrawRay(transform.position, newDir, Color.red);
-            transform.rotation = Quaternion.LookRotation(newDir);
+
+            //Apply Rotation
+            transform.rotation = Quaternion.Euler(newRot.x, newRot.y, newRot.z);
+
         }
         if(rb.velocity.magnitude > moveSpeed) {
             rb.velocity = transform.forward * moveSpeed;
@@ -357,7 +387,7 @@ public class JPFighter : JPShip {
         } else {
             leadController.SetTargetPosition(vector);
         }
-        print("SetPos");
+        //print("SetPos");
         //movementMode = 2;
         //targetVector += offset;
     }

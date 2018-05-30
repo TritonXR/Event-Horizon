@@ -31,6 +31,9 @@ public class JPInputController : NetworkBehaviour {
     bool skillActive = false;
     int skillIndex;
     UISkill[] uiSkillButtons = new UISkill[3];
+    UIButton cancelButton;
+    UIButton targetButton;
+    UIButton moveButton;
     // Use this for initialization
     void Start () {
         if (!isLocalPlayer)
@@ -57,6 +60,10 @@ public class JPInputController : NetworkBehaviour {
         uiSkillButtons[1] = GameObject.Find("UICanvas").transform.Find("Skill2").gameObject.GetComponent<UISkill>();
         GameObject.Find("UICanvas").transform.Find("Skill3").gameObject.GetComponent<UISkill>().localPlayerController = this;
         uiSkillButtons[2] = GameObject.Find("UICanvas").transform.Find("Skill3").gameObject.GetComponent<UISkill>();
+
+        cancelButton = GameObject.Find("UICanvas").transform.Find("CancelButton").gameObject.GetComponent<UIButton>();
+        targetButton = GameObject.Find("UICanvas").transform.Find("TargetButton").gameObject.GetComponent<UIButton>();;
+        moveButton = GameObject.Find("UICanvas").transform.Find("MoveButton").gameObject.GetComponent<UIButton>();;
     }
     
     // Update is called once per frame
@@ -70,7 +77,7 @@ public class JPInputController : NetworkBehaviour {
         if (Input.GetMouseButtonDown (0)) {
             if (EventSystem.current.IsPointerOverGameObject())
             {
-                Debug.Log("Clicked on the UI");
+                Debug.Log("Clicked down on the UI");
             }
             else
             {
@@ -88,16 +95,7 @@ public class JPInputController : NetworkBehaviour {
                             if (tapCount > 0)
                             {
 
-                                if (selectedShip != null)
-                                {
-                                    selectedShip.GetComponent<JPShip>().leadController.SetSelected(false);
-                                }
-                                selectedShip = null;
-                                targetShip = null;
-                                targetMode = 0;
-                                tapCount = 0;
-                                marker.SetActive(false);
-                                //healthSlider.gameObject.SetActive(false);
+                                DeselectShip();
                             }
 
                             if (selectedShip != null)
@@ -135,16 +133,7 @@ public class JPInputController : NetworkBehaviour {
                     if (tapCount > 0)
                     {
 
-                        if (selectedShip != null)
-                        {
-                            selectedShip.GetComponent<JPShip>().leadController.SetSelected(false);
-                        }
-                        selectedShip = null;
-                        targetShip = null;
-                        targetMode = 0;
-                        tapCount = 0;
-                        marker.SetActive(false);
-                        //healthSlider.gameObject.SetActive(false);
+                        DeselectShip();
                     }
                     tapCount++;
                 }
@@ -162,7 +151,10 @@ public class JPInputController : NetworkBehaviour {
                 float rayDistance;
 
                 if(skillActive) {
-                    if(currentSkill.gameObjectRequired) {
+                    if(!currentSkill) {
+                        skillActive = false;
+
+                    } else if(currentSkill.gameObjectRequired) {
                         if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Contains("Ship")))
                         {
 
@@ -181,8 +173,12 @@ public class JPInputController : NetworkBehaviour {
                                 ray.GetPoint(rayDistance);
                             tapCount = 2;
                         }
+                    } else {
+                        skillActive = false;
+
                     }
                 } else {
+                    //print("Targeting Sent");
                     // Ship Targeted
                     if (targetMode == 1)
                     {
@@ -223,63 +219,71 @@ public class JPInputController : NetworkBehaviour {
                 }
 
             }
-            if (selectedShip != null)
-            {
-                //selectedShip.GetComponent<JPShip>().leadController.SetSelected(false);
-            }
-            //selectedShip = null;
-            //targetShip = null;
-            //marker.SetActive(false);
-            //healthSlider.gameObject.SetActive(false);
+
 
 
 
         } else if(Input.GetMouseButton (0)) {
-                
-            if(selectedShip) {
-                //RaycastHit hit;
-                if (targetMode == 0)
+
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                Debug.Log("Clicked Move on the UI");
+
+            }
+            else
+            {
+                if (selectedShip)
                 {
-                    marker.GetComponent<MarkerController>().setMode(0);
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    float rayDistance;
-                    groundPlane.Raycast(ray, out rayDistance);
-                    if ((!selectStart) || (Vector3.Distance(selectStartPos, ray.GetPoint(rayDistance)) > minPullDistance))
+                    //RaycastHit hit;
+                    if (targetMode == 0)
                     {
-                        
-                        marker.transform.position = ray.GetPoint(rayDistance);
-                        //print(selectStartPos + " " + ray.GetPoint(rayDistance) + " = " + Vector3.Distance(selectStartPos, ray.GetPoint(rayDistance)));
-                    
-                    } else {
-                        //print(selectStartPos + " " + ray.GetPoint(rayDistance) + " = " + Vector3.Distance(selectStartPos, ray.GetPoint(rayDistance)));
-                    }
-
-                } else if(targetMode == 1) {
-                    marker.GetComponent<MarkerController>().setMode(1);
-                    RaycastHit hit;
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    Debug.DrawRay(ray.origin, ray.direction * 100000, Color.yellow, 0.0f, false);
-                    float rayDistance;
-
-                    if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Contains("Ship")))
-                    {
-                        if (selectedShip != null)
-                        {
-                            setTargetShip(hit.collider.gameObject);
-                            Vector3 showPos = hit.collider.gameObject.transform.position;
-                            showPos.y = 50f;
-                            marker.transform.position = showPos;
-                            //marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
-                        }
-                    } else {
-                        
+                        marker.GetComponent<MarkerController>().setMode(0);
+                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                        float rayDistance;
                         groundPlane.Raycast(ray, out rayDistance);
-                        marker.transform.position = ray.GetPoint(rayDistance);
+                        if ((!selectStart) || (Vector3.Distance(selectStartPos, ray.GetPoint(rayDistance)) > minPullDistance))
+                        {
+
+                            marker.transform.position = ray.GetPoint(rayDistance);
+                            //print(selectStartPos + " " + ray.GetPoint(rayDistance) + " = " + Vector3.Distance(selectStartPos, ray.GetPoint(rayDistance)));
+
+                        }
+                        else
+                        {
+                            //print(selectStartPos + " " + ray.GetPoint(rayDistance) + " = " + Vector3.Distance(selectStartPos, ray.GetPoint(rayDistance)));
+                        }
+
                     }
+                    else if (targetMode == 1)
+                    {
+                        marker.GetComponent<MarkerController>().setMode(1);
+                        RaycastHit hit;
+                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                        Debug.DrawRay(ray.origin, ray.direction * 100000, Color.yellow, 0.0f, false);
+                        float rayDistance;
+
+                        if ((Physics.Raycast(ray, out hit)) && (hit.collider.gameObject.name.Contains("Ship")))
+                        {
+                            if (selectedShip != null)
+                            {
+                                setTargetShip(hit.collider.gameObject);
+                                Vector3 showPos = hit.collider.gameObject.transform.position;
+                                showPos.y = 50f;
+                                marker.transform.position = showPos;
+                                //marker.transform.rotation = selectedShip.GetComponent<JPShip>().targetRotation;
+                            }
+                        }
+                        else
+                        {
+
+                            groundPlane.Raycast(ray, out rayDistance);
+                            marker.transform.position = ray.GetPoint(rayDistance);
+                        }
 
 
 
 
+                    }
                 }
             }
         } else {
@@ -291,6 +295,28 @@ public class JPInputController : NetworkBehaviour {
                 }
             }
         }    
+    }
+
+    void DeselectShip() {
+        if (selectedShip != null)
+        {
+            selectedShip.GetComponent<JPShip>().leadController.SetSelected(false);
+        }
+        selectedShip = null;
+        targetShip = null;
+        targetMode = 0;
+        tapCount = 0;
+        marker.SetActive(false);
+        //healthSlider.gameObject.SetActive(false);
+
+        for (int count = 0; count < 3; count++)
+        {
+            uiSkillButtons[count].SetInvisible();
+
+        }
+        cancelButton.SetInvisible();
+        targetButton.SetInvisible();
+        moveButton.SetInvisible();
     }
 
     void selectShip (GameObject ship) {
@@ -305,6 +331,9 @@ public class JPInputController : NetworkBehaviour {
             }
         }
         print ("Selected Ship " + ship.name);
+        cancelButton.SetActive();
+        targetButton.SetActive();
+        moveButton.SetActive();
     }
 
     void setTargetShip (GameObject ship) {
@@ -367,6 +396,10 @@ public class JPInputController : NetworkBehaviour {
         targetMode = 0;
         marker.SetActive(false);
 
+        currentSkill = null;
+        currentButton = null;
+        skillActive = false;
+
     }
 
     public void SetDefendMode () {
@@ -387,6 +420,7 @@ public class JPInputController : NetworkBehaviour {
         if((!tempSkill.gameObjectRequired) && (!tempSkill.locationRequired)) {
             currentButton = sendingSkill;
             SetSkill();
+            skillActive = true;
         } else {
             currentSkill = tempSkill;
             currentButton = sendingSkill;

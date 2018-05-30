@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class JPShip : NetworkBehaviour {
+    public bool controlLock = false;
+    public bool moveLock = true;
 
     public GameObject target;
     public float fireDist = 5f;
@@ -113,6 +115,7 @@ public class JPShip : NetworkBehaviour {
         this.targetVector = vector;
         this.targetRotation = Quaternion.LookRotation(vector);
         movementMode = 2;
+        moveLock = false;
     }
     public virtual void SetSelected (bool selected) {
         if (lead)
@@ -121,7 +124,7 @@ public class JPShip : NetworkBehaviour {
             for (int count = 1; count < wingmen.Length; count++)
             {
 
-                print("select " + count);
+                //print("select " + count);
                 wingmen[count].GetComponent<JPShip>().SetSelected(selected);
             }
 
@@ -136,6 +139,7 @@ public class JPShip : NetworkBehaviour {
             this.transform.GetChild(0).GetComponent<Renderer>().material = defaultMaterial;
             hpShow.SetActive(false);
         }
+        moveLock = false;
     }
 	private void OnCollisionEnter(Collision collision)
 	{
@@ -204,7 +208,7 @@ public class JPShip : NetworkBehaviour {
 
     }
     public void JumpToLocation (Vector3 pos) {
-        print("Jumping");
+        //print("Jumping");
         warping = true;
         warpTarget = pos;
     }

@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class BaseSkill : MonoBehaviour {
+public class BaseSkill : NetworkBehaviour {
+    public string skillName;
 	public Sprite imageIcon;
 	public int cooldownTime;
 	public bool locationRequired;
@@ -10,9 +12,11 @@ public class BaseSkill : MonoBehaviour {
 
 	public float timeActivated;
 	public bool ready;
+
+    public JPShip ship;
 	// Use this for initialization
 	void Start () {
-		
+        ship = GetComponent<JPShip>();
 	}
 	
 	// Update is called once per frame
@@ -35,4 +39,5 @@ public class BaseSkill : MonoBehaviour {
     public virtual void TriggerSkillTarget(GameObject target) {
         
     }
+
 }

@@ -14,6 +14,7 @@ public class JPNetworkPlayer : NetworkBehaviour {
     public int playerTeam = 0;
 	public GameObject[] shipList;
 	public GameObject[] spawnedShipList;
+    public string spawnControl = "1";
     string shipSpawnList = "1,1,2,2,2";
     public int[] shipSpawnCommandList;
 	JPNetworkHostManager gameManagerHost;
@@ -29,7 +30,8 @@ public class JPNetworkPlayer : NetworkBehaviour {
             JPUIController.OnSelectTeamTwo += SetTeamTwo;
             GameObject.Find("ServerIP").GetComponent<Text>().text = Network.player.ipAddress;//NetworkManager.singleton.networkAddress;
             Debug.Log("Sending ship string: " + PlayerPrefs.GetString("SpawnList"));
-            CmdSetShipSpawnString(PlayerPrefs.GetString("SpawnList"));
+            CmdSetShipSpawnString(spawnControl);
+            //CmdSetShipSpawnString(PlayerPrefs.GetString("SpawnList"));
         }
 		if(isServer) {
             
@@ -138,7 +140,7 @@ public class JPNetworkPlayer : NetworkBehaviour {
                 minSearch = count + 1;
             }
         }
-        print(shipSpawnList.Substring(minSearch, (shipSpawnList.Length - minSearch)));
+        //print(shipSpawnList.Substring(minSearch, (shipSpawnList.Length - minSearch)));
         shipSpawnCommandList[arrayCounter] = int.Parse(shipSpawnList.Substring(minSearch, (shipSpawnList.Length - minSearch)));
     }
     public int CountShipSpawn()

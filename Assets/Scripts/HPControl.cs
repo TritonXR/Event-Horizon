@@ -24,7 +24,7 @@ public class HPControl : MonoBehaviour {
         maxHeath = ship.maxHealth;
         numSegments = maxHeath / segmentValue;
         segmentWidth = ((segmentValue * 10f) / maxHeath) * 4f;
-        print(""+segmentValue + " " + " " + maxHeath + " " + ((segmentValue * 10) / maxHeath));
+        //print(""+segmentValue + " " + " " + maxHeath + " " + ((segmentValue * 10) / maxHeath));
 
         indicators = new GameObject[(int)numSegments];
         for (int count = 0; count < numSegments; count ++) {

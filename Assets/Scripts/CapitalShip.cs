@@ -52,11 +52,16 @@ public class CapitalShip : JPShip {
         {
             return;
         }
+
         if (health < 0)
         {
             destroyed = true;
             this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().enabled = false;
             transform.position = new Vector3(-10000, -10000);
+        }
+        if ((controlLock) || (moveLock))
+        {
+            return;
         }
         if(movementMode == 1) {
             targetPos = target.transform.position;

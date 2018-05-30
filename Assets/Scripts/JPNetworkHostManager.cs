@@ -19,7 +19,7 @@ public class JPNetworkHostManager : MonoBehaviour {
 	}
 	public void incrementPlayerCount (int playerNum) {
 		//if(playerNum == playerNumber) {
-		print ("Increment");
+		//print ("Increment");
 			playerNumber++;
 		//}
 	}
