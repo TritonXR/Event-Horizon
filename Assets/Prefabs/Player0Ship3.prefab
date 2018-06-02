@@ -937,7 +937,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1318251050415550}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.1485257, y: 53.733192, z: -82.06708}
+  m_LocalPosition: {x: 100.0402, y: 44.105793, z: -104.703224}
   m_LocalScale: {x: 200, y: 200, z: 200}
   m_Children:
   - {fileID: 4360784229847108}
@@ -2860,6 +2860,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2031b2ce98d049d6a8c3cc93fb07704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
+  controlLock: 0
+  moveLock: 1
   target: {fileID: 0}
   fireDist: 5
   rangeDist: 20
@@ -2869,16 +2872,17 @@ MonoBehaviour:
   targetVector: {x: 0, y: 0, z: 0}
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
   movementMode: 0
+  distanceTol: 10
+  maxHeight: 10
+  minHeight: 0
   defaultMaterial: {fileID: 2100000, guid: a9d8565cd2f99b04c94288f457b17456, type: 2}
   selectedMaterial: {fileID: 2100000, guid: d0af7ad49d9e0d54cb487c1c81501239, type: 2}
   altDefaultMaterial: {fileID: 2100000, guid: 2a2859baeeec7e14785299ea50011ea5, type: 2}
   materialSwitch: 1
-  maxHeight: 10
-  minHeight: 0
-  distanceTol: 10
   maxHealth: 1000
   health: 0
   healthPercent: 1
+  shipValue: 10
   teamNum: 0
   specMode: 0
   wingmen:
@@ -2896,6 +2900,8 @@ MonoBehaviour:
   - {fileID: 114507464693529336}
   - {fileID: 114507464693529336}
   - {fileID: 114507464693529336}
+  warping: 0
+  warpTarget: {x: 0, y: 0, z: 0}
   idle: 0
   speedMagnitude: 0
 --- !u!114 &114136273077462396
@@ -3144,12 +3150,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4e2f7ee5adc4771a73b356aafdfa1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillName: 
   imageIcon: {fileID: 21300000, guid: ef3c774979e1c9c4188a82b268c4457e, type: 3}
   cooldownTime: 5
   locationRequired: 0
   gameObjectRequired: 0
   timeActivated: 0
   ready: 0
+  ship: {fileID: 0}
 --- !u!114 &114518297852264186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3544,10 +3552,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.06
+  m_Radius: 0.04
   m_Height: 0.41
   m_Direction: 2
-  m_Center: {x: 0, y: 0.03, z: 0.06}
+  m_Center: {x: 0, y: 0.0225, z: 0.06}
 --- !u!136 &136548480858638124
 CapsuleCollider:
   m_ObjectHideFlags: 1

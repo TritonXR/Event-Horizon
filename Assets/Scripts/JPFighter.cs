@@ -74,6 +74,11 @@ public class JPFighter : JPShip {
             mode = "is Not server";
             return;
         }
+        if (destroyed)
+        {
+            //GetComponent<Rigidbody>().velocity = Vector3.zero;
+            return;
+        }
         if (warping)
         {
             if (Vector3.Distance(transform.position, warpTarget) < 10f)
@@ -84,20 +89,42 @@ public class JPFighter : JPShip {
             else
             {
                 float step = 500f * Time.deltaTime;
+                Vector3 targetDir = targetPos - transform.position;
+                Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
+
+                //Get the amount rotating
+                Vector3 diffRotation = Quaternion.LookRotation(newDir).eulerAngles - transform.rotation.eulerAngles;
+                showRotation = diffRotation;
+                Vector3 newRot = Quaternion.LookRotation(newDir).eulerAngles;
+
+                //Detect Direction
+                if (Mathf.Abs(diffRotation.y) < 0.01f)
+                {
+                    newRot.z = 0f;
+                }
+                else if (diffRotation.y > 0)
+                {
+                    newRot.z = -30f;
+                }
+                else if (diffRotation.y < 0)
+                {
+                    newRot.z = 30f;
+                }
+                //showRotation = Quaternion.LookRotation(newDir).eulerAngles;
+                //Debug.DrawRay(transform.position, newDir, Color.red);
+
+                //Apply Rotation
+                transform.rotation = Quaternion.Euler(newRot.x, newRot.y, newRot.z);
+
                 transform.position = Vector3.MoveTowards(transform.position, warpTarget, step);
             }
             return;
         }
-        if (destroyed)
-        {
-            return;
-        }
+
 
         if (health < 0)
         {
-            destroyed = true;
-            this.transform.GetChild(0).GetComponent<Renderer>().enabled = false;
-            transform.position = new Vector3(-10000, -10000);
+            SetDestroyed();
             return;
         }
         if ((controlLock) || (moveLock))
@@ -304,6 +331,8 @@ public class JPFighter : JPShip {
 
 
 	}
+
+
     void Dodge(RaycastHit hit) {
         if(hit.collider.gameObject == clipObj) {
             //StartCoroutine(NoClip());
@@ -373,6 +402,8 @@ public class JPFighter : JPShip {
         yield return new WaitForSeconds(5f);
         //GetComponent<Collider>().isTrigger = false;
     }
+
+
     public override void SetTargetShip(GameObject ship)
     {
         base.SetTargetShip(ship);
@@ -407,6 +438,17 @@ public class JPFighter : JPShip {
         rangeDist = leader.rangeDist;
         fireDist = leader.fireDist;
         distanceTol = leader.distanceTol;
+
+    }
+
+    public override void SetDestroyed()
+    {
+        destroyed = true;
+        this.transform.GetChild(0).GetComponent<Renderer>().enabled = false;
+        transform.position = new Vector3(-10000, -10000);
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        mode = "Destroyed";
+        base.SetDestroyed();
 
     }
     /*public override void SetSelected(bool selected)

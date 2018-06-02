@@ -12,12 +12,12 @@ public class GridSpawner : MonoBehaviour {
 	void Start () {
         if (outlineOnly)
         {
-            Instantiate(verticalMarker, new Vector3(250f, 0, 0), Quaternion.Euler(Vector3.zero));
-            Instantiate(verticalMarker, new Vector3(-250f, 0f, 0), Quaternion.Euler(Vector3.zero));
-            Instantiate(horizontalMarker, new Vector3(0, 0f, 250f), Quaternion.Euler(new Vector3(0, -90, 0)));
-            Instantiate(horizontalMarker, new Vector3(0, 0f, -250f), Quaternion.Euler(new Vector3(0, -90, 0)));
-            Instantiate(horizontalMarker, new Vector3(0, 0f, 0), Quaternion.Euler(new Vector3(0, 0, 0)));
-            Instantiate(horizontalMarker, new Vector3(0, 0f, 0), Quaternion.Euler(new Vector3(0, -90, 0)));
+            Instantiate(verticalMarker, new Vector3(250f, -0.2f, 0), Quaternion.Euler(Vector3.zero));
+            Instantiate(verticalMarker, new Vector3(-250f, -0.2f, 0), Quaternion.Euler(Vector3.zero));
+            Instantiate(horizontalMarker, new Vector3(0, -0.2f, 250f), Quaternion.Euler(new Vector3(0, -90, 0)));
+            Instantiate(horizontalMarker, new Vector3(0, -0.2f, -250f), Quaternion.Euler(new Vector3(0, -90, 0)));
+            Instantiate(horizontalMarker, new Vector3(0, -0.2f, 0), Quaternion.Euler(new Vector3(0, 0, 0)));
+            Instantiate(horizontalMarker, new Vector3(0, -0.2f, 0), Quaternion.Euler(new Vector3(0, -90, 0)));
         }
         else
         {

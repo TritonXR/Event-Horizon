@@ -5,6 +5,10 @@ using UnityEngine.Networking;
 
 public class JPUIController : NetworkBehaviour {
     public int targetMode = 0;
+    public GameObject retreatDialogue;
+    public GameObject victoryDialogue;
+    public GameObject defeatDialogue;
+
     public delegate void uiSetMode();
     public static event uiSetMode OnModeCancel;
     public static event uiSetMode OnModeMove;
@@ -19,9 +23,15 @@ public class JPUIController : NetworkBehaviour {
     public static event uiSetMode OnSkillZero;
     public static event uiSetMode OnSkillOne;
     public static event uiSetMode OnSkillTwo;
+
+    public static event uiSetMode OnRetreat;
+
+    public static event uiSetMode OnQuit;
 	// Use this for initialization
 	void Start () {
-		
+        retreatDialogue.SetActive(false);
+        victoryDialogue.SetActive(false);
+        defeatDialogue.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -78,4 +88,30 @@ public class JPUIController : NetworkBehaviour {
     {
         OnSkillTwo();
     }
+
+    public void OnRetreatInitial()
+    {
+        retreatDialogue.SetActive(true);
+    }
+    public void OnRetreatPressed() {
+        OnRetreat();
+    }
+    public void OnRetreatCancel()
+    {
+        retreatDialogue.SetActive(false);
+    }
+
+
+    public void SetGameOver(bool victory) {
+        if(victory) {
+            victoryDialogue.SetActive(true);
+        } else {
+            defeatDialogue.SetActive(true);
+        }
+    }
+    public void OnExit()
+    {
+        OnQuit();
+    }
+
 }

@@ -956,25 +956,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c653b8743a1c54f829148b9a6c05252f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
+  controlLock: 0
+  moveLock: 1
   target: {fileID: 0}
   fireDist: 5
-  rangeDist: 80
+  rangeDist: 90
   idleMode: 0
   moveSpeed: 3
   turnSpeed: 0.2
   targetVector: {x: 0, y: 0, z: 0}
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
   movementMode: 2
+  distanceTol: 200
+  maxHeight: 60
+  minHeight: 0
   defaultMaterial: {fileID: 0}
   selectedMaterial: {fileID: 2100000, guid: d0af7ad49d9e0d54cb487c1c81501239, type: 2}
   altDefaultMaterial: {fileID: 2100000, guid: 2a2859baeeec7e14785299ea50011ea5, type: 2}
   materialSwitch: 1
-  maxHeight: 60
-  minHeight: 0
-  distanceTol: 200
   maxHealth: 250
   health: 0
   healthPercent: 1
+  shipValue: 10
   teamNum: 0
   specMode: 0
   wingmen:
@@ -1011,6 +1015,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294966495
   serverControl: 0
+  showRotation: {x: 0, y: 0, z: 0}
 --- !u!114 &114886306999255456
 MonoBehaviour:
   m_ObjectHideFlags: 1

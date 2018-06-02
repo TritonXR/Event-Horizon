@@ -51,6 +51,8 @@ public class JPInputController : NetworkBehaviour {
         JPUIController.OnDefendMode += SetDefendMode;
         JPUIController.OnAttackMode += SetAttackMode;
         JPUIController.OnSpeedMode += SetSpeedMode;
+        JPUIController.OnRetreat += Retreat;
+        JPUIController.OnQuit += QuitGame;
         localUI = GetComponent<JPUIController>();
         marker.SetActive(false);
 
@@ -446,6 +448,19 @@ public class JPInputController : NetworkBehaviour {
         currentButton.BeginCooldown();
         print("GameObject Skill Activated " + target.name);
     }
-   
+
+    void Retreat () {
+        networkPlayer.CmdRetreat();
+        GameObject.Find("NetworkManager").GetComponent<JPUINetworkManager>().Disconnect();
+    }
+
+    void QuitGame()
+    {
+        if(isServer) {
+            GameObject.Find("NetworkManager").GetComponent<NetworkManager>().StopHost();
+        }
+        GameObject.Find("NetworkManager").GetComponent<JPUINetworkManager>().Disconnect();
+    }
+
 
 }

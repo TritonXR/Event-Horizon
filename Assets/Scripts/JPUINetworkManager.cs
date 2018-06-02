@@ -8,9 +8,12 @@ public class JPUINetworkManager : MonoBehaviour {
     NetworkManager manager;
     TextMesh ipShow;
     public InputField shipList;
+    GameObject connectionError;
 	// Use this for initialization
 	void Start () {
         manager = GetComponent<NetworkManager>();
+        connectionError = GameObject.Find("ConnectErrorMsg");
+        connectionError.SetActive(false);
         //ipShow.text = ip
 	}
 	
@@ -25,7 +28,23 @@ public class JPUINetworkManager : MonoBehaviour {
 
     }
     public void Client() {
-        manager.StartClient();
+        print("Connecting Client");
+        NetworkClient client = manager.StartClient();
+        client.RegisterHandler(MsgType.Disconnect, DetectError);
+
+    }
+
+    public void Disconnect()
+    {
+        manager.StopClient();
+
+    }
+ 
+    void DetectError (NetworkMessage netMsg) {
+        print("Manager error");
+        connectionError.SetActive(true);
+
+        connectionError.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
     }
     public void IPChange (string ip) {
         Debug.Log("Changed IP to: " + ip);

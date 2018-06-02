@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class JPShip : NetworkBehaviour {
+    public JPNetworkPlayer playerController;
+
     public bool controlLock = false;
     public bool moveLock = true;
 
@@ -20,21 +22,22 @@ public class JPShip : NetworkBehaviour {
     public Quaternion targetRotation;
     public int movementMode = 0; //0 = stop 1 = target ship 2 = vector
 
+    public float distanceTol = 10.0f;
+    public float maxHeight = 10.0f;
+    public float minHeight = 0;
+
     public Material defaultMaterial;
     public Material selectedMaterial;
     public Material altDefaultMaterial;
     public bool materialSwitch = true;
 
-    public float maxHeight = 10.0f;
-    public float minHeight = 0;
-
-    public float distanceTol = 10.0f;
     [SyncVar]
     public int maxHealth = 1000;
     [SyncVar]
     public int health = 0;
     [SyncVar]
     public float healthPercent = 1;
+    public int shipValue = 10;
 
     [SyncVar]
     public int teamNum = 0;
@@ -50,6 +53,7 @@ public class JPShip : NetworkBehaviour {
     public JPShip leadController;
 
     public bool destroyed = false;
+
     public bool fighter = true;
 
     public GameObject hpShow;
@@ -83,6 +87,10 @@ public class JPShip : NetworkBehaviour {
             return;
         }
 	}
+    public virtual void SetDestroyed() {
+        playerController.DecrementFleetHealth(shipValue);
+    }
+
 
     public virtual void SetTargetShip(GameObject ship)
     {
@@ -141,25 +149,32 @@ public class JPShip : NetworkBehaviour {
         }
         moveLock = false;
     }
+
+
 	private void OnCollisionEnter(Collision collision)
 	{
         //health++;
 	}
 	private void OnTriggerEnter(Collider other)
 	{
+        //print("hit");
         if (other.gameObject.GetComponent<Projectile>()) {
             int damageMult = 1;
             if((other.gameObject.GetComponent<Projectile>().fighter) && (fighter)) {
                 damageMult = 25;
             }
-            //health -= other.gameObject.GetComponent<Projectile>().damage;
+            health -= other.gameObject.GetComponent<Projectile>().damage;
             Destroy(other.gameObject);
             healthPercent = health / maxHealth;
         }
 	}
+
+
     public virtual void OnShipControlDisable(bool disable) {
         this.enabled = disable;
     }
+
+
     [ClientRpc]
     public void RpcSetLeadController(string leadName, int playerNum, int shipNum, int maxNum)
     {
@@ -173,6 +188,8 @@ public class JPShip : NetworkBehaviour {
         }
 
     }
+
+
     public void SetMode (int newMode) {
         if(lead) {
             

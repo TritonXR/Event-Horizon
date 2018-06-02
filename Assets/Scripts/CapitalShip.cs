@@ -55,9 +55,8 @@ public class CapitalShip : JPShip {
 
         if (health < 0)
         {
-            destroyed = true;
-            this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().enabled = false;
-            transform.position = new Vector3(-10000, -10000);
+            SetDestroyed();
+            return;
         }
         if ((controlLock) || (moveLock))
         {
@@ -149,6 +148,15 @@ public class CapitalShip : JPShip {
             this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material = defaultMaterial;
             hpShow.SetActive(false);
         }
+    }
+
+    public override void SetDestroyed()
+    {
+        destroyed = true;
+        this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().enabled = false;
+        transform.position = new Vector3(-10000, -10000);
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        base.SetDestroyed();
     }
 
 }
