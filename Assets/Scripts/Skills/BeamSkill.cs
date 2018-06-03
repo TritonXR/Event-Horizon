@@ -20,10 +20,12 @@ public class BeamSkill : BaseSkill
     {
         base.TriggerSkillLocation(pos);
         print("Beam pressed");
-        StartCoroutine(FireTorpedo());
+        FireBeam(pos);
     }
-    IEnumerator FireTorpedo()
+    void FireBeam(Vector3 pos)
     {
-        return null;
+        SkillshotFire skills = GetComponent<SkillshotFire>();
+        Vector3 direction = (pos - gameObject.transform.position).normalized;
+        skills.FireBeam(gameObject.transform.position, direction);
     }
 }

@@ -21,10 +21,12 @@ public class TorpedoSkill : BaseSkill {
     {
         base.TriggerSkillLocation(pos);
         print("Torpedo pressed");
-        StartCoroutine(FireTorpedo());
+        FireTorpedo(pos);
     }
-    IEnumerator FireTorpedo()
+    void FireTorpedo(Vector3 pos)
     {
-        return null;
+        SkillshotFire skills = GetComponent<SkillshotFire>();
+        Vector3 direction = (pos - gameObject.transform.position).normalized;
+        skills.FireTorpedo(gameObject.transform.position, direction);
     }
 }

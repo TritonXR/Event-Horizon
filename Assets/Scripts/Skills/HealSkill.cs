@@ -21,10 +21,11 @@ public class HealSkill : BaseSkill
     {
         base.TriggerSkill();
         print("Heal pressed");
-        StartCoroutine(ApplyHeal());
+        ApplyHeal();
     }
-    IEnumerator ApplyHeal()
+    void ApplyHeal()
     {
-        return null;
+        SkillshotFire skills = GetComponent<SkillshotFire>();
+        skills.HealArea();
     }
 }

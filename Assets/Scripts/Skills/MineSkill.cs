@@ -19,10 +19,11 @@ public class MineSkill : BaseSkill {
     {
         base.TriggerSkillLocation(pos);
         print("Mine pressed");
-        StartCoroutine(FireTorpedo());
+        FireMine(pos);
     }
-    IEnumerator FireTorpedo()
+    void FireMine(Vector3 pos)
     {
-        return null;
+        SkillshotFire skills = GetComponent<SkillshotFire>();
+        skills.PlaceMine(pos);
     }
 }
