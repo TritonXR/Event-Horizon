@@ -64,12 +64,16 @@ public class SkillshotFire : MonoBehaviour {
     public void HealArea()
     {
         GameObject heal = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+        Collider healCollider = heal.GetComponent<Collider>();
+
+        healCollider.isTrigger = true;
+
         heal.transform.localScale = new Vector3(healRadius, healHeight, healRadius);
         Destroy(heal.GetComponent<MeshRenderer>());
         heal.transform.parent = gameObject.transform;
         heal.transform.localPosition = Vector3.zero;
         BuffDebuff healComponent = heal.AddComponent<BuffDebuff>();
-        healComponent.healAmount = healRate;        
+        healComponent.healAmount = healRate;
 
         Destroy(heal, healTime);
     }
@@ -77,6 +81,10 @@ public class SkillshotFire : MonoBehaviour {
     public void MagneticField()
     {
         GameObject mag = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+        Collider magCollider = mag.GetComponent<Collider>();
+
+        magCollider.isTrigger = true;
+
         mag.transform.localScale = new Vector3(magRadius, magHeight, magRadius);
         Destroy(mag.GetComponent<MeshRenderer>());
         mag.transform.parent = gameObject.transform;
