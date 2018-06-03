@@ -90,31 +90,35 @@ public class JPFighter : JPShip {
             {
                 float step = 500f * Time.deltaTime;
                 Vector3 targetDir = targetPos - transform.position;
-                Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
 
-                //Get the amount rotating
-                Vector3 diffRotation = Quaternion.LookRotation(newDir).eulerAngles - transform.rotation.eulerAngles;
-                showRotation = diffRotation;
-                Vector3 newRot = Quaternion.LookRotation(newDir).eulerAngles;
+                if (!warpRotLock)
+                {
+                    Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
 
-                //Detect Direction
-                if (Mathf.Abs(diffRotation.y) < 0.01f)
-                {
-                    newRot.z = 0f;
-                }
-                else if (diffRotation.y > 0)
-                {
-                    newRot.z = -30f;
-                }
-                else if (diffRotation.y < 0)
-                {
-                    newRot.z = 30f;
-                }
-                //showRotation = Quaternion.LookRotation(newDir).eulerAngles;
-                //Debug.DrawRay(transform.position, newDir, Color.red);
+                    //Get the amount rotating
+                    Vector3 diffRotation = Quaternion.LookRotation(newDir).eulerAngles - transform.rotation.eulerAngles;
+                    showRotation = diffRotation;
+                    Vector3 newRot = Quaternion.LookRotation(newDir).eulerAngles;
 
-                //Apply Rotation
-                transform.rotation = Quaternion.Euler(newRot.x, newRot.y, newRot.z);
+                    //Detect Direction
+                    if (Mathf.Abs(diffRotation.y) < 0.01f)
+                    {
+                        newRot.z = 0f;
+                    }
+                    else if (diffRotation.y > 0)
+                    {
+                        newRot.z = -30f;
+                    }
+                    else if (diffRotation.y < 0)
+                    {
+                        newRot.z = 30f;
+                    }
+                    //showRotation = Quaternion.LookRotation(newDir).eulerAngles;
+                    //Debug.DrawRay(transform.position, newDir, Color.red);
+
+                    //Apply Rotation
+                    transform.rotation = Quaternion.Euler(newRot.x, newRot.y, newRot.z);
+                }
 
                 transform.position = Vector3.MoveTowards(transform.position, warpTarget, step);
             }

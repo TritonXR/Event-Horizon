@@ -889,7 +889,7 @@ MonoBehaviour:
   school: {fileID: 0}
   targetShip: {fileID: 0}
   useRay: 1
-  rangeDist: 50
+  rangeDist: 75
 --- !u!114 &114472601973752368
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -961,7 +961,7 @@ MonoBehaviour:
   moveLock: 1
   target: {fileID: 0}
   fireDist: 5
-  rangeDist: 90
+  rangeDist: 70
   idleMode: 0
   moveSpeed: 3
   turnSpeed: 0.2

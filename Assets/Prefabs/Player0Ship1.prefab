@@ -837,7 +837,7 @@ MonoBehaviour:
   moveLock: 1
   target: {fileID: 0}
   fireDist: 5
-  rangeDist: 90
+  rangeDist: 70
   idleMode: 0
   moveSpeed: 3
   turnSpeed: 0.2
@@ -965,7 +965,7 @@ MonoBehaviour:
   school: {fileID: 0}
   targetShip: {fileID: 0}
   useRay: 1
-  rangeDist: 50
+  rangeDist: 75
 --- !u!135 &135710844134911398
 SphereCollider:
   m_ObjectHideFlags: 1

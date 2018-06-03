@@ -73,7 +73,7 @@ public class JPNetworkPlayer : NetworkBehaviour {
 
             //Spawn lead ships
             GameObject obj = (GameObject)Instantiate(shipList[shipSpawnCommandList[count]], new Vector3(count * 100f, 12.0f, Random.Range(0, 0)) + initPos, spawnLoc.transform.rotation);
-            obj.GetComponent<JPShip>().JumpToLocation(new Vector3(count * 100f, 12.0f, Random.Range(0, 0)) + spawnLoc.transform.position);
+            obj.GetComponent<JPShip>().JumpToLocation(new Vector3(count * 100f, 12.0f, Random.Range(0, 0)) + spawnLoc.transform.position, true);
             if (obj.GetComponent<JPNetworkShip>().forcePlayerNumber)
             {
                 obj.name = "Player" + "1" + "Ship" + count;
@@ -97,7 +97,7 @@ public class JPNetworkPlayer : NetworkBehaviour {
             //Spawn wingmen
             for (int countSquad = 1; countSquad < squadShips.Length; countSquad++) {
                 GameObject obj2 = (GameObject)Instantiate(shipList[shipSpawnCommandList[count]], new Vector3(count * 100f, 12.0f, Random.Range(0, 0)) + initPos + lead.wingmenOffsets[countSquad], spawnLoc.transform.rotation);
-                obj2.GetComponent<JPShip>().JumpToLocation(new Vector3(count * 100f, 12.0f, Random.Range(0, 0)) + spawnLoc.transform.position + lead.wingmenOffsets[countSquad]);
+                obj2.GetComponent<JPShip>().JumpToLocation(new Vector3(count * 100f, 12.0f, Random.Range(0, 0)) + spawnLoc.transform.position + lead.wingmenOffsets[countSquad], true);
 
                 obj2.name = "Player" + playerNumber + "Ship" + count + "Squad" + countSquad;
                 obj2.GetComponent<JPShip>().leadController = lead;
@@ -304,7 +304,7 @@ public class JPNetworkPlayer : NetworkBehaviour {
         for (int count = 0; count < spawnedShipList.Length; count ++) {
             JPShip temp = spawnedShipList[count].GetComponent<JPShip>();
             for (int countInner = 0; countInner < temp.wingmen.Length; countInner ++) {
-                temp.wingmen[countInner].GetComponent<JPShip>().JumpToLocation(new Vector3(1000f, 0f, 10000f));
+                temp.wingmen[countInner].GetComponent<JPShip>().JumpToLocation(new Vector3(1000f, 0f, 10000f), false);
                 if(!temp.wingmen[countInner].GetComponent<JPShip>().destroyed) {
                     DecrementFleetHealth(temp.wingmen[countInner].GetComponent<JPShip>().shipValue);
                 }

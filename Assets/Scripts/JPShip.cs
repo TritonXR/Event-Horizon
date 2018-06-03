@@ -61,6 +61,7 @@ public class JPShip : NetworkBehaviour {
     public BaseSkill[] skills = new BaseSkill[3];
     public bool warping = false;
     public Vector3 warpTarget;
+    public bool warpRotLock = false;
 
 	// Use this for initialization
 	void Start () {
@@ -224,8 +225,9 @@ public class JPShip : NetworkBehaviour {
         }
 
     }
-    public void JumpToLocation (Vector3 pos) {
+    public void JumpToLocation (Vector3 pos, bool rotLock) {
         //print("Jumping");
+        warpRotLock = rotLock;
         warping = true;
         warpTarget = pos;
     }
