@@ -26,6 +26,6 @@ public class BeamSkill : BaseSkill
     {
         SkillshotFire skills = GetComponent<SkillshotFire>();
         Vector3 direction = (pos - gameObject.transform.position).normalized;
-        skills.FireBeam(gameObject.transform.position, direction);
+        skills.FireBeam(gameObject.transform.position, direction); // NOTE: this fires off whatever gameobject this skill is on
     }
 }

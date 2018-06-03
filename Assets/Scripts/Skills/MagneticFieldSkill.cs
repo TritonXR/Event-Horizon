@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealSkill : BaseSkill
+public class MagneticFieldSkill : BaseSkill
 {
 
     public float healAmount;
@@ -20,12 +20,12 @@ public class HealSkill : BaseSkill
     public override void TriggerSkill()
     {
         base.TriggerSkill();
-        print("Heal pressed");
-        ApplyHeal();
+        print("MagneticField pressed");
+        ApplyMagneticField();
     }
-    void ApplyHeal()
+    void ApplyMagneticField()
     {
         SkillshotFire skills = GetComponent<SkillshotFire>();
-        skills.HealArea(); // NOTE: this heals ALL in the area
+        skills.MagneticField(); // NOTE: this slows ALL in the area
     }
 }
