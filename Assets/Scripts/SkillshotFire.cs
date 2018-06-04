@@ -40,10 +40,10 @@ public class SkillshotFire : MonoBehaviour {
     }
 
     // RaycastAll & loop through objects hit
-    public void FireBeam(Vector3 origin, Vector3 direction)
+    public void FireBeam()
     {
         // spawn particles?
-        Ray ray = new Ray(origin, direction);
+        Ray ray = new Ray(gameObject.transform.position, gameObject.transform.rotation.eulerAngles); // based off the gameObject's transform
         RaycastHit[] hits = Physics.RaycastAll(ray, beamRange);
         foreach (RaycastHit r in hits)
         {

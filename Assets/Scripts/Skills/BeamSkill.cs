@@ -16,16 +16,15 @@ public class BeamSkill : BaseSkill
     {
 
     }
-    public override void TriggerSkillLocation(Vector3 pos)
+    public override void TriggerSkill()
     {
-        base.TriggerSkillLocation(pos);
+        base.TriggerSkill();
         print("Beam pressed");
-        FireBeam(pos);
+        FireBeam();
     }
-    void FireBeam(Vector3 pos)
+    void FireBeam()
     {
         SkillshotFire skills = GetComponent<SkillshotFire>();
-        Vector3 direction = (pos - gameObject.transform.position).normalized;
-        skills.FireBeam(gameObject.transform.position, direction); // NOTE: this fires off whatever gameobject this skill is on
+        skills.FireBeam(); // NOTE: this fires off whatever gameobject this skill is on
     }
 }
