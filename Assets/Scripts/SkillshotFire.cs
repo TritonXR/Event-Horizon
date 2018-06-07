@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class SkillshotFire : MonoBehaviour {
+public class SkillshotFire : NetworkBehaviour {
 
     public GameObject torpedoPrefab;
-    public GameObject minePrefab;
-
     public float torpedoSpeed;
-    public float beamRange;
-
     public float torpedoDamage;
-    public float beamDamage;
+
+    public GameObject minePrefab;
     public float mineDamage;
+
+    public float beamRange;
+    public float beamDamage;
 
     public float healRate;
     public float healRadius, healHeight;
@@ -21,6 +22,8 @@ public class SkillshotFire : MonoBehaviour {
     public float magRate;
     public float magRadius, magHeight;
     public float magTime;
+
+
 
     // Use this for initialization
     void Start () {
@@ -35,8 +38,13 @@ public class SkillshotFire : MonoBehaviour {
     //
     public void FireTorpedo(Vector3 position, Vector3 direction)
     {
-        GameObject torpedo = (GameObject)Instantiate(torpedoPrefab, position, Quaternion.Euler(direction));
-        torpedo.GetComponent<Rigidbody>().AddForce(transform.forward * torpedoSpeed);
+        print("Fire Torpedo");
+        GameObject torpedo = (GameObject)Instantiate(torpedoPrefab, position, transform.rotation);
+        torpedo.transform.LookAt(direction);
+        torpedo.GetComponent<Rigidbody>().AddForce(torpedo.transform.forward * torpedoSpeed);
+        NetworkServer.Spawn(torpedo);
+        print("Fire End");
+
     }
 
     // RaycastAll & loop through objects hit

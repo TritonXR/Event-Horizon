@@ -8,12 +8,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -2067402452, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
+  m_Script: {fileID: -2067402452, guid: 1e108ae5f2133934f948edded555f03e, type: 3}
   m_Name: VuforiaConfiguration
   m_EditorClassIdentifier: 
   vuforia:
     vuforiaLicenseKey: AeejHRT/////AAAAGZ/jIsEBKkndn93pmUWbD60A7fdkCxahP5BWJcAXqWTbny9K/HDsjmLUy9gnKYpzBP3+sNvhkKYUXHbFivQ1id+fOOKZExrjPCPpGFnQgaXOJE6d4d4oAUqBaOGCj2DY0oE5nCBFnDTFyXLGnEI1YjKQAWlXfNRnW0tIh2EAq5/ERPfh0pqPU8Z+MPYoyvsAQ2FjXucQVP5l7BgHHCzfLD6319gRAhHxXi4hWYEJK0QbAPVySw6IHfFIV0WVCIApVM3+XLFQHv09jmseLYbs0uVKG1RmlR42bm2i9+gF9Q7oPEgNMkzT+T73Y2UMgfMxSQF1lWHnihXwt4KApw4p9X1P2jCkQVt74/pDEqBrjcIz
-    ufoLicenseKey: QVFGbGJYdi8vLy8vQUFBQUtGWFYzMDJWQWs0OGo0SjJxc0FEdlJhWGxFS2IyUFVKL3RlL3Qyb2hWaGg3ZElPTkV5WFFTVWtuMDNGVDZrUHFkVEpGaEJPRnRnOXd1dmI1YTFZVHlOd010VTRmbWJCRWZtVVV3dWgwRlJoSDRCaktTRzk5MFo0UE16TEc3SEtRTVpBOGd4TitROXg0bEdhRVJYS01qNGl2YXlTelRDU0lJWEZZcjVjVStVVGkvUU9NK0FPb1JuYktOSkhDVVQveExnSy9YUlVXekJSMU5Mck5qTzNhN1FtTkcrRFV0TEhFMnNFdTBKZkhFQS9YdFFBWFlXSHFUNTBONnJkeWR2K2hhcmMrRmtyRlVOU2RlbjNHK2tYWmtQdkx2bnArMmN6VlgyYTRWekRMUjlGRHRJZk14RDBqUEFmNjNnZGlINXhKVGlsR3IzZm9QakdxYjJjdnBFamhvcFI0TDkzc2Y0VElsSGhaUmhQT2lqaU4=
+    ufoLicenseKey: QVRvdUszai8vLy8vQUFBQUtPd3hUcG1HbGt0WWdUNGRGdlQ0TFJrZHEzVTdEOEt4Y1U0VEdkM0p0c3c4STlFZ2VsdlNjeldJM2phOCsxaFQ4WExOV2RaKzVmdGoxWFBWRnpNY0hRUlRvOG92ZE9tL2YzRHZEWkh5U2NkTG5QQUZHUFJENWJib0hyQm5xR2Q4UlJtbE9rbWR1VTZQNEZFTmFvRURlU3lsV2Z3b2xyUlBCQnRnVkoyNjltZnJDVHhicWNwVjNrKy9FaldBR1JYT3lxYXdIUzlXbGhjdUV2M2kyTjNBVWpNVWkxcUIzQVlHaUJsLzBDME1tRzV4bXR5QTk5bGpQaFhsa25aMzFFdVJtamUvbzhsWHFGRUV0dTd6S3ZaUnVSRnhHa3U3akFkQVdnUE05ZWM2R3FENXlGa1NmcjVKZmNJNlFJVW1aTjhFRTgweWdTQ1BQUEhEZGZVVjIzaENteUNxellvcVljV0ViWnZ1emdnNnQ1QjU=
     delayedInitialization: 0
     cameraDeviceModeSetting: -1
     maxSimultaneousImageTargets: 1
@@ -42,13 +42,6 @@ MonoBehaviour:
       DistortionCoefficients: {x: 0, y: 0}
       FieldOfView: {x: 0, y: 0, z: 0, w: 0}
       ContainsMagnet: 0
-  databaseLoad:
-    dataSetsToLoad:
-    - EventHorizon
-    - TicTacToe
-    dataSetsToActivate:
-    - EventHorizon
-    - TicTacToe
   videoBackground:
     clippingMode: 0
     numDivisions: 2

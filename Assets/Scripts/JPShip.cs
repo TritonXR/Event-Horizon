@@ -63,6 +63,9 @@ public class JPShip : NetworkBehaviour {
     public Vector3 warpTarget;
     public bool warpRotLock = false;
 
+    [SyncVar]
+    public int fireRate = 15;
+
 	// Use this for initialization
 	void Start () {
         //defaultMaterial = this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material;

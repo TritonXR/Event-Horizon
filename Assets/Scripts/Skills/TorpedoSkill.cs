@@ -6,6 +6,8 @@ public class TorpedoSkill : BaseSkill {
 
     public float torpedoSpeed;
     public float torpedoDamage;
+
+    public GameObject positionMarker;
     // Use this for initialization
     void Start()
     {
@@ -26,7 +28,7 @@ public class TorpedoSkill : BaseSkill {
     void FireTorpedo(Vector3 pos)
     {
         SkillshotFire skills = GetComponent<SkillshotFire>();
-        Vector3 direction = (pos - gameObject.transform.position).normalized;
-        skills.FireTorpedo(gameObject.transform.position, direction); // NOTE: this fires off whatever gameobject this skill is on
+        Vector3 direction = (pos - positionMarker.transform.position);
+        skills.FireTorpedo(positionMarker.transform.position, direction); // NOTE: this fires off whatever gameobject this skill is on
     }
 }

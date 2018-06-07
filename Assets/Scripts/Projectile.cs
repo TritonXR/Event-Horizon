@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour {
-    public float damage;
+    public int damage;
     public bool fighter;
     public float timeAlive;
 

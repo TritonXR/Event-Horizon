@@ -434,19 +434,22 @@ public class JPInputController : NetworkBehaviour {
     {
         networkPlayer.CmdSetSkill(skillIndex);
         currentButton.BeginCooldown();
-        print("Regular Skill Activated");
+        print("Regular Skill Activated " + skillIndex);
+        //skillActive = false;
     }
     void SetSkillLocation(Vector3 pos)
     {
         networkPlayer.CmdSetSkillLocation(skillIndex, pos);
         currentButton.BeginCooldown();
         print("Location Skill Activated " + pos);
+        skillActive = false;
     }
     void SetSkillTarget(GameObject target)
     {
         networkPlayer.CmdSetSkillTarget(skillIndex, target);
         currentButton.BeginCooldown();
         print("GameObject Skill Activated " + target.name);
+        skillActive = false;
     }
 
     void Retreat () {

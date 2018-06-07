@@ -63,8 +63,9 @@ MonoBehaviour:
   - {fileID: 1405486450314822, guid: cdbcb35b61ba54bda83d53edc0f07834, type: 2}
   - {fileID: 1318251050415550, guid: 8f3d23ddcf129433cbbe0e57efa2ef97, type: 2}
   spawnedShipList: []
-  shipSpawnList: 1,2,2,3,3
+  spawnControl: 1,2,3
   shipSpawnCommandList: 
+  fleetHealth: 0
 --- !u!114 &114131693766564090
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -77,6 +78,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetMode: 17
+  retreatDialogue: {fileID: 0}
+  victoryDialogue: {fileID: 0}
+  defeatDialogue: {fileID: 0}
 --- !u!114 &114308233927824586
 MonoBehaviour:
   m_ObjectHideFlags: 1

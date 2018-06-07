@@ -18,6 +18,8 @@ public class Turret : MonoBehaviour {
 
     public int fireRate = 15;
 
+    JPShip shipController;
+
 	// Use this for initialization
 	void Start () {
         range = transform.parent.GetComponent<DRange>();
@@ -25,6 +27,7 @@ public class Turret : MonoBehaviour {
 		laser = GetComponentInChildren<LaserShoot>();
         startVector = transform.localRotation.eulerAngles;
         startRotation = transform.localRotation;
+        shipController = transform.parent.parent.gameObject.GetComponent<JPShip>();
 	}
 
 	// Update is called once per frame
@@ -65,7 +68,7 @@ public class Turret : MonoBehaviour {
             if (ship != null)
             {
                 count++;
-                if (count > fireRate)
+                if (count > shipController.fireRate)
                 {
                     laser.Fire();
                     count = 0;

@@ -232,7 +232,9 @@ GameObject:
   - component: {fileID: 114111534458679872}
   - component: {fileID: 114271972463353190}
   - component: {fileID: 136208440389832938}
-  - component: {fileID: 114507464693529336}
+  - component: {fileID: 114749193980525670}
+  - component: {fileID: 114118442644648944}
+  - component: {fileID: 114482469082784888}
   m_Layer: 12
   m_Name: Player0Ship3
   m_TagString: Untagged
@@ -642,6 +644,39 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1888422877242236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4465815484130316}
+  - component: {fileID: 33971412387614600}
+  - component: {fileID: 23848113192165180}
+  - component: {fileID: 64222527176160976}
+  m_Layer: 11
+  m_Name: Shield
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1894208556985874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4628811885901268}
+  m_Layer: 0
+  m_Name: TorpedoSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1912076850353418
 GameObject:
   m_ObjectHideFlags: 1
@@ -800,7 +835,7 @@ Transform:
   m_LocalScale: {x: 0.0057339887, y: 0.005733988, z: 0.005733988}
   m_Children: []
   m_Father: {fileID: 4562543954612650}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4234288579717150
 Transform:
@@ -928,6 +963,19 @@ Transform:
   - {fileID: 4677488533240306}
   - {fileID: 4629530842617302}
   m_Father: {fileID: 4562543954612650}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4465815484130316
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1888422877242236}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.12829171, y: 0.094738595, z: -0.22701983}
+  m_LocalScale: {x: 0.0066095684, y: 0.0067000417, z: 0.013076708}
+  m_Children: []
+  m_Father: {fileID: 4562543954612650}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4562543954612650
@@ -937,7 +985,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1318251050415550}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 100.0402, y: 44.105793, z: -104.703224}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 200, y: 200, z: 200}
   m_Children:
   - {fileID: 4360784229847108}
@@ -945,6 +993,8 @@ Transform:
   - {fileID: 4406452895139654}
   - {fileID: 4617978751761594}
   - {fileID: 4927455035915620}
+  - {fileID: 4465815484130316}
+  - {fileID: 4628811885901268}
   - {fileID: 4414286047189950}
   - {fileID: 4694938168754528}
   - {fileID: 4824490508871810}
@@ -979,6 +1029,19 @@ Transform:
   m_Father: {fileID: 4694938168754528}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 88.41901, y: 0, z: 0}
+--- !u!4 &4628811885901268
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1894208556985874}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.3529}
+  m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
+  m_Children: []
+  m_Father: {fileID: 4562543954612650}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4629530842617302
 Transform:
   m_ObjectHideFlags: 1
@@ -1032,7 +1095,7 @@ Transform:
   - {fileID: 4780062637823490}
   - {fileID: 4212486822676966}
   m_Father: {fileID: 4562543954612650}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4702192072174938
 Transform:
@@ -1139,7 +1202,7 @@ Transform:
   - {fileID: 4794640887975320}
   - {fileID: 4019591079004868}
   m_Father: {fileID: 4562543954612650}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4909635827995548
 Transform:
@@ -2126,6 +2189,41 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23848113192165180
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1888422877242236}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: 22967fa7b317f4af0ac43aed95ee7576, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23848849607606132
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -2553,6 +2651,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1756238627992526}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33971412387614600
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1888422877242236}
+  m_Mesh: {fileID: 4300000, guid: 4b603d5eb5ea64055a2a9f742fa3a8ff, type: 3}
 --- !u!54 &54284543565248208
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -2568,6 +2673,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!64 &64222527176160976
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1888422877242236}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: -1
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 4b603d5eb5ea64055a2a9f742fa3a8ff, type: 3}
 --- !u!64 &64386008912566440
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -2897,13 +3016,42 @@ MonoBehaviour:
   fighter: 1
   hpShow: {fileID: 1682757367270978}
   skills:
-  - {fileID: 114507464693529336}
-  - {fileID: 114507464693529336}
-  - {fileID: 114507464693529336}
+  - {fileID: 114749193980525670}
+  - {fileID: 114482469082784888}
+  - {fileID: 0}
   warping: 0
   warpTarget: {x: 0, y: 0, z: 0}
+  warpRotLock: 0
+  fireRate: 15
   idle: 0
   speedMagnitude: 0
+--- !u!114 &114118442644648944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318251050415550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a84fab0bd886b498e52bf32f74b7cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  torpedoPrefab: {fileID: 1851572145715198, guid: 72e9a8de75ceb4317ade303577c32003,
+    type: 2}
+  torpedoSpeed: 1000
+  torpedoDamage: 0
+  minePrefab: {fileID: 0}
+  mineDamage: 0
+  beamRange: 0
+  beamDamage: 0
+  healRate: 0
+  healRadius: 0
+  healHeight: 0
+  healTime: 0
+  magRate: 0
+  magRadius: 0
+  magHeight: 0
+  magTime: 0
 --- !u!114 &114136273077462396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3120,6 +3268,28 @@ MonoBehaviour:
   maxHeath: 0
   numSegments: 0
   segmentWidth: 0
+--- !u!114 &114482469082784888
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318251050415550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db970fd0e4d088749a5a7fe4fc8f39b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: 
+  imageIcon: {fileID: 21300000, guid: d735bcd8c6243194e99cab067502755f, type: 3}
+  cooldownTime: 15
+  locationRequired: 1
+  gameObjectRequired: 0
+  timeActivated: -15
+  ready: 0
+  ship: {fileID: 0}
+  torpedoSpeed: 0
+  torpedoDamage: 0
+  positionMarker: {fileID: 1894208556985874}
 --- !u!114 &114496881836337494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3139,25 +3309,6 @@ MonoBehaviour:
   targetShip: {fileID: 0}
   useRay: 0
   rangeDist: 10
---- !u!114 &114507464693529336
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1318251050415550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c4e2f7ee5adc4771a73b356aafdfa1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillName: 
-  imageIcon: {fileID: 21300000, guid: ef3c774979e1c9c4188a82b268c4457e, type: 3}
-  cooldownTime: 5
-  locationRequired: 0
-  gameObjectRequired: 0
-  timeActivated: 0
-  ready: 0
-  ship: {fileID: 0}
 --- !u!114 &114518297852264186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3302,6 +3453,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laser: {fileID: 1522751953291414, guid: 4141ce6b5d79c462d91e02f61e549dff, type: 2}
+--- !u!114 &114749193980525670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318251050415550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da63b40fa01e9405cb25993721413ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: 
+  imageIcon: {fileID: 21300000, guid: f622d847b90e8bc4a9626417ab2f4a7f, type: 3}
+  cooldownTime: 30
+  locationRequired: 0
+  gameObjectRequired: 0
+  timeActivated: -30
+  ready: 0
+  ship: {fileID: 0}
+  shield: {fileID: 1888422877242236}
+  shieldTime: 10
 --- !u!114 &114776971340200318
 MonoBehaviour:
   m_ObjectHideFlags: 1

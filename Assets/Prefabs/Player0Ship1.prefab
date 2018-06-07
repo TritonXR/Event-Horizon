@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 114343659329689142}
   - component: {fileID: 114155249335987520}
   - component: {fileID: 114128561703286590}
+  - component: {fileID: 114852147712083710}
   m_Layer: 9
   m_Name: Player0Ship1
   m_TagString: Untagged
@@ -777,7 +778,7 @@ MonoBehaviour:
   cooldownTime: 10
   locationRequired: 0
   gameObjectRequired: 0
-  timeActivated: 0
+  timeActivated: -10
   ready: 0
   ship: {fileID: 0}
   buffTime: 5
@@ -874,10 +875,12 @@ MonoBehaviour:
   hpShow: {fileID: 1903756518127028}
   skills:
   - {fileID: 114128561703286590}
-  - {fileID: 0}
+  - {fileID: 114852147712083710}
   - {fileID: 0}
   warping: 0
   warpTarget: {x: 0, y: 0, z: 0}
+  warpRotLock: 0
+  fireRate: 15
   targetPos: {x: 0, y: 0, z: 0}
   divergeAmt: 1
   showTargetVector: {x: 0, y: 0, z: 0}
@@ -966,6 +969,27 @@ MonoBehaviour:
   targetShip: {fileID: 0}
   useRay: 1
   rangeDist: 75
+--- !u!114 &114852147712083710
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1471020276618608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 581ae32055b5c42578e39fc0bb76d529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: 
+  imageIcon: {fileID: 21300000, guid: 8669cd91c391ec04998dcdfa5550bc7b, type: 3}
+  cooldownTime: 15
+  locationRequired: 0
+  gameObjectRequired: 0
+  timeActivated: -15
+  ready: 0
+  ship: {fileID: 0}
+  buffAmt: 0.33
+  buffTime: 5
 --- !u!135 &135710844134911398
 SphereCollider:
   m_ObjectHideFlags: 1
