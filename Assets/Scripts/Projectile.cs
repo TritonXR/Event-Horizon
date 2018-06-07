@@ -9,14 +9,36 @@ public class Projectile : MonoBehaviour {
 
     public Rigidbody rb;
 
+    public bool autoTurn = false;
+    public float turnSpeed = 1f;
+    public float moveSpeed = 5f;
+    public Vector3 targetPos;
+
 	// Use this for initialization
 	void Start () {
-        
+        Destroy(gameObject, timeAlive);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        Destroy(gameObject, timeAlive);
+        if(autoTurn) {
+            if(Mathf.Abs(Vector3.Distance(transform.position, targetPos)) < 1) {
+                autoTurn = false;
+            }
+            Vector3 targetDir = targetPos - transform.position;
+            float step = turnSpeed * Time.deltaTime;
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
+
+            //Get the amount rotating
+            Vector3 diffRotation = Quaternion.LookRotation(newDir).eulerAngles - transform.rotation.eulerAngles;
+            Vector3 newRot = Quaternion.LookRotation(newDir).eulerAngles;
+
+
+            //Apply Rotation
+            transform.rotation = Quaternion.Euler(newRot.x, newRot.y, newRot.z);
+            rb.velocity = transform.forward * moveSpeed;
+
+        }
 	}
 
     private void OnCollisionEnter(Collision collision)

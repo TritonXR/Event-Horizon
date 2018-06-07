@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114724057911815458}
   - component: {fileID: 114561887973487964}
   - component: {fileID: 114535873472814574}
+  - component: {fileID: 114358674283262856}
   m_Layer: 10
   m_Name: LaserFighter 1
   m_TagString: Untagged
@@ -103,6 +104,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114358674283262856
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318772850748580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422930325f9a1db4abde6f6c6e5e7d04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  fighter: 0
+  timeAlive: 2
+  rb: {fileID: 0}
+  autoTurn: 0
+  turnSpeed: 1
+  moveSpeed: 5
+  targetPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114535873472814574
 MonoBehaviour:
   m_ObjectHideFlags: 1

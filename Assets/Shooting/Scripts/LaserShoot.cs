@@ -20,7 +20,7 @@ public class LaserShoot : MonoBehaviour {
 		GameObject tempLaser = (GameObject)Instantiate(laser, transform.position, transform.parent.rotation * Quaternion.Euler(90, 0, 0));
 		Rigidbody tempLaserRigidbody = tempLaser.GetComponent<Rigidbody>();
 		tempLaserRigidbody.AddForce(tempLaserRigidbody.transform.up * laserSpeed);
-		Debug.Log ("REG FIRE");
+		//Debug.Log ("REG FIRE");
 		Destroy(tempLaser, 3f);
         //NetworkServer.Spawn(tempLaser);
 	}

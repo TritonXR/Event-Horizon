@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114217976940809884}
   - component: {fileID: 114446160252226432}
   - component: {fileID: 114911596217031584}
+  - component: {fileID: 114174774206994986}
   m_Layer: 10
   m_Name: Laser bullet 1
   m_TagString: Untagged
@@ -103,6 +104,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114174774206994986
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1522751953291414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422930325f9a1db4abde6f6c6e5e7d04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  fighter: 0
+  timeAlive: 2
+  rb: {fileID: 0}
+  autoTurn: 0
+  turnSpeed: 1
+  moveSpeed: 5
+  targetPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114217976940809884
 MonoBehaviour:
   m_ObjectHideFlags: 1

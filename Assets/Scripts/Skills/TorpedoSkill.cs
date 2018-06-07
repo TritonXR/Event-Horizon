@@ -28,7 +28,7 @@ public class TorpedoSkill : BaseSkill {
     void FireTorpedo(Vector3 pos)
     {
         SkillshotFire skills = GetComponent<SkillshotFire>();
-        Vector3 direction = (pos - positionMarker.transform.position);
+        Vector3 direction = (pos);
         skills.FireTorpedo(positionMarker.transform.position, direction); // NOTE: this fires off whatever gameobject this skill is on
     }
 }

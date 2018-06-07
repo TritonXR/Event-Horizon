@@ -24,7 +24,6 @@ public class SkillshotFire : NetworkBehaviour {
     public float magTime;
 
 
-
     // Use this for initialization
     void Start () {
 		
@@ -42,6 +41,8 @@ public class SkillshotFire : NetworkBehaviour {
         GameObject torpedo = (GameObject)Instantiate(torpedoPrefab, position, transform.rotation);
         torpedo.transform.LookAt(direction);
         torpedo.GetComponent<Rigidbody>().AddForce(torpedo.transform.forward * torpedoSpeed);
+        //torpedo.GetComponent<Projectile>().autoTurn = true;
+        torpedo.GetComponent<Projectile>().targetPos = direction;
         NetworkServer.Spawn(torpedo);
         print("Fire End");
 
@@ -82,6 +83,7 @@ public class SkillshotFire : NetworkBehaviour {
         heal.transform.localPosition = Vector3.zero;
         BuffDebuff healComponent = heal.AddComponent<BuffDebuff>();
         healComponent.healAmount = healRate;
+        healComponent.teamNum = GetComponent<JPShip>().teamNum;
 
         Destroy(heal, healTime);
     }

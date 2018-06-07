@@ -12,7 +12,7 @@ public class HPControl : MonoBehaviour {
 
     JPShip ship;
 
-    int segmentValue = 50;
+    int segmentValue = 500;
     public float maxHeath;
     public float numSegments;
     public float segmentWidth;

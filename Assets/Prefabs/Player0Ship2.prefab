@@ -981,7 +981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: 
-  imageIcon: {fileID: 21300000, guid: d735bcd8c6243194e99cab067502755f, type: 3}
+  imageIcon: {fileID: 21300000, guid: 9a4bd620da7e04e978b758ac073b8708, type: 3}
   cooldownTime: 15
   locationRequired: 0
   gameObjectRequired: 0
@@ -990,7 +990,7 @@ MonoBehaviour:
   ship: {fileID: 0}
   torpedoSpeed: 1000
   torpedoDamage: 0
-  torpedoPrefab: {fileID: 1851572145715198, guid: 72e9a8de75ceb4317ade303577c32003,
+  torpedoPrefab: {fileID: 1731324900458288, guid: 6843325ed209946e8b97f5cbdce90a49,
     type: 2}
   positionMarker: {fileID: 1529639435450270}
 --- !u!114 &114460886917236240
@@ -1097,7 +1097,7 @@ MonoBehaviour:
   selectedMaterial: {fileID: 2100000, guid: d0af7ad49d9e0d54cb487c1c81501239, type: 2}
   altDefaultMaterial: {fileID: 2100000, guid: 2a2859baeeec7e14785299ea50011ea5, type: 2}
   materialSwitch: 1
-  maxHealth: 250
+  maxHealth: 2500
   health: 0
   healthPercent: 1
   shipValue: 10
@@ -1137,7 +1137,7 @@ MonoBehaviour:
   avoidObject: {fileID: 0}
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 4294966495
+    m_Bits: 4294955231
   serverControl: 0
   showRotation: {x: 0, y: 0, z: 0}
 --- !u!114 &114753616642395432
@@ -1152,7 +1152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: 
-  imageIcon: {fileID: 21300000, guid: f622d847b90e8bc4a9626417ab2f4a7f, type: 3}
+  imageIcon: {fileID: 21300000, guid: 11db51ec58a904411bfb61ad3d74c223, type: 3}
   cooldownTime: 25
   locationRequired: 0
   gameObjectRequired: 0

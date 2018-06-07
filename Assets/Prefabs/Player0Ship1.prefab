@@ -774,7 +774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: 
-  imageIcon: {fileID: 21300000, guid: ef3c774979e1c9c4188a82b268c4457e, type: 3}
+  imageIcon: {fileID: 21300000, guid: 055971110c16f4715b27d40241fe0baf, type: 3}
   cooldownTime: 10
   locationRequired: 0
   gameObjectRequired: 0
@@ -852,7 +852,7 @@ MonoBehaviour:
   selectedMaterial: {fileID: 2100000, guid: d0af7ad49d9e0d54cb487c1c81501239, type: 2}
   altDefaultMaterial: {fileID: 2100000, guid: 2a2859baeeec7e14785299ea50011ea5, type: 2}
   materialSwitch: 1
-  maxHealth: 250
+  maxHealth: 2500
   health: 0
   healthPercent: 1
   shipValue: 10
@@ -892,7 +892,7 @@ MonoBehaviour:
   avoidObject: {fileID: 0}
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 4294966495
+    m_Bits: 4294955231
   serverControl: 0
   showRotation: {x: 0, y: 0, z: 0}
 --- !u!114 &114343659329689142
@@ -981,7 +981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: 
-  imageIcon: {fileID: 21300000, guid: 8669cd91c391ec04998dcdfa5550bc7b, type: 3}
+  imageIcon: {fileID: 21300000, guid: ad8109cb3d37d4c8eb0fca9d2ff3a303, type: 3}
   cooldownTime: 15
   locationRequired: 0
   gameObjectRequired: 0
