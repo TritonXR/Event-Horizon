@@ -29,7 +29,9 @@ public class JPInputController : NetworkBehaviour {
     BaseSkill currentSkill;
     UISkill currentButton;
     bool skillActive = false;
+    bool skillTimingSpacing = false;
     int skillIndex;
+
     UISkill[] uiSkillButtons = new UISkill[3];
     UIButton cancelButton;
     UIButton targetButton;
@@ -80,6 +82,7 @@ public class JPInputController : NetworkBehaviour {
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 Debug.Log("Clicked down on the UI");
+                tapCount = 0;
             }
             else
             {
@@ -401,6 +404,7 @@ public class JPInputController : NetworkBehaviour {
         currentSkill = null;
         currentButton = null;
         skillActive = false;
+        skillTimingSpacing = false;
 
     }
 
@@ -418,15 +422,18 @@ public class JPInputController : NetworkBehaviour {
     public void SkillPressed (int skillNum, UISkill sendingSkill) {
         currentSkill = null;
         skillIndex = skillNum;
+        tapCount = 0;
         BaseSkill tempSkill = selectedShip.GetComponent<JPShip>().skills[skillNum];
         if((!tempSkill.gameObjectRequired) && (!tempSkill.locationRequired)) {
             currentButton = sendingSkill;
             SetSkill();
             skillActive = true;
+            skillTimingSpacing = false;
         } else {
             currentSkill = tempSkill;
             currentButton = sendingSkill;
             skillActive = true;
+            skillTimingSpacing = true;
         }
     }
 
@@ -439,6 +446,10 @@ public class JPInputController : NetworkBehaviour {
     }
     void SetSkillLocation(Vector3 pos)
     {
+        if(skillTimingSpacing) {
+            skillTimingSpacing = false;
+            return;
+        }
         networkPlayer.CmdSetSkillLocation(skillIndex, pos);
         currentButton.BeginCooldown();
         print("Location Skill Activated " + pos);
@@ -446,6 +457,11 @@ public class JPInputController : NetworkBehaviour {
     }
     void SetSkillTarget(GameObject target)
     {
+        if (skillTimingSpacing)
+        {
+            skillTimingSpacing = false;
+            return;
+        }
         networkPlayer.CmdSetSkillTarget(skillIndex, target);
         currentButton.BeginCooldown();
         print("GameObject Skill Activated " + target.name);
