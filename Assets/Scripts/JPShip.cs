@@ -66,6 +66,8 @@ public class JPShip : NetworkBehaviour {
     [SyncVar]
     public int fireRate = 15;
 
+    public bool showDebug = false;
+
 	// Use this for initialization
 	void Start () {
         //defaultMaterial = this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material;
@@ -161,14 +163,27 @@ public class JPShip : NetworkBehaviour {
 	}
 	private void OnTriggerEnter(Collider other)
 	{
-        //print("hit");
+        
+        if (showDebug)
+        {
+            print("hit");
+        }
         if (other.gameObject.GetComponent<Projectile>()) {
-            int damageMult = 1;
-            if((other.gameObject.GetComponent<Projectile>().fighter) && (fighter)) {
-                damageMult = 25;
+            
+            if(!other.gameObject.GetComponent<Projectile>().ignoreColl) {
+                int damageMult = 1;
+                if ((other.gameObject.GetComponent<Projectile>().fighter) && (fighter))
+                {
+                    damageMult = 25;
+                }
+                if (showDebug)
+                {
+                    print(other.gameObject.GetComponent<Projectile>().damage);
+                }
+                health -= other.gameObject.GetComponent<Projectile>().damage;
+                Destroy(other.gameObject);
             }
-            health -= other.gameObject.GetComponent<Projectile>().damage;
-            Destroy(other.gameObject);
+
             healthPercent = health / maxHealth;
         }
 	}

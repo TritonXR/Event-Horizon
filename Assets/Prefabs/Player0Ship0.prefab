@@ -78,8 +78,8 @@ GameObject:
   - component: {fileID: 136708490239174976}
   - component: {fileID: 54139477887875186}
   - component: {fileID: 114309928910842842}
-  - component: {fileID: 114205775177452282}
-  m_Layer: 0
+  - component: {fileID: 114769180728637148}
+  m_Layer: 9
   m_Name: Player0Ship0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -725,7 +725,8 @@ MonoBehaviour:
   school: {fileID: 0}
   targetShip: {fileID: 0}
   useRay: 1
-  rangeDist: 75
+  rangeDist: 20
+  showPrint: 0
 --- !u!114 &114126740300816972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -744,25 +745,6 @@ MonoBehaviour:
   maxHeath: 0
   numSegments: 0
   segmentWidth: 0
---- !u!114 &114205775177452282
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1460250075670484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422930325f9a1db4abde6f6c6e5e7d04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 500
-  fighter: 0
-  timeAlive: 0
-  rb: {fileID: 0}
-  autoTurn: 0
-  turnSpeed: 1
-  moveSpeed: 5
-  targetPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114221172319332248
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -782,6 +764,7 @@ MonoBehaviour:
   targetShip: {fileID: 0}
   useRay: 0
   rangeDist: 10
+  showPrint: 0
 --- !u!114 &114263508219514820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -827,12 +810,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gamePlayerNumber: 0
   clientPlayerNumber: 0
-  teamNumber: 1
+  teamNumber: 2
   forcePlayerNumber: 0
   playerNumber: 0
   localPlayer: 0
   fighterControl: 0
-  ignoreNormal: 0
+  ignoreNormal: 1
+--- !u!114 &114769180728637148
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1460250075670484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422930325f9a1db4abde6f6c6e5e7d04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1000
+  fighter: 0
+  timeAlive: 1000
+  rb: {fileID: 0}
+  autoTurn: 0
+  turnSpeed: 1
+  moveSpeed: 5
+  targetPos: {x: 0, y: 0, z: 0}
+  ignoreColl: 1
 --- !u!114 &114832990310470732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -893,7 +896,7 @@ MonoBehaviour:
   selectedMaterial: {fileID: 2100000, guid: d0af7ad49d9e0d54cb487c1c81501239, type: 2}
   altDefaultMaterial: {fileID: 2100000, guid: 2a2859baeeec7e14785299ea50011ea5, type: 2}
   materialSwitch: 1
-  maxHealth: 100
+  maxHealth: 1
   health: 0
   healthPercent: 1
   shipValue: 10
@@ -918,6 +921,7 @@ MonoBehaviour:
   warpTarget: {x: 0, y: 0, z: 0}
   warpRotLock: 0
   fireRate: 15
+  showDebug: 0
   targetPos: {x: 0, y: 0, z: 0}
   divergeAmt: 1
   showTargetVector: {x: 0, y: 0, z: 0}

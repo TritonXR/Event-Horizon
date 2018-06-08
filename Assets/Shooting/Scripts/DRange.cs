@@ -15,6 +15,8 @@ public class DRange : MonoBehaviour {
     public float rangeDist = 10f;
     int playerNumber;
     int teamNumber;
+
+    public bool showPrint = false;
 	// Use this for initialization
 	void Start () {
 		//school = GetComponentInParent<Turret>().GetComponentInParent<AreaRange>();
@@ -48,6 +50,10 @@ public class DRange : MonoBehaviour {
 	private void OnTriggerStay(Collider collision)
 	{
         //Debug.Log("Entered Range " + collision.gameObject.name);
+        if (showPrint)
+        {
+            print(collision.gameObject.name);
+        }
 		if (collision.gameObject.Equals(targetShip))
 		{
 			ship = targetShip;
@@ -56,7 +62,9 @@ public class DRange : MonoBehaviour {
             collision.gameObject.GetComponent<JPNetworkShip>().teamNumber != teamNumber)
 		{
 			ship = collision.gameObject;
-		}
+        } else {
+           
+        }
 	}
 	private void OnTriggerExit(Collider other)
 	{

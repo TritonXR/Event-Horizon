@@ -14,6 +14,8 @@ public class Projectile : MonoBehaviour {
     public float moveSpeed = 5f;
     public Vector3 targetPos;
 
+    public bool ignoreColl = false;
+
 	// Use this for initialization
 	void Start () {
         Destroy(gameObject, timeAlive);
@@ -43,7 +45,7 @@ public class Projectile : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        Explode(); // will explode on *anything* right now
+        //Explode(); // will explode on *anything* right now
     }
 
     public void Explode()
