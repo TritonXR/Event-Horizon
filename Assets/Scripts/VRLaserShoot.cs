@@ -11,6 +11,7 @@ public class VRLaserShoot : MonoBehaviour {
 	private bool grab;
 	int count = 0;
 	int fireRate = 20;
+    public GameObject playerController;
 	// Use this for initialization
 	void Awake () {
 		tracked = GetComponent<SteamVR_TrackedObject>();
@@ -30,7 +31,11 @@ public class VRLaserShoot : MonoBehaviour {
 			count++;
 			if (count > fireRate)
 			{
-				laser.FireVR();
+                if (!playerController) {
+                    playerController = GameObject.Find("LocalPlayer");
+                }
+                playerController.GetComponent<JPInputController>().VRShoot(transform.parent.parent.gameObject.GetComponent<JPControlShip>().shipName);
+				//laser.FireVR();
 				count = 0;
 			}
 		}

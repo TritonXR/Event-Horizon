@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class LaserShoot : MonoBehaviour {
+public class LaserShoot : NetworkBehaviour {
 	
 	public GameObject laser;
 	float laserSpeed = 30000;
@@ -26,10 +26,12 @@ public class LaserShoot : MonoBehaviour {
 	}
 	public void FireVR()
 	{
-		GameObject tempLaser = (GameObject)Instantiate(laser, transform.position, transform.parent.rotation * Quaternion.Euler(90,90, 0));
+		GameObject tempLaser = (GameObject)Instantiate(laser, transform.position, transform.parent.rotation * Quaternion.Euler(90,0, 0));
 		Rigidbody tempLaserRigidbody = tempLaser.GetComponent<Rigidbody>();
-		tempLaserRigidbody.AddForce(transform.forward * laserSpeed);
-		Debug.Log ("VR FIRE");
+        tempLaserRigidbody.AddForce(tempLaserRigidbody.transform.up * laserSpeed);
+        //Debug.Log ("VR FIRE");
+        Destroy(tempLaser, 3f);
+        NetworkServer.Spawn(tempLaser);
 		Destroy(tempLaser, 3f);
 		//NetworkServer.Spawn(tempLaser);
 	}

@@ -11,6 +11,7 @@ public class JPControlShip : MonoBehaviour {
 	int count = 0;
 	int fireRate = 100;
     Rigidbody rb;
+    public string shipName;
 
 	public SteamVR_TrackedObject tracked = null;
 	public SteamVR_Controller.Device dev;

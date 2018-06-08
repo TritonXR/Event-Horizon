@@ -235,6 +235,12 @@ public class JPNetworkPlayer : NetworkBehaviour {
 		//print("Insert code to set position here");
 	}
 
+    [Command]
+    public void CmdFireVRShip (string shipName)
+    {
+        GameObject.Find(shipName).GetComponent<JPPilot>().ShootVRLaser();
+    }
+
 
     [Command]
     public void CmdSetSkill (int skillNum) {

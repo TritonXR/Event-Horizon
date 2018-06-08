@@ -482,5 +482,10 @@ public class JPInputController : NetworkBehaviour {
         GameObject.Find("NetworkManager").GetComponent<JPUINetworkManager>().Disconnect();
     }
 
+    public void VRShoot(string shipName)
+    {
+        networkPlayer.CmdFireVRShip(shipName);
+    }
 
+ 
 }
