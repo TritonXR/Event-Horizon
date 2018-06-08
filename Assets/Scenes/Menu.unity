@@ -3292,7 +3292,8 @@ Prefab:
         type: 2}
       propertyPath: m_SpawnPrefabs.Array.data[12]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1460250075670484, guid: 0186b1d2e54c34954b6395c27e968487,
+        type: 2}
     - target: {fileID: 114362268765261248, guid: 8518faec66d1c474eb217007170dbb5d,
         type: 2}
       propertyPath: m_SpawnPrefabs.Array.data[13]
