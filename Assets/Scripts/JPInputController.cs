@@ -147,6 +147,7 @@ public class JPInputController : NetworkBehaviour {
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 Debug.Log("Clicked Up on the UI");
+                tapCount = 0;
             }
             else
             {

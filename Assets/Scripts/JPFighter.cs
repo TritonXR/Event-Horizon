@@ -71,16 +71,18 @@ public class JPFighter : JPShip {
         }
         if (!isServer)
         {
-            mode = "is Not server";
+            mode = "Is not server";
             return;
         }
         if (destroyed)
         {
             //GetComponent<Rigidbody>().velocity = Vector3.zero;
+            mode = "Destroyed";
             return;
         }
         if (warping)
         {
+            mode = "Warping";
             if (Vector3.Distance(transform.position, warpTarget) < 10f)
             {
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -133,6 +135,7 @@ public class JPFighter : JPShip {
         }
         if ((controlLock) || (moveLock))
         {
+            mode = "Move Lock";
             return;
         }
         if (avoiding)

@@ -94,7 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   touchMask:
     serializedVersion: 2
-    m_Bits: 4294955720
+    m_Bits: 4294939336
   playerNumber: 0
   targetMode: 0
 --- !u!114 &114488504031371730

@@ -14,8 +14,13 @@ public class JPNetworkShip : NetworkBehaviour {
 	public int playerNumber = 0;
     public bool localPlayer = false;
     public bool fighterControl = false;
+
+    public bool ignoreNormal = false;
 	// Use this for initialization
 	void Start () {
+        if(ignoreNormal) {
+            return;
+        }
         clientPlayerNumber = GameObject.Find("LocalPlayer").GetComponent<JPNetworkPlayer>().playerNumber;
 
         if((localPlayer) && (gamePlayerNumber == clientPlayerNumber)) {
