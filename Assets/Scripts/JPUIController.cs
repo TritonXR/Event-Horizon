@@ -32,6 +32,7 @@ public class JPUIController : NetworkBehaviour {
         retreatDialogue.SetActive(false);
         victoryDialogue.SetActive(false);
         defeatDialogue.SetActive(false);
+        //SetTeamOne();
 	}
 	
 	// Update is called once per frame

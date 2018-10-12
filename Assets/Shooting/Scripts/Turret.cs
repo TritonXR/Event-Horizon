@@ -8,7 +8,7 @@ public class Turret : MonoBehaviour {
 	public Quaternion angle;
 	public DRange range;
 	public GameObject ship;
-	public LaserShoot laser;
+	public LaserShoot[] laserShoot;
 	public bool stationary = false;
     public float turnSpeed = 1.0f;
 	int count = 0;
@@ -20,15 +20,21 @@ public class Turret : MonoBehaviour {
 
     JPShip shipController;
 
+    float heightOffset = 1.5f;
 	// Use this for initialization
 	void Start () {
         range = transform.parent.GetComponent<DRange>();
 		angle = transform.rotation;
-		laser = GetComponentInChildren<LaserShoot>();
+        laserShoot = GetComponentsInChildren<LaserShoot>();
         startVector = transform.localRotation.eulerAngles;
         startRotation = transform.localRotation;
         shipController = transform.parent.parent.gameObject.GetComponent<JPShip>();
-	}
+
+        foreach (LaserShoot laser in laserShoot)
+        {
+            laser.teamNum = shipController.teamNum;
+        }
+    }
 
 	// Update is called once per frame
 	void Update () {
@@ -36,7 +42,11 @@ public class Turret : MonoBehaviour {
 		ship = range.ship;
         if(ship != null) {
             if(!stationary) {
-                Vector3 targetDir = ship.transform.position - transform.position;
+                Vector3 shipPos = ship.transform.position;
+                if (shipPos.y < transform.position.y) {
+                    shipPos.y = transform.position.y + heightOffset;
+                }
+                Vector3 targetDir = shipPos - transform.position;
                 float step = turnSpeed * Time.deltaTime;
                 Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
                 //Debug.DrawRay(transform.position, newDir, Color.red);
@@ -70,7 +80,10 @@ public class Turret : MonoBehaviour {
                 count++;
                 if (count > shipController.fireRate)
                 {
+                foreach(LaserShoot laser in laserShoot) {
                     laser.Fire();
+                }
+                    
                     count = 0;
                 }
             }

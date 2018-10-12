@@ -63,6 +63,7 @@ MonoBehaviour:
   - {fileID: 1405486450314822, guid: cdbcb35b61ba54bda83d53edc0f07834, type: 2}
   - {fileID: 1318251050415550, guid: 8f3d23ddcf129433cbbe0e57efa2ef97, type: 2}
   spawnedShipList: []
+  spawnDistance: 50
   spawnControl: 1,2,3
   shipSpawnCommandList: 
   fleetHealth: 0
@@ -92,11 +93,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c86510d3368a4bc0b486709561982fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minPos: {x: -150, y: 0, z: -150}
+  maxPos: {x: 150, y: 0, z: 150}
   touchMask:
     serializedVersion: 2
-    m_Bits: 4294939336
+    m_Bits: 4294939368
   playerNumber: 0
   targetMode: 0
+  rotationSet: 0
 --- !u!114 &114488504031371730
 MonoBehaviour:
   m_ObjectHideFlags: 1

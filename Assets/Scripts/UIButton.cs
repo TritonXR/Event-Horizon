@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UIButton : MonoBehaviour {
-
+    public Sprite[] images;
+    public int mode = 0;
 	// Use this for initialization
 	void Start () {
 		
@@ -25,5 +26,14 @@ public class UIButton : MonoBehaviour {
         GetComponent<Button>().interactable = true;
 
         GetComponent<Image>().enabled = true;
+    }
+
+    public void toggleImage(int val) {
+        GetComponent<Image>().sprite = images[val];
+        mode = val;
+    }
+
+    public int getMode() {
+        return mode;
     }
 }

@@ -39,7 +39,7 @@ public class ShieldSkill : BaseSkill {
     }
     [ClientRpc]
     void RpcActivateShield(bool value) {
-        shield.GetComponent<Renderer>().material = ship.defaultMaterial;
+        //shield.GetComponent<Renderer>().material = ship.defaultMaterial;
         shield.SetActive(value);
     }
 }

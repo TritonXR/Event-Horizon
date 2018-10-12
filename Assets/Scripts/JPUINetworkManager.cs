@@ -14,8 +14,10 @@ public class JPUINetworkManager : MonoBehaviour {
         manager = GetComponent<NetworkManager>();
         connectionError = GameObject.Find("ConnectErrorMsg");
         connectionError.SetActive(false);
+
+        //manager.networkAddress = "192.168.1.3";
         //ipShow.text = ip
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -28,7 +30,7 @@ public class JPUINetworkManager : MonoBehaviour {
 
     }
     public void Client() {
-        print("Connecting Client");
+        print("Connecting Client " + manager.networkAddress);
         NetworkClient client = manager.StartClient();
         client.RegisterHandler(MsgType.Disconnect, DetectError);
 

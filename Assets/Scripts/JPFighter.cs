@@ -3,44 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class JPFighter : JPShip {
-    Rigidbody rb;
-    JPSquadron leader;
 
-    public Vector3 targetPos;
+    [Header("FIGHTER OPTIONS", order = 0)]
 
-    public float divergeAmt = 100f;
-
-    public Vector3 showTargetVector;
-    public GameObject showTarget;
-
+    [Header("Movement", order = 1)]
     public bool avoiding = false;
     bool engaged = false;
     bool idle = false;
-
-    Vector3 dodgeOffset;
-    bool dodgeCheck = false;
-    bool clearCheck = false;
-    bool clearing = false;
-
     bool turning = false;
+    public Vector3 targetPos;
     public Vector3 finalTarget;
     float dist;
     bool resetHeightHigh;
     bool resetHeightLow;
 
-    public GameObject clipObj;
-
-    public string mode;
+    [Header("Dodge")]
+    Vector3 dodgeOffset;
+    bool dodgeCheck = false;
+    bool clearCheck = false;
+    bool clearing = false;
+    int countDodge = 0;
     string avoidObjectName;
     public GameObject avoidObject;
 
+    [Header("Collisions")]
     public LayerMask ignoreMask;
-    int countDodge = 0;
+    public GameObject clipObj;
+
+    [Header("Network Options")]
     public bool serverControl = false;
 
+    [Header("Squadron Settings")]
+    public float divergeAmt = 100f;
+
+    [Header("Debug")]
+    public Vector3 showTargetVector;
+    public GameObject showTarget;
     public Vector3 showRotation;
-	// Use this for initialization
-	void Start () {
+    public string mode;
+
+    Rigidbody rb;
+    JPSquadron leader;
+    // Use this for initialization
+    void Start () {
         rb = GetComponent<Rigidbody>();
         defaultMaterial = transform.GetChild(0).GetComponent<Renderer>().material;
         //movementMode = 1;
@@ -90,7 +95,7 @@ public class JPFighter : JPShip {
             }
             else
             {
-                float step = 500f * Time.deltaTime;
+                float step = warpSpeed * Time.deltaTime;
                 Vector3 targetDir = targetPos - transform.position;
 
                 if (!warpRotLock)
@@ -189,33 +194,33 @@ public class JPFighter : JPShip {
                 resetHeightHigh = false;
             }
             targetPos = finalTarget;
-            targetPos.y = 5f;
+            targetPos.y = minHeight/2;
         }
         else if (transform.position.y > maxHeight)
         {
             mode = "Above max height " + transform.position.y;
             targetPos = finalTarget;
-            targetPos.y = 5f;
-            resetHeightLow = true;
+            targetPos.y = minHeight / 2;
+            resetHeightHigh = true;
             idle = false;
         }
         else if (transform.position.y < minHeight)
         {
             mode = "Below min height " + transform.position.y;
             targetPos = finalTarget;
-            targetPos.y = 10f;
-            resetHeightHigh = true;
+            targetPos.y = maxHeight / 2; ;
+            resetHeightLow = true;
             idle = false;
         }
         else if (resetHeightLow)
         {
             mode = "Moving Upwards" + transform.position.y;
-            if (transform.position.y > maxHeight / 4)
+            if (transform.position.y > maxHeight / 2)
             {
                 resetHeightLow = false;
             }
             targetPos = finalTarget;
-            targetPos.y = 10f;
+            targetPos.y = maxHeight/2;
         }else if ((!avoiding) && (!engaged) && (!idle)) {
             
 

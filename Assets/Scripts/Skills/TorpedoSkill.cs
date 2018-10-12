@@ -8,6 +8,7 @@ public class TorpedoSkill : BaseSkill {
     public float torpedoDamage;
 
     public GameObject positionMarker;
+
     // Use this for initialization
     void Start()
     {

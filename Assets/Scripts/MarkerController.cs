@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MarkerController : MonoBehaviour {
-    
+    public GameObject rotationMarker;
 	// Use this for initialization
 	void Start () {
-		
+        rotationMarker.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -25,4 +25,13 @@ public class MarkerController : MonoBehaviour {
             transform.GetChild(2).gameObject.SetActive(true);
         }
     }
+
+    public void setRotationMode (bool mode) {
+        rotationMarker.SetActive(mode);
+        if (mode == false)
+        {
+            transform.rotation = Quaternion.Euler(Vector3.zero);
+        }
+
+    } 
 }

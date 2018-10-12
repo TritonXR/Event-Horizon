@@ -11,6 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ARMultiplayerScene.unity
     guid: 7df15946a460d464689aaa26978724db
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MultiplayerScene.unity
     guid: 4fe44b85365b54f83a50794aaee16c86
+  m_configObjects: {}

@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CapitalShip : JPShip {
-    Vector3 targetPos;
-    public bool idle;
-    Rigidbody rb;
+
+    [Header("CAPITAL SHIP OPTIONS", order = 0)]
+
+    [Header("Movement", order = 1)]
     public float speedMagnitude;
-	// Use this for initialization
-	void Start () {
+    public bool idle;
+
+    Vector3 targetPos;
+    Rigidbody rb;
+
+    // Use this for initialization
+    void Start () {
 		//target = GameObject.Find ("DefaultTarget");
         defaultMaterial = this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material;
         rb = GetComponent<Rigidbody>();
@@ -43,7 +49,7 @@ public class CapitalShip : JPShip {
             }
             else
             {
-                float step = 500f * Time.deltaTime;
+                float step = warpSpeed * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, warpTarget, step);
             }
             return;
@@ -62,18 +68,25 @@ public class CapitalShip : JPShip {
         {
             return;
         }
-        if(movementMode == 1) {
+        float dist = Vector3.Distance(transform.position, targetPos);
+        if (movementMode == 1) {
             targetPos = target.transform.position;
+            if (dist < distanceTol * 5f)
+            {
+                idle = true;
+            }
         }
         if(movementMode == 2) {
             targetPos = targetVector;
+            if (dist < distanceTol)
+            {
+                idle = true;
+            }
         }
 
-        float dist = Vector3.Distance(transform.position, targetPos);
-        if (dist < distanceTol)
-        {
-            idle = true;
-        }
+
+        //print(dist);
+
         if(!idle) {
             targetPos.y = transform.position.y;
             Vector3 targetDir = targetPos - transform.position;
@@ -95,14 +108,18 @@ public class CapitalShip : JPShip {
             }
             speedMagnitude = rb.velocity.magnitude;
         } else if(idle) {
+            float step = turnSpeed * 50f * Time.deltaTime;
+            //print(Quaternion.RotateTowards(transform.rotation, targetRotation, step));
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, step);
+            rb.velocity = Vector3.zero;
             dist = Vector3.Distance(transform.position, targetPos);
-            if (dist < distanceTol)
+            if (dist < distanceTol * 5f)
             {
                 
             }
             else
             {
-                idle = false;
+                //idle = false;
             }
         }
 		/*if (movementMode == 1) {
@@ -128,14 +145,14 @@ public class CapitalShip : JPShip {
 	public override void SetTargetShip(GameObject ship){
 		
         base.SetTargetShip(ship);
-
+        idle = false;
 		print ("Recieved target "+this.target.name);
 	}
 
 	public override void SetTargetPosition(Vector3 vector){
         base.SetTargetPosition(vector);
-		
-	}
+        idle = false;
+    }
     public override void SetSelected(bool selected)
     {
         if (selected)
@@ -146,7 +163,12 @@ public class CapitalShip : JPShip {
         else
         {
             this.transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material = defaultMaterial;
-            hpShow.SetActive(false);
+            if(forceHPShow) {
+                hpShow.SetActive(true);
+            } else {
+                hpShow.SetActive(false);
+            }
+
         }
     }
 

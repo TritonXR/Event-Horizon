@@ -79,7 +79,7 @@ public class UISkill : MonoBehaviour {
             localPlayerController.SkillPressed(skillNumber, this);
             if ((!currentSkill.gameObjectRequired) && (!currentSkill.locationRequired))
             {
-                print("Pressed");
+                //print("Pressed");
                 BeginCooldown();
             } else if(currentSkill.gameObjectRequired) {
                 
@@ -88,10 +88,13 @@ public class UISkill : MonoBehaviour {
             }
         }
     }
+    public void ButtonPreview () {
+        localPlayerController.SkillPreview(skillNumber, this);
+    }
     public void ConfigureButton () {
         GetComponent<Button>().interactable = true;
         GetComponent<Image>().enabled = true;
-        print("Activating button");
+        //print("Activating button");
         inactive = false;
     }
     public void BeginCooldown () {

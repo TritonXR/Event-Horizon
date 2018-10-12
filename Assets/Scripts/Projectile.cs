@@ -16,9 +16,24 @@ public class Projectile : MonoBehaviour {
 
     public bool ignoreColl = false;
 
+    public bool overrideDestruction = false;
+
+    public bool explosive = false;
+
+    public GameObject destructionObject;
+
+    public int teamNum;
+
+    public bool permanent = false;
+
+    public ParticleSystem[] destructionParticles;
 	// Use this for initialization
 	void Start () {
-        Destroy(gameObject, timeAlive);
+        if (!permanent)
+        {
+            Destroy(gameObject, timeAlive);
+        }
+        //fireParticles();
     }
 	
 	// Update is called once per frame
@@ -46,6 +61,9 @@ public class Projectile : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
         //Explode(); // will explode on *anything* right now
+        if(explosive) {
+            CollisionResponse();
+        }
     }
 
     public void Explode()
@@ -53,5 +71,29 @@ public class Projectile : MonoBehaviour {
         // create an explosion sphere/radius, where everything that comes
         // in contact with it will take damage
         Destroy(gameObject);
+    }
+    public void CollisionResponse () {
+        if (destructionParticles.Length > 0)
+        {
+            fireParticles();
+        }
+        if (destructionObject) {
+            Instantiate(destructionObject, transform.position, transform.rotation);
+        }
+
+        if (!overrideDestruction)
+        {
+            
+            Destroy(gameObject);
+        }
+    }
+
+    void fireParticles() {
+        for (int count = 0; count < destructionParticles.Length; count++)
+        {
+            destructionParticles[count].transform.parent = null;
+            destructionParticles[count].Play();
+            Destroy(destructionParticles[count].gameObject, destructionParticles[count].main.duration);
+        }
     }
 }

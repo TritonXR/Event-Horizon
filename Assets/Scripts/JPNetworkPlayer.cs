@@ -8,12 +8,17 @@ public class JPNetworkPlayer : NetworkBehaviour {
 	public GameObject selectedShip;
 	GameObject targetShip;
 	Vector3 targetPosition;
+    Quaternion targetRotation;
     [SyncVar]
 	public int playerNumber = 0;
     [SyncVar]
     public int playerTeam = 0;
 	public GameObject[] shipList;
 	public GameObject[] spawnedShipList;
+
+    public float spawnDistance = 25f;
+    float spawnHeight = 30f;
+
     public string spawnControl = "1";
     string shipSpawnList = "1,1,2,2,2";
     public int[] shipSpawnCommandList;
@@ -37,6 +42,7 @@ public class JPNetworkPlayer : NetworkBehaviour {
             GameObject.Find("ServerIP").GetComponent<Text>().text = Network.player.ipAddress;//NetworkManager.singleton.networkAddress;
             Debug.Log("Sending ship string: " + PlayerPrefs.GetString("SpawnList"));
             CmdSetShipSpawnString(spawnControl);
+            SetTeamOne();
             //CmdSetShipSpawnString(PlayerPrefs.GetString("SpawnList"));
         }
 		if(isServer) {
@@ -64,16 +70,16 @@ public class JPNetworkPlayer : NetworkBehaviour {
         spawnedShipList = new GameObject[shipSpawnCommandList.Length];
         Vector3 initPos = spawnLoc.transform.position;
         if(spawnLoc.transform.position.z > 0) {
-            initPos.z += 100f;
+            initPos.z += spawnDistance;
         } else {
-            initPos.z -= 100f;
+            initPos.z -= spawnDistance;
         }
         for (int count = 0; count < shipSpawnCommandList.Length; count++)
         {
 
             //Spawn lead ships
-            GameObject obj = (GameObject)Instantiate(shipList[shipSpawnCommandList[count]], new Vector3(count * 100f, 12.0f, Random.Range(0, 0)) + initPos, spawnLoc.transform.rotation);
-            obj.GetComponent<JPShip>().JumpToLocation(new Vector3(count * 100f, 12.0f, Random.Range(0, 0)) + spawnLoc.transform.position, true);
+            GameObject obj = (GameObject)Instantiate(shipList[shipSpawnCommandList[count]], new Vector3(count * spawnDistance, spawnHeight, Random.Range(0, 0)) + initPos, spawnLoc.transform.rotation);
+            obj.GetComponent<JPShip>().JumpToLocation(new Vector3(count * spawnDistance, spawnHeight, Random.Range(0, 0)) + spawnLoc.transform.position, true);
             if (obj.GetComponent<JPNetworkShip>().forcePlayerNumber)
             {
                 obj.name = "Player" + "1" + "Ship" + count;
@@ -96,8 +102,8 @@ public class JPNetworkPlayer : NetworkBehaviour {
 
             //Spawn wingmen
             for (int countSquad = 1; countSquad < squadShips.Length; countSquad++) {
-                GameObject obj2 = (GameObject)Instantiate(shipList[shipSpawnCommandList[count]], new Vector3(count * 100f, 12.0f, Random.Range(0, 0)) + initPos + lead.wingmenOffsets[countSquad], spawnLoc.transform.rotation);
-                obj2.GetComponent<JPShip>().JumpToLocation(new Vector3(count * 100f, 12.0f, Random.Range(0, 0)) + spawnLoc.transform.position + lead.wingmenOffsets[countSquad], true);
+                GameObject obj2 = (GameObject)Instantiate(shipList[shipSpawnCommandList[count]], new Vector3(count * spawnDistance, spawnHeight, Random.Range(0, 0)) + initPos + lead.wingmenOffsets[countSquad], spawnLoc.transform.rotation);
+                obj2.GetComponent<JPShip>().JumpToLocation(new Vector3(count * spawnDistance, spawnHeight, Random.Range(0, 0)) + spawnLoc.transform.position + lead.wingmenOffsets[countSquad], true);
 
                 obj2.name = "Player" + playerNumber + "Ship" + count + "Squad" + countSquad;
                 obj2.GetComponent<JPShip>().leadController = lead;
@@ -234,7 +240,11 @@ public class JPNetworkPlayer : NetworkBehaviour {
 		}*/
 		//print("Insert code to set position here");
 	}
-
+    [Command]
+    public void CmdSetRotation(Quaternion rot)
+    {
+        selectedShip.GetComponent<JPShip>().leadController.SetTargetRotation(rot);
+    }
     [Command]
     public void CmdFireVRShip (string shipName)
     {

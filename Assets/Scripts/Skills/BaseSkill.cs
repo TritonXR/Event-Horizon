@@ -31,13 +31,17 @@ public class BaseSkill : NetworkBehaviour {
         button.ConfigureButton();
 	}
     public virtual void TriggerSkill() {
-        
+        print("Base Trigger");
     }
     public virtual void TriggerSkillLocation(Vector3 pos) {
         
     }
     public virtual void TriggerSkillTarget(GameObject target) {
         
+    }
+    public virtual void TriggerSkillPreview(bool active) {
+        if(active)
+        print("Base Preview");
     }
 
 }
